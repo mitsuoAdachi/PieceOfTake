@@ -22,12 +22,16 @@ public class UnitController : MonoBehaviour
             if (gameManager.gameMode == GameManager.GameMode.Preparate)
             {
                 //EnemyListに登録してあるユニットの内、一番近いユニットに向かって移動する
+
+                //敵の距離を比較するための基準となる変数。適当な数値を代入
                 float standardDistanceValue = 1000;
 
                 foreach (UnitController target in gameManager.EnemyUnitList)
                 {
+                    //EnemyUnitList内に登録してあるオブジェクトとの距離を測り変数に代入する
                     float nearTargetDistanceValue = Vector3.Distance(transform.position, target.transform.position);
 
+                    //基準値より小さければその数値を基準値に代入していき一番小さい数値が変数に残る。その数値を持つオブジェクトが一番近い敵となる
                     if (standardDistanceValue > nearTargetDistanceValue)
                     {
                         standardDistanceValue = nearTargetDistanceValue;
@@ -43,9 +47,5 @@ public class UnitController : MonoBehaviour
             }
             yield return null;
         }
-    }
-    private void Start()
-    {
-        
     }
 }
