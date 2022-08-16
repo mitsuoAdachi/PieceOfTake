@@ -19,6 +19,9 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private UnitGenerator unitGenerator;
 
+    [SerializeField]
+    private ModeChange modeChange;
+
     [Header("ユニットの生成待機時間")]
     public float generateIntaervalTime;
 
@@ -29,5 +32,13 @@ public class GameManager : MonoBehaviour
 
         for (int i = 0; i < EnemyList.Count; i++)
             StartCoroutine(EnemyList[i].MoveUnit(this,AllyList));
+
+        GameModeChangeButon();
+
+    }
+
+    private void GameModeChangeButon()
+    {
+        modeChange.btnModeChange.onClick.AddListener(()=>modeChange.GameModeChange(this));
     }
 }
