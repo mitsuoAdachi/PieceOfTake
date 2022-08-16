@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class UnitGenerator : MonoBehaviour
 {
-    public UnitController unitPrefab;
+    public AllyController unitPrefab;
 
     private GameManager gameManager;
 
@@ -29,20 +29,18 @@ public class UnitGenerator : MonoBehaviour
                 //Debug.Log("生成準備1");
                 if (Input.GetMouseButton(0))
                 {
-                    //画面クリックした座標をray変数へ登録
+                    //画面クリックした座標をRay型の変数へ登録
                     //Debug.Log("生成準備2");
                     Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-                    //rayが接触したオブジェクトの情報をhit変数へ登録
-                    RaycastHit hit = new RaycastHit();
-
-                    if (Physics.Raycast(ray, out hit))
+                    //rayが接触したオブジェクトの情報をRaycasthit型の変数へ登録
+                    if (Physics.Raycast(ray, out RaycastHit hit))
                     {
-                        UnitController unit = Instantiate(unitPrefab, hit.point, Quaternion.identity);
+                        AllyController unit = Instantiate(unitPrefab, hit.point, Quaternion.identity);
                         unit.transform.position = new Vector3(unit.transform.position.x, hit.point.y + 0.5f, unit.transform.position.z);
 
                         //生成したユニット用のリストに追加
-                        gameManager.LayoutUnitList.Add(unit);
+                        gameManager.AllyUnitList.Add(unit);
 
                         timer = 0;
 

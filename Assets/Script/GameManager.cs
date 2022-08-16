@@ -13,12 +13,9 @@ public class GameManager : MonoBehaviour
     }
     public GameMode gameMode;
 
-    public List<UnitController> LayoutUnitList = new List<UnitController>();
+    public List<AllyController> AllyUnitList = new List<AllyController>();
 
-    public List<UnitController> EnemyUnitList = new List<UnitController>();
-
-    [SerializeField]
-    private UnitController unitController;
+    public List<EnemyController> EnemyUnitList = new List<EnemyController>();
 
     [SerializeField]
     private UnitGenerator unitGenerator;
@@ -29,9 +26,18 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine(unitGenerator.LayoutUnit(this));
+            StartCoroutine(unitGenerator.LayoutUnit(this));
 
-        StartCoroutine(unitController.MoveUnit(this));
+        for (int i = 0; i < EnemyUnitList.Count; i++)
+            StartCoroutine(EnemyUnitList[i].MoveEnemy(this));
+
+        //for (int i = 0; i < AllyUnitList.Count; i++)
+        //    StartCoroutine(AllyUnitList[i].MoveAlly(this));
+    }
+    private void Update()
+    {
+        for (int i = 0; i < AllyUnitList.Count; i++)
+            AllyUnitList[i].Move(this);
     }
 
 }
