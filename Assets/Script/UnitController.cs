@@ -2,19 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyController : MonoBehaviour
+public class UnitController : MonoBehaviour
 {
-    private AllyController targetUnit;
+    private UnitController targetUnit;
 
     [SerializeField, Header("ユニットの移動速度")]
     private float moveSpeed = 0.5f;
 
+    private void Start()
+    {
+        Debug.Log("スタート");
+    }
     /// <summary>
     /// ユニットの移動
     /// </summary>
     /// <param name="gameManager"></param>
     /// <returns></returns>
-    public IEnumerator MoveEnemy(GameManager gameManager)
+    public IEnumerator MoveUnit(GameManager gameManager,List<UnitController> unitList)
     {
         //Debug.Log("監視開始");
         while (true)
@@ -26,7 +30,7 @@ public class EnemyController : MonoBehaviour
                 //敵の距離を比較するための基準となる変数。適当な数値を代入
                 float standardDistanceValue = 1000;
 
-                foreach (AllyController target in gameManager.AllyUnitList)
+                foreach (UnitController target in unitList)
                 {
                     //EnemyUnitList内に登録してあるオブジェクトとの距離を測り変数に代入する
                     float nearTargetDistanceValue = Vector3.Distance(transform.position, target.transform.position);
@@ -49,7 +53,7 @@ public class EnemyController : MonoBehaviour
         }
     }
 
-    public void Move(GameManager gameManager)
+    public void MoveUnitUpdate(GameManager gameManager, List<UnitController> unitList)
     {
         Debug.Log("監視開始");
         if (gameManager.gameMode == GameManager.GameMode.Preparate)
@@ -59,7 +63,7 @@ public class EnemyController : MonoBehaviour
             //敵の距離を比較するための基準となる変数。適当な数値を代入
             float standardDistanceValue = 1000;
 
-            foreach (AllyController target in gameManager.AllyUnitList)
+            foreach (UnitController target in unitList)
             {
                 //EnemyUnitList内に登録してあるオブジェクトとの距離を測り変数に代入する
                 float nearTargetDistanceValue = Vector3.Distance(transform.position, target.transform.position);
@@ -78,4 +82,13 @@ public class EnemyController : MonoBehaviour
             transform.position = Vector3.MoveTowards(transform.position, targetUnit.transform.position, moveSpeed);
         }
     }
+
+    /// <summary>
+    /// 生成したユニットの移動の設定
+    /// </summary>
+    /// <param name="gameManager"></param>
+    public void SetupMoveUnit(GameManager gameManager)
+    {
+        StartCoroutine(MoveUnit(gameManager,gameManager.EnemyList));
+    }    
 }
