@@ -27,7 +27,7 @@ public class UnitGenerator : MonoBehaviour
             {
 
                 //Debug.Log("生成準備1");
-                if (Input.GetMouseButtonDown(0))
+                if (Input.GetMouseButton(0))
                 {
                     //画面クリックした座標をRay型の変数へ登録
                     //Debug.Log("生成準備2");
