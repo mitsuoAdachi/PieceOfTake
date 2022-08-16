@@ -14,13 +14,13 @@ public class ModeChange : MonoBehaviour
         {
             gameManager.gameMode = GameManager.GameMode.Play;
 
-            txtModeChangeButton.text = "Play";
+            txtModeChangeButton.text = "STOP";
         }
         else
         {
             gameManager.gameMode = GameManager.GameMode.Stop;
 
-            txtModeChangeButton.text = "Stop";
+            txtModeChangeButton.text = "PLAY";
         }
     }
 }
