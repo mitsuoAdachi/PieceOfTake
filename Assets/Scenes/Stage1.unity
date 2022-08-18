@@ -309,12 +309,12 @@ MonoBehaviour:
     Value: 0
     m_SpeedMode: 0
     m_MaxSpeed: 300
-    m_AccelTime: 0.1
-    m_DecelTime: 0.1
+    m_AccelTime: 1
+    m_DecelTime: 0.5
     m_InputAxisName: Vertical
     m_InputAxisValue: 0
-    m_InvertInput: 1
-    m_MinValue: 10
+    m_InvertInput: 0
+    m_MinValue: -5
     m_MaxValue: 60
     m_Wrap: 0
     m_Recentering:

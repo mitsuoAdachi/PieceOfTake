@@ -45,3 +45,11 @@ MonoBehaviour:
     moveSpeed: 0.004
     weight: 0
     intervalTime: 50
+  - unitNo: 1
+    cost: 50
+    hp: 100
+    attackPower: 10
+    blowPower: 0
+    moveSpeed: 0.005
+    weight: 0
+    intervalTime: 50
