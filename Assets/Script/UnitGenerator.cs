@@ -1,13 +1,26 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class UnitGenerator : MonoBehaviour
 {
-    public UnitController unitPrefab;
+    public List<UnitData> unitDatas = new List<UnitData>();
 
     private GameManager gameManager;
 
+    //[SerializeField]
+    //private LayerMask layerMask;
+
+    [SerializeField]
+    private UIManager uiManager;
+
+    [SerializeField]
+    private UnitController unitPrefab;
+
+    private UnitController unit;
+
+    //ユニット生成待機時間の初期値
     private int timer=100;
 
     /// <summary>
@@ -25,29 +38,36 @@ public class UnitGenerator : MonoBehaviour
 
             if (gameManager.gameMode == GameManager.GameMode.Preparate && GenerateIntervalBool())
             {
-
-                //Debug.Log("生成準備1");
-                if (Input.GetMouseButton(0))
+                //UI上ではRayが反応しないようにする
+                if (!EventSystem.current.IsPointerOverGameObject())
                 {
-                    //画面クリックした座標をRay型の変数へ登録
-                    //Debug.Log("生成準備2");
-                    Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-
-                    //rayが接触したオブジェクトの情報をRaycasthit型の変数へ登録
-                    if (Physics.Raycast(ray, out RaycastHit hit))
+                    //Debug.Log("生成準備1");
+                    if (Input.GetMouseButton(0))
                     {
-                        Debug.Log("Ray座標" + hit.point);
-                        UnitController unit = Instantiate(unitPrefab, hit.point, Quaternion.identity);
+                        //画面クリックした座標をRay型の変数へ登録
+                        //Debug.Log("生成準備2");
+                        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-                        unit.transform.position = new Vector3(unit.transform.position.x, hit.point.y + 0.5f, unit.transform.position.z);
-                        unit.SetupMoveUnit(gameManager);
+                        //rayが接触したオブジェクトの情報をRaycasthit型の変数へ登録
+                        if (Physics.Raycast(ray, out RaycastHit hit))
+                        {
+                            //Debug.Log("Ray座標" + hit.point);
 
-                        //生成したユニット用のリストに追加
-                        //gameManager.AllyUnitList.Add(unit);
-                        gameManager.AllyList.Add(unit);
+                            unit = Instantiate(unitPrefab, hit.point, Quaternion.identity);
 
-                        timer = 0;
-                        
+                            unit.transform.position = new Vector3(unit.transform.position.x, hit.point.y + 0.5f, unit.transform.position.z);
+
+                            //生成したユニットが持つ移動用メソッドを呼び出す
+                            StartCoroutine(unit.MoveUnit(gameManager, gameManager.EnemyList));
+
+                            StartCoroutine(unit.SetupUnitState(uiManager, this));
+
+                            //生成したユニット用のリストに追加
+                            //gameManager.AllyUnitList.Add(unit);
+                            gameManager.AllyList.Add(unit);
+
+                            timer = 0;
+                        }
                     }
                 }
             }
@@ -61,10 +81,32 @@ public class UnitGenerator : MonoBehaviour
     /// <returns></returns>
     private bool GenerateIntervalBool()
     {
-        if(timer >= gameManager.generateIntaervalTime)
+        if(timer >= gameManager.GenerateIntaervalTime)
             return true;
-        else return false;       
+       else return false;       
     }
+
+    /// <summary>
+    /// ゲーム実行時にunitDataSO内のデータリストをunitDatasリストに収納し直す
+    /// </summary>
+    public void SetupUnitData()
+    {
+        for (int i = 0; i < DataBaseManager.instance.unitDataSO.unitDatasList.Count; i++)
+        {
+            unitDatas.Add(DataBaseManager.instance.unitDataSO.unitDatasList[i]);
+        }
+    }
+
+
+
+    /// <summary>
+    /// 生成したユニットの移動メソッドをセットアップ
+    /// </summary>
+    /// <param name="gameManager"></param>
+    //private void SetupMoveUnit()
+    //{
+    //    StartCoroutine(unit.MoveUnit(gameManager, gameManager.EnemyList));
+    //}
 
     //private bool GenerateRange()
     //{

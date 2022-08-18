@@ -128,4 +128,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6987edbc4315247358134efc52be322a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  unitNo: 0
+  cost: 0
+  hp: 0
+  attackPower: 0
+  blowPower: 0
   moveSpeed: 0.001
+  weight: 0
+  intervalTime: 0

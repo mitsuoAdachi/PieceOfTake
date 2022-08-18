@@ -1,5 +1,4 @@
 using UnityEngine;
-using System;
 
 [System.Serializable]
 public class UnitData 
@@ -8,9 +7,13 @@ public class UnitData
     public int cost;
     public int hp;
     public int attackPower;
+    public int blowPower;
     public float moveSpeed;
+    public float weight;
     public float intervalTime;
 
-    public Sprite unitSprite;
-    public AnimationClip anime;
+    //public Sprite unitSprite;
+    //public AnimationClip moveAnime;
+    //public AnimationClip attackAnime;
+    //public AnimationClip deadAnime;
 }

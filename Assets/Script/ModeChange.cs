@@ -5,10 +5,20 @@ using UnityEngine.UI;
 
 public class ModeChange : MonoBehaviour
 {
-    public Text txtMode;
-    public Button btnModeChange;
-    public Text txtModeChangeButton;
+    [SerializeField]
+    private Text txtMode;
 
+    [SerializeField]
+    private Button btnModeChange;
+    public Button BtnModeChange { get => btnModeChange; }
+
+    [SerializeField]
+    private Text txtModeChangeButton;
+
+    /// <summary>
+    /// ゲームモードの切り替え
+    /// </summary>
+    /// <param name="gameManager"></param>
     public void GameModeChange(GameManager gameManager)
     {
         if (gameManager.gameMode != GameManager.GameMode.Play)
@@ -24,7 +34,6 @@ public class ModeChange : MonoBehaviour
 
             txtModeChangeButton.text = "PLAY";
             txtMode.text = "GAME MODE：ストップ";
-
         }
     }
 }

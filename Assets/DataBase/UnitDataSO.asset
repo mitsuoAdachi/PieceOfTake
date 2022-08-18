@@ -13,11 +13,35 @@ MonoBehaviour:
   m_Name: UnitDataSO
   m_EditorClassIdentifier: 
   unitDatasList:
-  - unitNo: 0
+  - unitNo: 1
     cost: 50
     hp: 100
     attackPower: 10
-    moveSpeed: 1
+    blowPower: 0
+    moveSpeed: 0.001
+    weight: 0
     intervalTime: 50
-    unitSprite: {fileID: 0}
-    anime: {fileID: 0}
+  - unitNo: 1
+    cost: 50
+    hp: 100
+    attackPower: 10
+    blowPower: 0
+    moveSpeed: 0.002
+    weight: 0
+    intervalTime: 50
+  - unitNo: 1
+    cost: 50
+    hp: 100
+    attackPower: 10
+    blowPower: 0
+    moveSpeed: 0.003
+    weight: 0
+    intervalTime: 50
+  - unitNo: 1
+    cost: 50
+    hp: 100
+    attackPower: 10
+    blowPower: 0
+    moveSpeed: 0.004
+    weight: 0
+    intervalTime: 50

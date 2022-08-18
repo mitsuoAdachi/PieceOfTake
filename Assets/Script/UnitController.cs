@@ -6,13 +6,25 @@ public class UnitController : MonoBehaviour
 {
     private UnitController targetUnit;
 
-    [SerializeField, Header("ユニットの移動速度")]
-    private float moveSpeed = 0.5f;
+    //ユニットステータス群
+    [SerializeField, Header("ユニットNo.")]
+    private int unitNo;
+    [SerializeField, Header("コスト")]
+    private int cost;
+    [SerializeField, Header("HP")]
+    private int hp;
+    [SerializeField, Header("攻撃力")]
+    private int attackPower;
+    [SerializeField, Header("衝撃力")]
+    private int blowPower;
+    [SerializeField, Header("移動速度")]
+    private float moveSpeed = 0.01f;
+    [SerializeField, Header("重量")]
+    private float weight;
+    [SerializeField, Header("攻撃間隔")]
+    private float intervalTime;
 
-    private void Start()
-    {
-        Debug.Log("スタート");
-    }
+
     /// <summary>
     /// ユニットの移動
     /// </summary>
@@ -40,8 +52,6 @@ public class UnitController : MonoBehaviour
                     {
                         standardDistanceValue = nearTargetDistanceValue;
 
-                        //Debug.Log(standardDistanceValue);
-                        //if(targetUnit==null)
                         targetUnit = target;
                     }
                 }
@@ -54,11 +64,20 @@ public class UnitController : MonoBehaviour
     }
 
     /// <summary>
-    /// 生成したユニットの移動の設定
+    /// ユニットステータスの設定
     /// </summary>
-    /// <param name="gameManager"></param>
-    public void SetupMoveUnit(GameManager gameManager)
+    /// <param name="uiManager"></param>
+    /// <param name="unitGenerator"></param>
+    /// <returns></returns>
+    public IEnumerator SetupUnitState(UIManager uiManager,UnitGenerator unitGenerator)
     {
-        StartCoroutine(MoveUnit(gameManager,gameManager.EnemyList));
-    }    
+        unitNo = unitGenerator.unitDatas[uiManager.btnIndex].unitNo;
+        cost = unitGenerator.unitDatas[uiManager.btnIndex].cost;
+        hp = unitGenerator.unitDatas[uiManager.btnIndex].unitNo;
+        attackPower = unitGenerator.unitDatas[uiManager.btnIndex].attackPower;
+        blowPower = unitGenerator.unitDatas[uiManager.btnIndex].blowPower;
+        moveSpeed = unitGenerator.unitDatas[uiManager.btnIndex].moveSpeed;
+        weight = unitGenerator.unitDatas[uiManager.btnIndex].weight;
+        yield return intervalTime = unitGenerator.unitDatas[uiManager.btnIndex].intervalTime;
+    }
 }
