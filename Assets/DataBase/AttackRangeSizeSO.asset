@@ -14,10 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackRangeSizeList:
   - attackRangeType: 0
-    rangeSize: {x: 1, y: 1, z: 1}
+    rangeSize: {x: 1.5, y: 1, z: 0.8}
+    colliderPos: {x: 0, y: 0, z: 0}
   - attackRangeType: 1
-    rangeSize: {x: 0, y: 0, z: 0}
+    rangeSize: {x: 1.5, y: 1, z: 1.5}
+    colliderPos: {x: 0, y: 0, z: 0.3}
   - attackRangeType: 2
-    rangeSize: {x: 0, y: 0, z: 0}
+    rangeSize: {x: 1.5, y: 1, z: 4}
+    colliderPos: {x: 0, y: 0, z: 1.6}
   - attackRangeType: 3
-    rangeSize: {x: 0, y: 0, z: 0}
+    rangeSize: {x: 3.5, y: 0, z: 0.4}
+    colliderPos: {x: 3.5, y: 1, z: 1.5}

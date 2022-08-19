@@ -16,40 +16,50 @@ MonoBehaviour:
   - unitNo: 1
     cost: 50
     hp: 100
-    attackPower: 10
+    attackPower: 3
     blowPower: 0
     moveSpeed: 0.001
     weight: 0
-    intervalTime: 50
+    intervalTime: 100
+    attackRangeType: 0
+    material: {fileID: 2100000, guid: 745f73edf8da5446d965c48c8299a3a6, type: 2}
   - unitNo: 1
     cost: 50
     hp: 100
-    attackPower: 10
+    attackPower: 2
     blowPower: 0
     moveSpeed: 0.002
     weight: 0
-    intervalTime: 50
+    intervalTime: 100
+    attackRangeType: 1
+    material: {fileID: 2100000, guid: a810e2b571ffc4a9da6698e85edb239b, type: 2}
   - unitNo: 1
     cost: 50
     hp: 100
-    attackPower: 10
+    attackPower: 1
     blowPower: 0
     moveSpeed: 0.003
     weight: 0
-    intervalTime: 50
+    intervalTime: 200
+    attackRangeType: 2
+    material: {fileID: 2100000, guid: 34c568ad656b1491dbc32e3958c3ab06, type: 2}
   - unitNo: 1
     cost: 50
     hp: 100
-    attackPower: 10
+    attackPower: 2
     blowPower: 0
     moveSpeed: 0.004
     weight: 0
-    intervalTime: 50
+    intervalTime: 100
+    attackRangeType: 1
+    material: {fileID: 2100000, guid: 4c241d422ae6146bcbdb5d4e9e62c313, type: 2}
   - unitNo: 1
     cost: 50
     hp: 100
-    attackPower: 10
+    attackPower: 3
     blowPower: 0
     moveSpeed: 0.005
     weight: 0
-    intervalTime: 50
+    intervalTime: 100
+    attackRangeType: 0
+    material: {fileID: 2100000, guid: 073557bfd22b84a7099de56f8bb9d7f3, type: 2}
