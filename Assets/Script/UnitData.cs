@@ -11,6 +11,9 @@ public class UnitData
     public float moveSpeed;
     public float weight;
     public float intervalTime;
+    public AttackRangeType attackRangeType;
+
+    public Material material;
 
     //public Sprite unitSprite;
     //public AnimationClip moveAnime;

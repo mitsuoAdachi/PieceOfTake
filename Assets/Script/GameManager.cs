@@ -43,7 +43,7 @@ public class GameManager : MonoBehaviour
         SetupButton();
 
         //ユニットデータの準備
-        unitGenerator.SetupUnitData();
+        unitGenerator.SetupUnitData();     
     }
 
     /// <summary>

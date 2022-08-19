@@ -26,6 +26,7 @@ public class UnitGenerator : MonoBehaviour
     /// <summary>
     /// クリックした位置にユニットを生成
     /// </summary>
+    /// <param name="gameManager"></param>
     /// <returns></returns>
     public IEnumerator LayoutUnit(GameManager gameManager)
     {
@@ -60,10 +61,10 @@ public class UnitGenerator : MonoBehaviour
                             //生成したユニットが持つ移動用メソッドを呼び出す
                             StartCoroutine(unit.MoveUnit(gameManager, gameManager.EnemyList));
 
+                            //生成したユニットにステータスを付与
                             StartCoroutine(unit.SetupUnitState(uiManager, this));
 
                             //生成したユニット用のリストに追加
-                            //gameManager.AllyUnitList.Add(unit);
                             gameManager.AllyList.Add(unit);
 
                             timer = 0;
@@ -102,7 +103,6 @@ public class UnitGenerator : MonoBehaviour
     /// <summary>
     /// 生成したユニットの移動メソッドをセットアップ
     /// </summary>
-    /// <param name="gameManager"></param>
     //private void SetupMoveUnit()
     //{
     //    StartCoroutine(unit.MoveUnit(gameManager, gameManager.EnemyList));
