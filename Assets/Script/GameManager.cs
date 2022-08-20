@@ -13,6 +13,8 @@ public class GameManager : MonoBehaviour
     }
     public GameMode gameMode;
 
+    public List<UnitData> unitDatas = new List<UnitData>();
+
     //味方ユニットと敵ユニットのリストを用意
     public List<UnitController> AllyList = new List<UnitController>();
     public List<UnitController> EnemyList = new List<UnitController>();
@@ -32,32 +34,32 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        //ユニットデータの準備
+        SetupUnitData();
+
         //味方ユニットの生成準備
-        StartCoroutine(unitGenerator.LayoutUnit(this));
+        StartCoroutine(unitGenerator.LayoutUnit(this,uiManager));
 
         //敵ユニットの移動準備
         for (int i = 0; i < EnemyList.Count; i++)
-            StartCoroutine(EnemyList[i].MoveUnit(this,AllyList));
+            EnemyList[i].StartMoveUnit(this,AllyList);
+
+        //ユニット選択ボタンを設定
+        uiManager.SetupUnitButton(uiManager.unitSelectButtons.Length);
 
         //各種ボタン押下時の準備
-        SetupButton();
-
-        //ユニットデータの準備
-        unitGenerator.SetupUnitData();     
+        modeChange.SetupModeChangeButton(this);
     }
 
     /// <summary>
-    /// 各種ボタン押下時の設定
+    /// ゲーム実行時にunitDataSO内のデータリストをunitDatasリストに収納し直す
     /// </summary>
-    private void SetupButton()
+    public void SetupUnitData()
     {
-        //モード変更ボタンの設定
-        modeChange.BtnModeChange.onClick.AddListener(() => modeChange.GameModeChange(this));
-
-        //ユニット選択ボタンの設定
-        for (int i = 0; i < uiManager.unitSelectButtons.Length; i++)
+        for (int i = 0; i < DataBaseManager.instance.unitDataSO.unitDatasList.Count; i++)
         {
-            uiManager.unitSelectButtons[i].onClick.AddListener(() => uiManager.UnitSelect());
+            unitDatas.Add(DataBaseManager.instance.unitDataSO.unitDatasList[i]);
         }
     }
+
 }

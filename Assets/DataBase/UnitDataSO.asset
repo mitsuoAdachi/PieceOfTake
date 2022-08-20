@@ -17,17 +17,17 @@ MonoBehaviour:
     cost: 50
     hp: 100
     attackPower: 3
-    blowPower: 0
-    moveSpeed: 0.001
+    blowPower: 6
+    moveSpeed: 0.003
     weight: 0
-    intervalTime: 100
+    intervalTime: 400
     attackRangeType: 0
     material: {fileID: 2100000, guid: 745f73edf8da5446d965c48c8299a3a6, type: 2}
   - unitNo: 1
     cost: 50
     hp: 100
     attackPower: 2
-    blowPower: 0
+    blowPower: 1
     moveSpeed: 0.002
     weight: 0
     intervalTime: 100
@@ -37,7 +37,7 @@ MonoBehaviour:
     cost: 50
     hp: 100
     attackPower: 1
-    blowPower: 0
+    blowPower: 1
     moveSpeed: 0.003
     weight: 0
     intervalTime: 200
@@ -47,7 +47,7 @@ MonoBehaviour:
     cost: 50
     hp: 100
     attackPower: 2
-    blowPower: 0
+    blowPower: 1
     moveSpeed: 0.004
     weight: 0
     intervalTime: 100
@@ -57,9 +57,9 @@ MonoBehaviour:
     cost: 50
     hp: 100
     attackPower: 3
-    blowPower: 0
+    blowPower: 5
     moveSpeed: 0.005
     weight: 0
-    intervalTime: 100
+    intervalTime: 300
     attackRangeType: 0
     material: {fileID: 2100000, guid: 073557bfd22b84a7099de56f8bb9d7f3, type: 2}

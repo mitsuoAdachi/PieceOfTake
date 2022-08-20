@@ -5,14 +5,8 @@ using UnityEngine.EventSystems;
 
 public class UnitGenerator : MonoBehaviour
 {
-    public List<UnitData> unitDatas = new List<UnitData>();
-
     private GameManager gameManager;
 
-    //[SerializeField]
-    //private LayerMask layerMask;
-
-    [SerializeField]
     private UIManager uiManager;
 
     [SerializeField]
@@ -28,9 +22,10 @@ public class UnitGenerator : MonoBehaviour
     /// </summary>
     /// <param name="gameManager"></param>
     /// <returns></returns>
-    public IEnumerator LayoutUnit(GameManager gameManager)
+    public IEnumerator LayoutUnit(GameManager gameManager,UIManager uiManager)
     {
         this.gameManager = gameManager;
+        this.uiManager = uiManager;
 
         //Debug.Log("生成開始");
         while (true)
@@ -58,11 +53,11 @@ public class UnitGenerator : MonoBehaviour
 
                             unit.transform.position = new Vector3(unit.transform.position.x, hit.point.y + 0.5f, unit.transform.position.z);
 
-                            //生成したユニットが持つ移動用メソッドを呼び出す
-                            StartCoroutine(unit.MoveUnit(gameManager, gameManager.EnemyList));
+                            //生成したユニットに移動能力を付与
+                            unit.StartMoveUnit(gameManager, gameManager.EnemyList);
 
                             //生成したユニットにステータスを付与
-                            StartCoroutine(unit.SetupUnitState(uiManager, this));
+                            unit.SetupUnitState(uiManager);
 
                             //生成したユニット用のリストに追加
                             gameManager.AllyList.Add(unit);
@@ -87,16 +82,6 @@ public class UnitGenerator : MonoBehaviour
        else return false;       
     }
 
-    /// <summary>
-    /// ゲーム実行時にunitDataSO内のデータリストをunitDatasリストに収納し直す
-    /// </summary>
-    public void SetupUnitData()
-    {
-        for (int i = 0; i < DataBaseManager.instance.unitDataSO.unitDatasList.Count; i++)
-        {
-            unitDatas.Add(DataBaseManager.instance.unitDataSO.unitDatasList[i]);
-        }
-    }
 
 
 

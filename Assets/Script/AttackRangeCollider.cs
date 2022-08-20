@@ -9,14 +9,14 @@ public class AttackRangeCollider : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject == unitController.TargetUnit.gameObject)
+        if (!unitController.isAttack)
         {
-            StartCoroutine(unitController.PreparateAttack());
-        }
+            if (other.gameObject == unitController.TargetUnit.gameObject)
+            {
+                unitController.isAttack = true;
 
-        //if (other.gameObject.TryGetComponent(out targetUnitController))
-        //{
-        //   StartCoroutine(unitController.PreparateAttack());
-        //}
+                StartCoroutine(unitController.PreparateAttack());
+            }
+        }
     }
 }

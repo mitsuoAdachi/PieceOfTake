@@ -7,7 +7,7 @@ public class UnitData
     public int cost;
     public int hp;
     public int attackPower;
-    public int blowPower;
+    public float blowPower;
     public float moveSpeed;
     public float weight;
     public float intervalTime;

@@ -15,11 +15,23 @@ public class ModeChange : MonoBehaviour
     [SerializeField]
     private Text txtModeChangeButton;
 
+    private GameManager gameManager;
+
+
+    public void SetupModeChangeButton(GameManager gameManager)
+    {
+        this.gameManager = gameManager;
+
+        //GameModeChangeメソッドをボタンに設定
+        BtnModeChange.onClick.AddListener(() => GameModeChange());
+
+    }
+
     /// <summary>
     /// ゲームモードの切り替え
     /// </summary>
     /// <param name="gameManager"></param>
-    public void GameModeChange(GameManager gameManager)
+    public void GameModeChange()
     {
         if (gameManager.gameMode != GameManager.GameMode.Play)
         {

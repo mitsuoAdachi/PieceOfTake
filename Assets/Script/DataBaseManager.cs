@@ -28,15 +28,26 @@ public class DataBaseManager : MonoBehaviour
     /// <summary>
     /// 各ユニットのattckRangeTypeより攻撃コライダーのサイズと位置のVector3を取得
     /// </summary>
-    /// <param name="selectAttackRangeType"></param>
+    /// <param name="attackRangeType"></param>
     /// <returns></returns>
-    public Vector3 GetAttackRangeSize(AttackRangeType selectAttackRangeType)
+    public (Vector3 size, Vector3 pos) GetAttackRange(AttackRangeType attackRangeType)
     {
-        return attackRangeSizeSO.attackRangeSizeList.Find(x => x.attackRangeType == selectAttackRangeType).rangeSize;
-    }
-    public Vector3 GetAttackRangePos(AttackRangeType selectAttackRangeType)
-    {
-        return attackRangeSizeSO.attackRangeSizeList.Find(x => x.attackRangeType == selectAttackRangeType).colliderPos;
+        return (attackRangeSizeSO.attackRangeSizeList.Find(x => x.attackRangeType == attackRangeType).rangeSize,
+                     attackRangeSizeSO.attackRangeSizeList.Find(x => x.attackRangeType == attackRangeType).colliderPos);
     }
 
+    //タプル型を使用しない場合
+    //public Vector3 GetAttackRangeSize(AttackRangeType selectAttackRangeType)
+    //{
+    //    return attackRangeSizeSO.attackRangeSizeList.Find(x => x.attackRangeType == selectAttackRangeType).rangeSize;
+    //}
+    //public Vector3 GetAttackRangePos(AttackRangeType selectAttackRangeType)
+    //{
+    //    return attackRangeSizeSO.attackRangeSizeList.Find(x => x.attackRangeType == selectAttackRangeType).colliderPos;
+    //}
+
+    //foreachで書いた場合
+    //foreach (AttackRangeSize attackRangeSize in attackRangeSizeSO.attackRangeSizesList) {
+    //  if(attackRangeSize.attackRangeType == attackRangeType) {
+    //      return attackRangeType.size;
 }
