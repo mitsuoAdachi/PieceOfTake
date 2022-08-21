@@ -17,7 +17,7 @@ MonoBehaviour:
     cost: 50
     hp: 100
     attackPower: 3
-    blowPower: 6
+    blowPower: 4
     moveSpeed: 0.003
     weight: 0
     intervalTime: 400

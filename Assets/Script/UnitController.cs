@@ -149,8 +149,13 @@ public class UnitController : MonoBehaviour
             }
             yield return null;
         }
+        yield break;
     }
 
+    /// <summary>
+    /// 対象にダメージを与える、倒した時の処理、ノックバック演出
+    /// </summary>
+    /// <param name="amount"></param>
     public void Attack(int amount)
     {
         Debug.Log("Attack()開始");
@@ -159,8 +164,9 @@ public class UnitController : MonoBehaviour
         if (targetUnit.hp <= 0)
         {
             isAttack = false;
+            targetUnit.moveSpeed = 0;
             gameManager.EnemyList.Remove(targetUnit);
-            Destroy(targetUnit.gameObject);
+            Destroy(targetUnit.gameObject,3);
             targetUnit = null;
         }
         else

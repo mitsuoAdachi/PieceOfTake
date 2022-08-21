@@ -6,36 +6,41 @@ using System;
 
 public class UIManager : MonoBehaviour
 { 
-    public Button[] unitSelectButtons;
+    public List<Button> unitSelectButtons = new List<Button>();
 
     public int btnIndex;
 
+    [SerializeField]
+    private Button btnPrefab;
+    [SerializeField]
+    private Transform btnTran;
+
     /// <summary>
-    /// ユニット選択ボタン押下時に各ボタンの番号を出力
+    /// ボタン押下時にbtnIndexを出力
     /// </summary>
     public void UnitSelect(int index)
     {
         btnIndex = index;
-        //①各ボタンに識別用のスクリプトをアタッチして番号を取得するやり方
-        //EventSystem.current.currentSelectedGameObject.TryGetComponent<ButtonIndex>(out var btn);
-        //btnIndex = btn.BtnIndex;
-        //Debug.Log(btnIndex);
 
-        ////②ボタン要素を変数に代入しArray.IndexOfで配列番号を取得するやり方
+        ////ボタン要素を変数に代入しArray.IndexOfで配列番号を取得する
         //Button element = EventSystem.current.currentSelectedGameObject.GetComponent<Button>();
         //btnIndex = Array.IndexOf(unitSelectButtons, element);
         //Debug.Log(btnIndex);
     }
 
     /// <summary>
-    /// 各種ボタン押下時の設定
+    /// ユニットボタンの生成と各ボタン押下時の設定
     /// </summary>
-    public void SetupUnitButton(int buttonCount)
+    public void SetupUnitButton(GameManager gameManager)
     {
-        //ユニット選択ボタンの設定
-        for (int i = 0; i < buttonCount; i++)
+        //ユニットデータ数分ボタンを生成
+        for (int i = 0; i < gameManager.unitDatas.Count; i++)
         {
-            //todo ボタン生成
+            //ボタン生成
+            Button unitButton = Instantiate(btnPrefab, btnTran, false);
+            //リストに追加
+            unitSelectButtons.Add(unitButton);
+            //生成したボタンにUnitSelectメソッドと付与した順番のindexを登録
             int index = i;
             unitSelectButtons[i].onClick.AddListener(() => UnitSelect(index));
         }

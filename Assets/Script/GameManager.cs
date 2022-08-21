@@ -45,7 +45,7 @@ public class GameManager : MonoBehaviour
             EnemyList[i].StartMoveUnit(this,AllyList);
 
         //ユニット選択ボタンを設定
-        uiManager.SetupUnitButton(uiManager.unitSelectButtons.Length);
+        uiManager.SetupUnitButton(this);
 
         //各種ボタン押下時の準備
         modeChange.SetupModeChangeButton(this);
