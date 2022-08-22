@@ -34,8 +34,10 @@ public class UIManager : MonoBehaviour
     public void SetupUnitButton(GameManager gameManager)
     {
         //ユニットデータ数分ボタンを生成
-        for (int i = 0; i < gameManager.unitDatas.Count; i++)
+        for (int i = 0; i < gameManager.allyUnitDatas.Count; i++)
         {
+            Debug.Log("ボタン生成開始");
+
             //ボタン生成
             Button unitButton = Instantiate(btnPrefab, btnTran, false);
             //リストに追加

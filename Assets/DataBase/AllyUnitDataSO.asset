@@ -10,56 +10,56 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8c9f55d7e60884a6eaaf3f4d26f32701, type: 3}
-  m_Name: UnitDataSO
+  m_Name: AllyUnitDataSO
   m_EditorClassIdentifier: 
-  unitDatasList:
-  - unitNo: 1
-    cost: 50
-    hp: 100
-    attackPower: 3
-    blowPower: 4
-    moveSpeed: 0.003
+  allyUnitDatasList:
+  - unitNo: 0
+    cost: 1
+    hp: 10
+    attackPower: 1
+    blowPower: 1
+    moveSpeed: 0.002
     weight: 0
     intervalTime: 400
     attackRangeType: 0
     material: {fileID: 2100000, guid: 745f73edf8da5446d965c48c8299a3a6, type: 2}
-  - unitNo: 1
-    cost: 50
-    hp: 100
+  - unitNo: 0
+    cost: 1
+    hp: 10
     attackPower: 2
-    blowPower: 1
-    moveSpeed: 0.002
-    weight: 0
-    intervalTime: 100
-    attackRangeType: 1
-    material: {fileID: 2100000, guid: a810e2b571ffc4a9da6698e85edb239b, type: 2}
-  - unitNo: 1
-    cost: 50
-    hp: 100
-    attackPower: 1
-    blowPower: 1
+    blowPower: 2
     moveSpeed: 0.003
     weight: 0
-    intervalTime: 200
-    attackRangeType: 2
-    material: {fileID: 2100000, guid: 34c568ad656b1491dbc32e3958c3ab06, type: 2}
-  - unitNo: 1
-    cost: 50
-    hp: 100
-    attackPower: 2
-    blowPower: 1
+    intervalTime: 400
+    attackRangeType: 0
+    material: {fileID: 2100000, guid: a810e2b571ffc4a9da6698e85edb239b, type: 2}
+  - unitNo: 0
+    cost: 1
+    hp: 10
+    attackPower: 3
+    blowPower: 3
     moveSpeed: 0.004
     weight: 0
-    intervalTime: 100
-    attackRangeType: 1
-    material: {fileID: 2100000, guid: 4c241d422ae6146bcbdb5d4e9e62c313, type: 2}
-  - unitNo: 1
-    cost: 50
-    hp: 100
-    attackPower: 3
-    blowPower: 5
+    intervalTime: 400
+    attackRangeType: 0
+    material: {fileID: 2100000, guid: 34c568ad656b1491dbc32e3958c3ab06, type: 2}
+  - unitNo: 0
+    cost: 1
+    hp: 10
+    attackPower: 4
+    blowPower: 4
     moveSpeed: 0.005
     weight: 0
-    intervalTime: 300
+    intervalTime: 500
+    attackRangeType: 0
+    material: {fileID: 2100000, guid: 4c241d422ae6146bcbdb5d4e9e62c313, type: 2}
+  - unitNo: 0
+    cost: 1
+    hp: 10
+    attackPower: 5
+    blowPower: 5
+    moveSpeed: 0.006
+    weight: 0
+    intervalTime: 600
     attackRangeType: 0
     material: {fileID: 2100000, guid: 073557bfd22b84a7099de56f8bb9d7f3, type: 2}

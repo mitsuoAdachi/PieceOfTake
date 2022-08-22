@@ -7,7 +7,9 @@ public class DataBaseManager : MonoBehaviour
 {
     public static DataBaseManager instance;
 
-    public UnitDataSO unitDataSO;
+    public AllyUnitDataSO allyUnitDataSO;
+
+    public EnemyUnitDataSO enemyUnitDataSO;
 
     public AttackRangeSizeSO attackRangeSizeSO;
 

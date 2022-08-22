@@ -10,14 +10,17 @@ public class AttackRangeCollider : MonoBehaviour
     private UnitController unitController;
 
     private void OnTriggerStay(Collider other)
-    {       
-        if (other.gameObject==unitController.TargetUnit.gameObject)
+    {
+        if (unitController.TargetUnit != null)
         {
-            //colObject = other.gameObject;
+            if (other.gameObject == unitController.TargetUnit.gameObject)
+            {
+                //colObject = other.gameObject;
 
-            unitController.isAttack = true;
+                unitController.isAttack = true;
 
-            StartCoroutine(unitController.PreparateAttack());
-        }  
+                StartCoroutine(unitController.PreparateAttack());
+            }
+        }
     }
 }

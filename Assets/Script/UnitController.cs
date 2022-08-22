@@ -49,21 +49,21 @@ public class UnitController : MonoBehaviour
     /// <param name="uiManager"></param>
     /// <param name="unitGenerator"></param>
     /// <returns></returns>
-    public void SetupUnitState(UIManager uiManager)
+    public void SetupUnitState(List<UnitData> unitDatas,UIManager uiManager)
     {
         this.uiManager = uiManager;
 
-        unitNo = gameManager.unitDatas[uiManager.btnIndex].unitNo;
-        cost = gameManager.unitDatas[uiManager.btnIndex].cost;
-        hp = gameManager.unitDatas[uiManager.btnIndex].hp;
-        attackPower = gameManager.unitDatas[uiManager.btnIndex].attackPower;
-        blowPower = gameManager.unitDatas[uiManager.btnIndex].blowPower;
-        moveSpeed = gameManager.unitDatas[uiManager.btnIndex].moveSpeed;
-        weight = gameManager.unitDatas[uiManager.btnIndex].weight;
-        material = gameManager.unitDatas[uiManager.btnIndex].material;
+        unitNo = unitDatas[uiManager.btnIndex].unitNo;
+        cost = unitDatas[uiManager.btnIndex].cost;
+        hp = unitDatas[uiManager.btnIndex].hp;
+        attackPower = unitDatas[uiManager.btnIndex].attackPower;
+        blowPower = unitDatas[uiManager.btnIndex].blowPower;
+        moveSpeed = unitDatas[uiManager.btnIndex].moveSpeed;
+        weight = unitDatas[uiManager.btnIndex].weight;
+        material = unitDatas[uiManager.btnIndex].material;
         this.GetComponent<Renderer>().material = material;
-        (attackRangeSize.size, attackRangeSize.center) = DataBaseManager.instance.GetAttackRange(gameManager.unitDatas[uiManager.btnIndex].attackRangeType);
-        intervalTime = gameManager.unitDatas[uiManager.btnIndex].intervalTime;
+        (attackRangeSize.size, attackRangeSize.center) = DataBaseManager.instance.GetAttackRange(unitDatas[uiManager.btnIndex].attackRangeType);
+        intervalTime = unitDatas[uiManager.btnIndex].intervalTime;
         maxHp = hp;
     }
 

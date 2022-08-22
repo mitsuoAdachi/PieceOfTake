@@ -13,9 +13,11 @@ public class GameManager : MonoBehaviour
     }
     public GameMode gameMode;
 
-    public List<UnitData> unitDatas = new List<UnitData>();
+    //味方ユニットと敵ユニットのデータをリスト化
+    public List<UnitData> allyUnitDatas = new List<UnitData>();
+    public List<UnitData> enemyUnitDatas = new List<UnitData>();
 
-    //味方ユニットと敵ユニットのリストを用意
+    //生成された味方ユニットと敵ユニットのリストを用意
     public List<UnitController> AllyList = new List<UnitController>();
     public List<UnitController> EnemyList = new List<UnitController>();
 
@@ -40,9 +42,12 @@ public class GameManager : MonoBehaviour
         //味方ユニットの生成準備
         StartCoroutine(unitGenerator.LayoutUnit(this,uiManager));
 
-        //敵ユニットの移動準備
-        for (int i = 0; i < EnemyList.Count; i++)
-            EnemyList[i].StartMoveUnit(this,AllyList);
+        //敵ユニットの生成
+        unitGenerator.PreparateEnemyUnit();
+
+        ////敵ユニットの移動準備
+        //for (int i = 0; i < EnemyList.Count; i++)
+        //    EnemyList[i].StartMoveUnit(this,AllyList);
 
         //ユニット選択ボタンを設定
         uiManager.SetupUnitButton(this);
@@ -52,14 +57,19 @@ public class GameManager : MonoBehaviour
     }
 
     /// <summary>
-    /// ゲーム実行時にunitDataSO内のデータリストをunitDatasリストに収納し直す
+    /// ゲーム実行時にunitDataSO内のデータリストをGameManager内のデータリストに収納し直す
     /// </summary>
     public void SetupUnitData()
     {
-        for (int i = 0; i < DataBaseManager.instance.unitDataSO.unitDatasList.Count; i++)
+        //味方データのリスト
+        for (int i = 0; i < DataBaseManager.instance.allyUnitDataSO.allyUnitDatasList.Count; i++)
         {
-            unitDatas.Add(DataBaseManager.instance.unitDataSO.unitDatasList[i]);
+            allyUnitDatas.Add(DataBaseManager.instance.allyUnitDataSO.allyUnitDatasList[i]);
+        }
+        ///敵データのリスト
+        for (int i = 0; i < DataBaseManager.instance.enemyUnitDataSO.enemyUnitDatasList.Count; i++)
+        {
+            enemyUnitDatas.Add(DataBaseManager.instance.enemyUnitDataSO.enemyUnitDatasList[i]);
         }
     }
-
 }

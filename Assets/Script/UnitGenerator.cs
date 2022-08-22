@@ -10,9 +10,15 @@ public class UnitGenerator : MonoBehaviour
     private UIManager uiManager;
 
     [SerializeField]
-    private UnitController unitPrefab;
+    private UnitController allyPrefab;
+    [SerializeField]
+    private UnitController enemyPrefab;
 
-    private UnitController unit;
+    private UnitController allyUnit;
+    private UnitController enemyUnit;
+
+    [SerializeField]
+    private Transform[] enemyTrans;
 
     //ユニット生成待機時間の初期値
     private int timer=100;
@@ -49,18 +55,19 @@ public class UnitGenerator : MonoBehaviour
                         {
                             //Debug.Log("Ray座標" + hit.point);
 
-                            unit = Instantiate(unitPrefab, hit.point, Quaternion.identity);
+                            allyUnit = Instantiate(allyPrefab, hit.point, Quaternion.identity);
 
-                            unit.transform.position = new Vector3(unit.transform.position.x, hit.point.y + 0.5f, unit.transform.position.z);
+                            //生成ユニットの位置調整
+                            allyUnit.transform.position = new Vector3(allyUnit.transform.position.x, hit.point.y + 0.5f, allyUnit.transform.position.z);
 
                             //生成したユニットに移動能力を付与
-                            unit.StartMoveUnit(gameManager, gameManager.EnemyList);
+                            allyUnit.StartMoveUnit(gameManager, gameManager.EnemyList);
 
                             //生成したユニットにステータスを付与
-                            unit.SetupUnitState(uiManager);
+                            allyUnit.SetupUnitState(gameManager.allyUnitDatas,uiManager);
 
                             //生成したユニット用のリストに追加
-                            gameManager.AllyList.Add(unit);
+                            gameManager.AllyList.Add(allyUnit);
 
                             timer = 0;
                         }
@@ -82,7 +89,28 @@ public class UnitGenerator : MonoBehaviour
        else return false;       
     }
 
+    /// <summary>
+    /// 敵ユニットの生成
+    /// </summary>
+    public void PreparateEnemyUnit()
+    {
+        for (int i = 0; i < enemyTrans.Length; i++)
+        {
+            enemyUnit = Instantiate(enemyPrefab, enemyTrans[i], false);
 
+            //生成したユニット用のリストに追加
+            gameManager.EnemyList.Add(enemyUnit);
+
+            //生成ユニットのサイズ調整
+            enemyUnit.transform.SetParent(transform, false);
+
+            //生成したユニットに移動能力を付与
+            enemyUnit.StartMoveUnit(gameManager, gameManager.AllyList);
+
+            //生成したユニットにステータスを付与
+            enemyUnit.SetupUnitState(gameManager.enemyUnitDatas, uiManager);
+        }
+    }
 
 
     /// <summary>
