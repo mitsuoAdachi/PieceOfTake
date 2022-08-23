@@ -14,9 +14,6 @@ public class UnitGenerator : MonoBehaviour
     [SerializeField]
     private UnitController enemyPrefab;
 
-    private UnitController allyUnit;
-    private UnitController enemyUnit;
-
     [SerializeField]
     private Transform[] enemyTrans;
 
@@ -55,7 +52,7 @@ public class UnitGenerator : MonoBehaviour
                         {
                             //Debug.Log("Ray座標" + hit.point);
 
-                            allyUnit = Instantiate(allyPrefab, hit.point, Quaternion.identity);
+                            UnitController allyUnit = Instantiate(allyPrefab, hit.point, Quaternion.identity);
 
                             //生成ユニットの位置調整
                             allyUnit.transform.position = new Vector3(allyUnit.transform.position.x, hit.point.y + 0.5f, allyUnit.transform.position.z);
@@ -96,13 +93,10 @@ public class UnitGenerator : MonoBehaviour
     {
         for (int i = 0; i < enemyTrans.Length; i++)
         {
-            enemyUnit = Instantiate(enemyPrefab, enemyTrans[i], false);
+            UnitController enemyUnit = Instantiate(enemyPrefab, enemyTrans[i], false);
 
             //生成したユニット用のリストに追加
             gameManager.EnemyList.Add(enemyUnit);
-
-            //生成ユニットのサイズ調整
-            enemyUnit.transform.SetParent(transform, false);
 
             //生成したユニットに移動能力を付与
             enemyUnit.StartMoveUnit(gameManager, gameManager.AllyList);

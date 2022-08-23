@@ -13,6 +13,9 @@ public class UnitController : MonoBehaviour
     private GameManager gameManager;
     private UIManager uiManager;
 
+    //敵の距離を比較するための基準となる変数。適当な数値を代入
+    private float standardDistanceValue = 1000;　
+
     private int maxHp;
 
     private int timer;
@@ -60,11 +63,12 @@ public class UnitController : MonoBehaviour
         blowPower = unitDatas[uiManager.btnIndex].blowPower;
         moveSpeed = unitDatas[uiManager.btnIndex].moveSpeed;
         weight = unitDatas[uiManager.btnIndex].weight;
-        material = unitDatas[uiManager.btnIndex].material;
-        this.GetComponent<Renderer>().material = material;
         (attackRangeSize.size, attackRangeSize.center) = DataBaseManager.instance.GetAttackRange(unitDatas[uiManager.btnIndex].attackRangeType);
         intervalTime = unitDatas[uiManager.btnIndex].intervalTime;
         maxHp = hp;
+
+        material = unitDatas[uiManager.btnIndex].material;
+        this.GetComponent<Renderer>().material = material;
     }
 
     /// <summary>
@@ -76,15 +80,13 @@ public class UnitController : MonoBehaviour
     {
         this.gameManager = gameManager;
 
-        float standardDistanceValue = 1000;　//敵の距離を比較するための基準となる変数。適当な数値を代入
-
         //Debug.Log("監視開始");
         while (this.hp >= 0)
         {
-            if (targetUnit == null)
-            { 
-                //EnemyListに登録してあるユニットの内、一番近いユニットに向かって移動する処理↓↓                 
-                foreach (UnitController target in unitList)
+            //EnemyListに登録してあるユニットの内、一番近いユニットに向かって移動する処理↓↓                 
+            foreach (UnitController target in unitList)
+            {
+                if (gameManager.gameMode == GameManager.GameMode.Play && target != null)
                 {
                     //EnemyUnitList内に登録してあるオブジェクトとの距離を測り変数に代入する
                     float nearTargetDistanceValue = Vector3.Distance(transform.position, target.transform.position);
@@ -94,24 +96,38 @@ public class UnitController : MonoBehaviour
                     {
                         standardDistanceValue = nearTargetDistanceValue;
 
-                        targetUnit = target;                          
+
+                        targetUnit = target;
                     }
+
+                    if (targetUnit != null)
+                    {
+
+                        transform.position = Vector3.MoveTowards(transform.position, targetUnit.transform.position, moveSpeed);
+
+                        //進行方向を向く
+                        Vector3 diff = transform.position - latestPos;
+                        latestPos = transform.position;
+
+                        if (diff.magnitude > 0.01f)
+                            transform.rotation = Quaternion.LookRotation(-diff);
+                    }
+
                 }
             }
-            else standardDistanceValue = 1000;
-
+            
             //Debug.Log("移動準備完了");
-            if (gameManager.gameMode == GameManager.GameMode.Play && targetUnit != null)
-            {
-                transform.position = Vector3.MoveTowards(transform.position, targetUnit.transform.position, moveSpeed);
+            //if (gameManager.gameMode == GameManager.GameMode.Play && targetUnit != null)
+            //{
+            //    transform.position = Vector3.MoveTowards(transform.position, targetUnit.transform.position, moveSpeed);
 
-                //進行方向を向く
-                Vector3 diff = transform.position - latestPos;
-                latestPos = transform.position;
+            //    //進行方向を向く
+            //    Vector3 diff = transform.position - latestPos;
+            //    latestPos = transform.position;
 
-                if (diff.magnitude > 0.01f)
-                    transform.rotation = Quaternion.LookRotation(-diff);
-            }
+            //    if (diff.magnitude > 0.01f)
+            //        transform.rotation = Quaternion.LookRotation(-diff);
+            //}
             yield return null;
         }
     }
@@ -164,8 +180,13 @@ public class UnitController : MonoBehaviour
         if (targetUnit.hp <= 0)
         {
             isAttack = false;
-            targetUnit.moveSpeed = 0;
+            standardDistanceValue = 1000;
+
             gameManager.EnemyList.Remove(targetUnit);
+            gameManager.AllyList.Remove(targetUnit);
+
+            //targetUnit.isAttack = false;
+            targetUnit.moveSpeed = 0;
             Destroy(targetUnit.gameObject,3);
             targetUnit = null;
         }
