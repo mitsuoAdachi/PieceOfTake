@@ -18,7 +18,7 @@ MonoBehaviour:
     hp: 10
     attackPower: 1
     blowPower: 1
-    moveSpeed: 0.002
+    moveSpeed: 0.0005
     weight: 0
     intervalTime: 400
     attackRangeType: 0

@@ -13,7 +13,10 @@ public class GameManager : MonoBehaviour
     }
     public GameMode gameMode;
 
-    //味方ユニットと敵ユニットのデータをリスト化
+    //ステージデータのリスト
+    public List<StageData> stageDatas = new List<StageData>();
+
+    //味方ユニットと敵ユニットのデータのリスト
     public List<UnitData> allyUnitDatas = new List<UnitData>();
     public List<UnitData> enemyUnitDatas = new List<UnitData>();
 
@@ -30,14 +33,30 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private UIManager uiManager;
 
+    [SerializeField]
+    StageLevelIndex stagePrefab;
+
+    private StageLevelIndex stage;
+
     [Header("ユニットの生成待機時間"),SerializeField]
     private float generateIntaervalTime;
     public float GenerateIntaervalTime { get => generateIntaervalTime; }
 
     void Start()
     {
-        //ユニットデータの準備
-        SetupUnitData();
+        stage = Instantiate(stagePrefab);
+
+        foreach(Transform stages in stage.prefabTran)
+        {
+            unitGenerator.enemyTrans.Add(stages);
+        }
+        //for (int i = 0; i < unitGenerator.enemyTrans.Count; i++)
+        //{
+        //    unitGenerator.enemyTrans.Add(stage.prefabTran[i]);
+        //}
+
+            //ユニットデータの準備
+            SetupUnitData();
 
         //味方ユニットの生成準備
         StartCoroutine(unitGenerator.LayoutUnit(this,uiManager));
@@ -61,6 +80,11 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void SetupUnitData()
     {
+        //ステージデータのリスト
+        for (int i = 0; i < DataBaseManager.instance.stageDataSO.stageDataList.Count; i++)
+        {
+            stageDatas.Add(DataBaseManager.instance.stageDataSO.stageDataList[i]);
+        }
         //味方データのリスト
         for (int i = 0; i < DataBaseManager.instance.allyUnitDataSO.allyUnitDatasList.Count; i++)
         {

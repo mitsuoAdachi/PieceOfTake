@@ -7,6 +7,8 @@ public class DataBaseManager : MonoBehaviour
 {
     public static DataBaseManager instance;
 
+    public StageDataSO stageDataSO;
+
     public AllyUnitDataSO allyUnitDataSO;
 
     public EnemyUnitDataSO enemyUnitDataSO;

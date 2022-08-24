@@ -15,7 +15,7 @@ public class UnitGenerator : MonoBehaviour
     private UnitController enemyPrefab;
 
     [SerializeField]
-    private Transform[] enemyTrans;
+    public List<Transform> enemyTrans = new List<Transform>();
 
     //ユニット生成待機時間の初期値
     private int timer=100;
@@ -91,7 +91,7 @@ public class UnitGenerator : MonoBehaviour
     /// </summary>
     public void PreparateEnemyUnit()
     {
-        for (int i = 0; i < enemyTrans.Length; i++)
+        for (int i = 0; i < enemyTrans.Count; i++)
         {
             UnitController enemyUnit = Instantiate(enemyPrefab, enemyTrans[i], false);
 

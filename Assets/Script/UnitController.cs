@@ -96,13 +96,11 @@ public class UnitController : MonoBehaviour
                     {
                         standardDistanceValue = nearTargetDistanceValue;
 
-
                         targetUnit = target;
                     }
 
                     if (targetUnit != null)
                     {
-
                         transform.position = Vector3.MoveTowards(transform.position, targetUnit.transform.position, moveSpeed);
 
                         //進行方向を向く
@@ -180,12 +178,12 @@ public class UnitController : MonoBehaviour
         if (targetUnit.hp <= 0)
         {
             isAttack = false;
+            targetUnit.isAttack = false;
             standardDistanceValue = 1000;
 
             gameManager.EnemyList.Remove(targetUnit);
             gameManager.AllyList.Remove(targetUnit);
 
-            //targetUnit.isAttack = false;
             targetUnit.moveSpeed = 0;
             Destroy(targetUnit.gameObject,3);
             targetUnit = null;
