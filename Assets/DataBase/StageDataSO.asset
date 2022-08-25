@@ -13,5 +13,9 @@ MonoBehaviour:
   m_Name: StageDataSO
   m_EditorClassIdentifier: 
   stageDataList:
-  - stageCost: 4
-    stageLv: {fileID: -6211618201631495351, guid: f72dd59c9f25c416ab71fd87595646fd, type: 3}
+  - stageLvIndex: 0
+    stageCost: 4
+    enemyTrans:
+    - {x: 0.05139351, y: 0.71, z: -4.1942825}
+    - {x: -4.21, y: 0, z: 3.5299997}
+    - {x: 4.0999994, y: 0.03, z: 3.5299997}

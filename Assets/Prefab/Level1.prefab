@@ -47,11 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25d950f75cd8443a8afb6ed9e06ca02b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stageLvIndex: 0
-  prefabTran:
-  - {fileID: 8169369813273962856}
-  - {fileID: 8169369811966639663}
-  - {fileID: 8169369812764546044}
+  enemyTrans: []
 --- !u!1 &8169369811966639826
 GameObject:
   m_ObjectHideFlags: 0

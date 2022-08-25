@@ -34,29 +34,23 @@ public class GameManager : MonoBehaviour
     private UIManager uiManager;
 
     [SerializeField]
-    StageLevelIndex stagePrefab;
+    StageInfo stagePrefab;
 
-    private StageLevelIndex stage;
+    private int stageLv;
 
     [Header("ユニットの生成待機時間"),SerializeField]
     private float generateIntaervalTime;
     public float GenerateIntaervalTime { get => generateIntaervalTime; }
 
+
     void Start()
     {
-        stage = Instantiate(stagePrefab);
 
-        foreach(Transform stages in stage.prefabTran)
-        {
-            unitGenerator.enemyTrans.Add(stages);
-        }
-        //for (int i = 0; i < unitGenerator.enemyTrans.Count; i++)
-        //{
-        //    unitGenerator.enemyTrans.Add(stage.prefabTran[i]);
-        //}
+        //SOデータの準備
+        SetupSOData();
 
-            //ユニットデータの準備
-            SetupUnitData();
+        //ステージの準備
+        SelectStage(0);
 
         //味方ユニットの生成準備
         StartCoroutine(unitGenerator.LayoutUnit(this,uiManager));
@@ -78,7 +72,7 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// ゲーム実行時にunitDataSO内のデータリストをGameManager内のデータリストに収納し直す
     /// </summary>
-    public void SetupUnitData()
+    public void SetupSOData()
     {
         //ステージデータのリスト
         for (int i = 0; i < DataBaseManager.instance.stageDataSO.stageDataList.Count; i++)
@@ -95,5 +89,23 @@ public class GameManager : MonoBehaviour
         {
             enemyUnitDatas.Add(DataBaseManager.instance.enemyUnitDataSO.enemyUnitDatasList[i]);
         }
+    }
+
+    public void SelectStage(int index)
+    {
+        //ステージデータの採番
+        for (int i = 0; i < stageDatas.Count; i++)
+        {
+            stageDatas[i].stageLvIndex = i;
+        }
+
+        //StageInfo stage = Instantiate(stageDatas[index].stagePrefab);
+
+        //ステージプレファブが持つ敵の配置情報を敵を生成するメソッドへ送る
+        foreach (Vector3 stages in stageDatas[index].enemyTrans)
+        {
+            unitGenerator.enemyTrans.Add(stages);
+        }
+
     }
 }

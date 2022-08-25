@@ -15,7 +15,7 @@ public class UnitGenerator : MonoBehaviour
     private UnitController enemyPrefab;
 
     [SerializeField]
-    public List<Transform> enemyTrans = new List<Transform>();
+    public List<Vector3> enemyTrans = new List<Vector3>();
 
     //ユニット生成待機時間の初期値
     private int timer=100;
@@ -93,7 +93,7 @@ public class UnitGenerator : MonoBehaviour
     {
         for (int i = 0; i < enemyTrans.Count; i++)
         {
-            UnitController enemyUnit = Instantiate(enemyPrefab, enemyTrans[i], false);
+            UnitController enemyUnit = Instantiate(enemyPrefab, enemyTrans[i], Quaternion.identity);
 
             //生成したユニット用のリストに追加
             gameManager.EnemyList.Add(enemyUnit);
