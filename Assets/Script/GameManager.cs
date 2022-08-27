@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
     public enum GameMode
     {
         Preparate,
+        Preparate_Remove,
         Play,
         Stop,
         GameUp
@@ -33,10 +34,9 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private UIManager uiManager;
 
-    [SerializeField]
-    StageInfo stagePrefab;
+    public int totalCost; //配置ユニットの総コスト
 
-    private int stageLv;
+    public int stageLv=1;
 
     [Header("ユニットの生成待機時間"),SerializeField]
     private float generateIntaervalTime;
@@ -45,12 +45,17 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-
-        //SOデータの準備
+        //SOデータを読み込む
         SetupSOData();
 
         //ステージの準備
-        SelectStage(0);
+        PreparateStage(stageLv);
+
+        //ユニット選択ボタンを設定
+        uiManager.SetupUnitButton(this, modeChange);
+
+        //各種ボタン押下時の準備
+        modeChange.SetupModeChangeButton(this);
 
         //味方ユニットの生成準備
         StartCoroutine(unitGenerator.LayoutUnit(this,uiManager));
@@ -58,15 +63,6 @@ public class GameManager : MonoBehaviour
         //敵ユニットの生成
         unitGenerator.PreparateEnemyUnit();
 
-        ////敵ユニットの移動準備
-        //for (int i = 0; i < EnemyList.Count; i++)
-        //    EnemyList[i].StartMoveUnit(this,AllyList);
-
-        //ユニット選択ボタンを設定
-        uiManager.SetupUnitButton(this);
-
-        //各種ボタン押下時の準備
-        modeChange.SetupModeChangeButton(this);
     }
 
     /// <summary>
@@ -91,21 +87,24 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void SelectStage(int index)
+    /// <summary>
+    /// ステージ毎に敵ユニットを配置する
+    /// </summary>
+    /// <param name="index"></param>
+    public void PreparateStage(int index)
     {
-        //ステージデータの採番
-        for (int i = 0; i < stageDatas.Count; i++)
-        {
-            stageDatas[i].stageLvIndex = i;
-        }
-
-        //StageInfo stage = Instantiate(stageDatas[index].stagePrefab);
-
-        //ステージプレファブが持つ敵の配置情報を敵を生成するメソッドへ送る
+        //ステージデータが持つ敵の配置情報を敵をunitGeneratorへ送る
         foreach (Vector3 stages in stageDatas[index].enemyTrans)
         {
             unitGenerator.enemyTrans.Add(stages);
         }
 
+        //ステージデータの採番
+        //for (int i = 0; i < stageDatas.Count; i++)
+        //{
+        //    stageDatas[i].stageLvIndex = i;
+        //}
+
+        //StageInfo stage = Instantiate(stageDatas[index].stagePrefab);
     }
 }

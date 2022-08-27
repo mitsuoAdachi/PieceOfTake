@@ -29,6 +29,7 @@ public class UnitController : MonoBehaviour
     private int unitNo;
     [SerializeField, Header("コスト")]
     private int cost;
+    public int Cost { get => cost; }
     [SerializeField, Header("HP")]
     private int hp;
     [SerializeField, Header("攻撃力")]

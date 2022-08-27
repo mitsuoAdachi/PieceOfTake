@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1121288835}
   - component: {fileID: 1121288834}
   - component: {fileID: 6737064757360396136}
-  m_Layer: 2
+  m_Layer: 0
   m_Name: RangeCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -73,9 +73,9 @@ GameObject:
   - component: {fileID: 1762177842660525561}
   - component: {fileID: 1762177842660525565}
   - component: {fileID: 7776764615122067728}
-  m_Layer: 2
+  m_Layer: 0
   m_Name: AllyPrefab
-  m_TagString: Untagged
+  m_TagString: Ally
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -188,6 +188,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6987edbc4315247358134efc52be322a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  targetUnit: {fileID: 0}
+  isAttack: 0
   unitNo: 0
   cost: 0
   hp: 0

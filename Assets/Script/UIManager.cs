@@ -5,22 +5,39 @@ using UnityEngine.UI;
 using System;
 
 public class UIManager : MonoBehaviour
-{ 
-    public List<Button> unitSelectButtons = new List<Button>();
-
+{
+    private GameManager gameManager;
+    private ModeChange modeChange;
+    
+    //　UnitSelect()で使用するメンバ変数
     public int btnIndex;
 
+    //　SetupUnitButton()で使用するメンバ変数群
     [SerializeField]
     private Button btnPrefab;
     [SerializeField]
     private Transform btnTran;
 
+    public List<Button> unitSelectButtons = new List<Button>();
+
+    //[SerializeField]
+    //private Text txtCostRatio;
+
+
     /// <summary>
-    /// ボタン押下時にbtnIndexを出力
+    /// ボタン押下時用のメソッド
     /// </summary>
     public void UnitSelect(int index)
     {
+        //ボタンの配列番号を登録
         btnIndex = index;
+
+        //ボタンを押したら配置モードがPreparateに戻るようにする
+        gameManager.gameMode = GameManager.GameMode.Preparate;
+
+        modeChange.TxtPreparateModeChangeButton.text = "Put";
+        modeChange.BtnPreparateModeChange.image.color = new Color32(0, 246, 67, 150);
+
 
         ////ボタン要素を変数に代入しArray.IndexOfで配列番号を取得する
         //Button element = EventSystem.current.currentSelectedGameObject.GetComponent<Button>();
@@ -31,9 +48,12 @@ public class UIManager : MonoBehaviour
     /// <summary>
     /// ユニットボタンの生成と各ボタン押下時の設定
     /// </summary>
-    public void SetupUnitButton(GameManager gameManager)
+    public void SetupUnitButton(GameManager gameManager,ModeChange modeChange)
     {
-        //ユニットデータ数分ボタンを生成
+        this.gameManager = gameManager;
+        this.modeChange = modeChange;
+
+        //ユニットデータと同数のボタンを生成
         for (int i = 0; i < gameManager.allyUnitDatas.Count; i++)
         {
             Debug.Log("ボタン生成開始");
@@ -48,4 +68,11 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    ///// <summary>
+    ///// 配置モードのテキストを変更する
+    ///// </summary>
+    //public void CostRatioTextChange()
+    //{
+    //    txtCostRatio.text = "Stage Cost  " + gameManager.totalCost.ToString() + " / " + gameManager.stageDatas[gameManager.stageLv].stageCost.ToString();
+    //}
 }

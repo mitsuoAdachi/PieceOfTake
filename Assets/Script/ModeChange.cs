@@ -5,26 +5,38 @@ using UnityEngine.UI;
 
 public class ModeChange : MonoBehaviour
 {
-    [SerializeField]
-    private Text txtMode;
+    private GameManager gameManager;
 
+    //ゲームモードボタン用のメンバ変数群
     [SerializeField]
     private Button btnModeChange;
-    public Button BtnModeChange { get => btnModeChange; }
+
+    [SerializeField]
+    private Text txtGameMode;
 
     [SerializeField]
     private Text txtModeChangeButton;
 
-    private GameManager gameManager;
+    //ユニット設置/削除ボタン用のメンバ変数群
+    [SerializeField]
+    private Button btnPreparateModeChange;
+    public Button BtnPreparateModeChange { get => btnPreparateModeChange; }
+
+    [SerializeField]
+    private Text txtPreparateModeChangeButton;
+    public Text TxtPreparateModeChangeButton { get => txtPreparateModeChangeButton; }
 
 
+    /// <summary>
+    /// メソッドをボタンに設定
+    /// </summary>
+    /// <param name="gameManager"></param>
     public void SetupModeChangeButton(GameManager gameManager)
     {
         this.gameManager = gameManager;
 
-        //GameModeChangeメソッドをボタンに設定
-        BtnModeChange.onClick.AddListener(() => GameModeChange());
-
+        btnModeChange.onClick.AddListener(() => GameModeChange());
+        btnPreparateModeChange.onClick.AddListener(() => PreparateGameModeChange());
     }
 
     /// <summary>
@@ -38,14 +50,48 @@ public class ModeChange : MonoBehaviour
             gameManager.gameMode = GameManager.GameMode.Play;
 
             txtModeChangeButton.text = "STOP";
-            txtMode.text = "GAME MODE：プレイ";
+            txtGameMode.text = "GAME MODE：プレイ";
+
+            //ユニット設置モードボタンを押せない状態にする
+            btnPreparateModeChange.interactable = false;
         }
         else
         {
             gameManager.gameMode = GameManager.GameMode.Stop;
 
             txtModeChangeButton.text = "PLAY";
-            txtMode.text = "GAME MODE：ストップ";
+            txtGameMode.text = "GAME MODE：ストップ";
         }
     }
+
+    /// <summary>
+    /// ユニット設置/削除モードの切り替え
+    /// </summary>
+    public void PreparateGameModeChange()
+    {
+        if (gameManager.gameMode != GameManager.GameMode.Preparate_Remove)
+        {
+            gameManager.gameMode = GameManager.GameMode.Preparate_Remove;
+
+            txtPreparateModeChangeButton.text = "Remove";
+            btnPreparateModeChange.image.color = new Color32(255, 31, 0, 150);
+        }
+        else
+        {
+            gameManager.gameMode = GameManager.GameMode.Preparate_Remove;
+
+            txtPreparateModeChangeButton.text = "Put";
+            btnPreparateModeChange.image.color = new Color32(0, 246, 67, 150);
+        }
+    }
+
+    //public void TextChange(Text btnText,string txt)
+    //{
+    //    btnText.text = txt;
+    //}
+
+    //public void TextColorChange(Button btn,Color32 col)
+    //{
+    //    btn.image.color = col;
+    //}
 }

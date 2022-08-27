@@ -1,24 +1,31 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
 public class UnitGenerator : MonoBehaviour
 {
     private GameManager gameManager;
-
     private UIManager uiManager;
 
+    private int generateTimer = 100;    //ユニット生成待機時間の初期値
+
+    // LayoutUnit()で使用するメンバ変数群
     [SerializeField]
     private UnitController allyPrefab;
+
+    // PreparateEnemyUnit()で使用するメンバ変数群
     [SerializeField]
     private UnitController enemyPrefab;
 
     [SerializeField]
     public List<Vector3> enemyTrans = new List<Vector3>();
 
-    //ユニット生成待機時間の初期値
-    private int timer=100;
+    //RemoveLayoutUnit()で使用するメンバ変数
+    [SerializeField]
+    private Text txtCostRatio;
+
 
     /// <summary>
     /// クリックした位置にユニットを生成
@@ -30,28 +37,27 @@ public class UnitGenerator : MonoBehaviour
         this.gameManager = gameManager;
         this.uiManager = uiManager;
 
-        //Debug.Log("生成開始");
-        while (true)
+        //　配置したユニットを削除する機能の準備
+        StartCoroutine(RemoveLayoutUnit());
+
+        //　ステージコスト＞配置ユニットの総コストの間ループ
+        while (gameManager.stageDatas[gameManager.stageLv].stageCost > gameManager.totalCost)
         {
-            timer++;
+            generateTimer++;
 
             if (gameManager.gameMode == GameManager.GameMode.Preparate && GenerateIntervalBool())
             {
-                //UI上ではRayが反応しないようにする
+                //　UI上ではRayが反応しないようにする
                 if (!EventSystem.current.IsPointerOverGameObject())
                 {
-                    //Debug.Log("生成準備1");
                     if (Input.GetMouseButton(0))
                     {
-                        //画面クリックした座標をRay型の変数へ登録
-                        //Debug.Log("生成準備2");
+                        //　画面クリックした座標をRay型の変数へ登録
                         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-                        //rayが接触したオブジェクトの情報をRaycasthit型の変数へ登録
+                        //　rayが接触したオブジェクトの情報をRaycasthit型の変数へ登録
                         if (Physics.Raycast(ray, out RaycastHit hit))
                         {
-                            //Debug.Log("Ray座標" + hit.point);
-
                             UnitController allyUnit = Instantiate(allyPrefab, hit.point, Quaternion.identity);
 
                             //生成ユニットの位置調整
@@ -66,7 +72,10 @@ public class UnitGenerator : MonoBehaviour
                             //生成したユニット用のリストに追加
                             gameManager.AllyList.Add(allyUnit);
 
-                            timer = 0;
+                            //生成したユニットのコスト値を加算
+                            gameManager.totalCost += allyUnit.Cost;
+
+                            generateTimer = 0;
                         }
                     }
                 }
@@ -81,9 +90,8 @@ public class UnitGenerator : MonoBehaviour
     /// <returns></returns>
     private bool GenerateIntervalBool()
     {
-        if(timer >= gameManager.GenerateIntaervalTime)
-            return true;
-       else return false;       
+        if(generateTimer >= gameManager.GenerateIntaervalTime) return true;
+      else return false;       
     }
 
     /// <summary>
@@ -106,24 +114,34 @@ public class UnitGenerator : MonoBehaviour
         }
     }
 
-
     /// <summary>
-    /// 生成したユニットの移動メソッドをセットアップ
+    /// Preparate_Removeモード時クリックしたユニットを削除する
     /// </summary>
-    //private void SetupMoveUnit()
-    //{
-    //    StartCoroutine(unit.MoveUnit(gameManager, gameManager.EnemyList));
-    //}
+    /// <returns></returns>
+    public IEnumerator RemoveLayoutUnit()
+    {
+        while (true)
+        {
+            //uiManager.CostRatioTextChange();
+            txtCostRatio.text = "Stage Cost  " + gameManager.totalCost.ToString() + " / " + gameManager.stageDatas[gameManager.stageLv].stageCost.ToString();
 
-    //private bool GenerateRange()
-    //{
-    //    Vector3 clickPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-    //    float x = Mathf.Clamp(clickPos.x, -5, 5);
-    //    float z = Mathf.Clamp(clickPos.z, -4.5f, 0);
+            if (Input.GetMouseButton(0) && gameManager.gameMode == GameManager.GameMode.Preparate_Remove)
+            {
+                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                if(Physics.Raycast(ray ,out RaycastHit hit) && hit.transform.gameObject.tag=="Ally")
+                {
+                    UnitController hitUnit = hit.transform.gameObject.GetComponent<UnitController>();
 
-    //    if (clickPos == new Vector3(x, 0, z))
-    //        return true;
-    //    else return false;
-    //}
+                    Destroy(hit.transform.gameObject);
+
+                    //リストから削除、トータルコストを減算
+                    gameManager.AllyList.Remove(hitUnit);
+                    gameManager.totalCost -= hitUnit.Cost;
+
+                }
+            }
+            yield return null;
+        }
+    }
 }
