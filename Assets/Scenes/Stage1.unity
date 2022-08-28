@@ -106,7 +106,7 @@ NavMeshSettings:
   m_BuildSettings:
     serializedVersion: 2
     agentTypeID: 0
-    agentRadius: 0.5
+    agentRadius: 0.05
     agentHeight: 2
     agentSlope: 45
     agentClimb: 0.4
@@ -114,7 +114,7 @@ NavMeshSettings:
     maxJumpAcrossDistance: 0
     minRegionArea: 2
     manualCellSize: 0
-    cellSize: 0.16666667
+    cellSize: 0.016666668
     manualTileSize: 0
     tileSize: 256
     accuratePlacement: 0
@@ -122,7 +122,7 @@ NavMeshSettings:
     preserveTilesOutsideBounds: 0
     debug:
       m_Flags: 0
-  m_NavMeshData: {fileID: 0}
+  m_NavMeshData: {fileID: 23800000, guid: e41ecd53e2e93414f84ecc8a25f9431b, type: 2}
 --- !u!1 &210280876
 GameObject:
   m_ObjectHideFlags: 0
@@ -1173,7 +1173,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!23 &1212192724
 MeshRenderer:
@@ -1301,7 +1301,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b062ffbb6ecae4fd5ae6a9a532aaa138, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  allyPrefab: {fileID: 7776764615122067728, guid: ef1380d084e6946a69863e0099b7cec6, type: 3}
   enemyPrefab: {fileID: 5842469560257955075, guid: 32ef427fa60d742a491233c5d0ca3e89, type: 3}
   enemyTrans: []
   txtCostRatio: {fileID: 1419647554}

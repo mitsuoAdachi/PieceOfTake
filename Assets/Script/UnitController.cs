@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 using DG.Tweening;
 
 public class UnitController : MonoBehaviour
@@ -13,16 +14,21 @@ public class UnitController : MonoBehaviour
     private GameManager gameManager;
     private UIManager uiManager;
 
+    private NavMeshAgent agent;
+
     //敵の距離を比較するための基準となる変数。適当な数値を代入
     private float standardDistanceValue = 1000;　
 
     private int maxHp;
 
+    [SerializeField]
     private int timer;
 
     private Vector3 latestPos;
 
     public bool isAttack = false;
+
+    private Animator anime;
 
     //ユニットステータス群
     [SerializeField, Header("ユニットNo.")]
@@ -80,6 +86,7 @@ public class UnitController : MonoBehaviour
     public IEnumerator MoveUnit(GameManager gameManager,List<UnitController> unitList)
     {
         this.gameManager = gameManager;
+        anime = GetComponent<Animator>();
 
         //Debug.Log("監視開始");
         while (this.hp >= 0)
@@ -102,14 +109,21 @@ public class UnitController : MonoBehaviour
 
                     if (targetUnit != null)
                     {
-                        transform.position = Vector3.MoveTowards(transform.position, targetUnit.transform.position, moveSpeed);
+                        //ナビメッシュを使用した移動
+                        agent = GetComponent<NavMeshAgent>();
+                        agent.destination = targetUnit.transform.position;
+
+                        anime.SetFloat("walk", agent.velocity.magnitude);
+
+                        //MoveTowardsを使用した移動
+                        //transform.position = Vector3.MoveTowards(transform.position, targetUnit.transform.position, moveSpeed);
 
                         //進行方向を向く
-                        Vector3 diff = transform.position - latestPos;
-                        latestPos = transform.position;
+                        //Vector3 diff = transform.position - latestPos;
+                        //latestPos = transform.position;
 
-                        if (diff.magnitude > 0.01f)
-                            transform.rotation = Quaternion.LookRotation(-diff);
+                        //if (diff.magnitude > 0.01f)
+                        //    transform.rotation = Quaternion.LookRotation(-diff);
                     }
 
                 }
@@ -182,6 +196,8 @@ public class UnitController : MonoBehaviour
             targetUnit.isAttack = false;
             standardDistanceValue = 1000;
 
+            targetUnit.anime.SetTrigger("dead");
+
             gameManager.EnemyList.Remove(targetUnit);
             gameManager.AllyList.Remove(targetUnit);
 
@@ -200,9 +216,12 @@ public class UnitController : MonoBehaviour
     /// <param name="blowPower"></param>
     private void KnockBack(float blowPower)
     {
-        Rigidbody targetRb = targetUnit.GetComponent<Rigidbody>();
-        targetRb.velocity = transform.forward * blowPower;
+        targetUnit.agent.velocity += transform.forward * blowPower;
+        targetUnit.anime.SetTrigger("knockBack");
+        //Rigidbody targetRb = targetUnit.GetComponent<Rigidbody>();
+        //targetRb.velocity = transform.forward * blowPower;
         blowPower *= 0.98f;
         //targetUnit.transform.DOMove(transform.forward * blowPower,1);
+
     }
 }

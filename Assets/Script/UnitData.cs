@@ -12,6 +12,7 @@ public class UnitData
     public float weight;
     public float intervalTime;
     public AttackRangeType attackRangeType;
+    public UnitController UnitPrefab;
 
     public Material material;
 

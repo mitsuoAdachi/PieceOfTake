@@ -11,10 +11,6 @@ public class UnitGenerator : MonoBehaviour
 
     private int generateTimer = 100;    //ユニット生成待機時間の初期値
 
-    // LayoutUnit()で使用するメンバ変数群
-    [SerializeField]
-    private UnitController allyPrefab;
-
     // PreparateEnemyUnit()で使用するメンバ変数群
     [SerializeField]
     private UnitController enemyPrefab;
@@ -58,10 +54,11 @@ public class UnitGenerator : MonoBehaviour
                         //　rayが接触したオブジェクトの情報をRaycasthit型の変数へ登録
                         if (Physics.Raycast(ray, out RaycastHit hit))
                         {
-                            UnitController allyUnit = Instantiate(allyPrefab, hit.point, Quaternion.identity);
+                            //UnitController allyUnit = Instantiate(allyPrefab, hit.point, Quaternion.identity);
+                            UnitController allyUnit = Instantiate(gameManager.allyUnitDatas[uiManager.btnIndex].UnitPrefab, hit.point, Quaternion.identity);
 
-                            //生成ユニットの位置調整
-                            allyUnit.transform.position = new Vector3(allyUnit.transform.position.x, hit.point.y + 0.5f, allyUnit.transform.position.z);
+                            ////生成ユニットの位置調整
+                            //allyUnit.transform.position = new Vector3(allyUnit.transform.position.x, hit.point.y + 0.5f, allyUnit.transform.position.z);
 
                             //生成したユニットに移動能力を付与
                             allyUnit.StartMoveUnit(gameManager, gameManager.EnemyList);

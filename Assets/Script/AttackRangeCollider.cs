@@ -23,4 +23,9 @@ public class AttackRangeCollider : MonoBehaviour
             }
         }
     }
+
+    private void OnTriggerExit(Collider other)
+    {
+        unitController.isAttack = false;
+    }
 }
