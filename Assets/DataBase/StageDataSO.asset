@@ -15,14 +15,7 @@ MonoBehaviour:
   stageDataList:
   - stageLvIndex: 0
     stageCost: 4
-    enemyTrans:
-    - {x: 0.05139351, y: 0.71, z: -4.1942825}
-    - {x: -4.21, y: 0, z: 3.5299997}
-    - {x: 4.0999994, y: 0.03, z: 3.5299997}
+    stagePrefab: {fileID: 5478011967272678776, guid: 721853b9caa8c411ba02f8f6dc10a90d, type: 3}
   - stageLvIndex: 0
     stageCost: 6
-    enemyTrans:
-    - {x: -3.53, y: 0, z: 3.8}
-    - {x: -1.77, y: 0, z: 1.98}
-    - {x: 1.67, y: 0, z: 3.81}
-    - {x: 3.61, y: 0, z: 1.8}
+    stagePrefab: {fileID: 0}

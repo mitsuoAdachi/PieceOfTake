@@ -11,9 +11,9 @@ public class UnitGenerator : MonoBehaviour
 
     private int generateTimer = 100;    //ユニット生成待機時間の初期値
 
-    // PreparateEnemyUnit()で使用するメンバ変数群
-    [SerializeField]
-    private UnitController enemyPrefab;
+    //// PreparateEnemyUnit()で使用するメンバ変数群
+    //[SerializeField]
+    //private UnitController enemyPrefab;
 
     [SerializeField]
     public List<Vector3> enemyTrans = new List<Vector3>();
@@ -94,22 +94,22 @@ public class UnitGenerator : MonoBehaviour
     /// <summary>
     /// 敵ユニットの生成
     /// </summary>
-    public void PreparateEnemyUnit()
-    {
-        for (int i = 0; i < enemyTrans.Count; i++)
-        {
-            UnitController enemyUnit = Instantiate(enemyPrefab, enemyTrans[i], Quaternion.identity);
+    //public void PreparateEnemyUnit()
+    //{
+    //    for (int i = 0; i < enemyTrans.Count; i++)
+    //    {
+    //        UnitController enemyUnit = Instantiate(gameManager.enemyUnitDatas[i].UnitPrefab, enemyTrans[i], Quaternion.identity);
 
-            //生成したユニット用のリストに追加
-            gameManager.EnemyList.Add(enemyUnit);
+    //        //生成したユニット用のリストに追加
+    //        gameManager.EnemyList.Add(enemyUnit);
 
-            //生成したユニットに移動能力を付与
-            enemyUnit.StartMoveUnit(gameManager, gameManager.AllyList);
+    //        //生成したユニットに移動能力を付与
+    //        enemyUnit.StartMoveUnit(gameManager, gameManager.AllyList);
 
-            //生成したユニットにステータスを付与
-            enemyUnit.SetupUnitState(gameManager.enemyUnitDatas, uiManager);
-        }
-    }
+    //        //生成したユニットにステータスを付与
+    //        enemyUnit.SetupUnitState(gameManager.enemyUnitDatas, uiManager);
+    //    }
+    //}
 
     /// <summary>
     /// Preparate_Removeモード時クリックしたユニットを削除する

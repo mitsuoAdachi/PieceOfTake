@@ -20,6 +20,7 @@ MonoBehaviour:
     blowPower: 5
     moveSpeed: 0.001
     weight: 0
-    intervalTime: 500
-    attackRangeType: 0
+    intervalTime: 1000
+    attackRangeType: 1
+    UnitPrefab: {fileID: 834000593253369552, guid: 4d7ad4d2cfdb4481c9da73dff10f7a6f, type: 3}
     material: {fileID: 2100000, guid: 2ac9e7a5952e84973973f7b5be4127a7, type: 2}

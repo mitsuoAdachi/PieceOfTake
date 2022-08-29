@@ -97,7 +97,7 @@ public class UnitController : MonoBehaviour
                 if (gameManager.gameMode == GameManager.GameMode.Play && target != null)
                 {
                     //EnemyUnitList内に登録してあるオブジェクトとの距離を測り変数に代入する
-                    float nearTargetDistanceValue = Vector3.Distance(transform.position, target.transform.position);
+                    float nearTargetDistanceValue = Vector3.SqrMagnitude(target.transform.position - transform.position);
 
                     //基準値より小さければその数値を基準値に代入していき一番小さい数値が変数に残る。その数値を持つオブジェクトが一番近い敵となる
                     if (standardDistanceValue > nearTargetDistanceValue)
@@ -113,34 +113,25 @@ public class UnitController : MonoBehaviour
                         agent = GetComponent<NavMeshAgent>();
                         agent.destination = targetUnit.transform.position;
 
-                        anime.SetFloat("walk", agent.velocity.magnitude);
+                        anime.SetFloat("walk", agent.velocity.sqrMagnitude);
 
-                        //MoveTowardsを使用した移動
-                        //transform.position = Vector3.MoveTowards(transform.position, targetUnit.transform.position, moveSpeed);
-
+                        transform.LookAt(targetUnit.transform);
                         //進行方向を向く
                         //Vector3 diff = transform.position - latestPos;
                         //latestPos = transform.position;
 
                         //if (diff.magnitude > 0.01f)
-                        //    transform.rotation = Quaternion.LookRotation(-diff);
+                        //    transform.rotation = Quaternion.LookRotation(diff);
                     }
+                    else
+                        //anime.SetFloat("walk", 0);
+                        agent.speed = 0;
 
                 }
+                else
+                    anime.SetFloat("walk", 0);
+                    //agent.speed = 0;
             }
-            
-            //Debug.Log("移動準備完了");
-            //if (gameManager.gameMode == GameManager.GameMode.Play && targetUnit != null)
-            //{
-            //    transform.position = Vector3.MoveTowards(transform.position, targetUnit.transform.position, moveSpeed);
-
-            //    //進行方向を向く
-            //    Vector3 diff = transform.position - latestPos;
-            //    latestPos = transform.position;
-
-            //    if (diff.magnitude > 0.01f)
-            //        transform.rotation = Quaternion.LookRotation(-diff);
-            //}
             yield return null;
         }
     }
@@ -192,6 +183,9 @@ public class UnitController : MonoBehaviour
 
         if (targetUnit.hp <= 0)
         {
+            targetUnit.agent.isStopped = true;
+            targetUnit.targetUnit = null;
+
             isAttack = false;
             targetUnit.isAttack = false;
             standardDistanceValue = 1000;
@@ -201,7 +195,6 @@ public class UnitController : MonoBehaviour
             gameManager.EnemyList.Remove(targetUnit);
             gameManager.AllyList.Remove(targetUnit);
 
-            targetUnit.moveSpeed = 0;
             Destroy(targetUnit.gameObject,3);
             targetUnit = null;
         }

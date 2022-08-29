@@ -61,7 +61,7 @@ public class GameManager : MonoBehaviour
         StartCoroutine(unitGenerator.LayoutUnit(this,uiManager));
 
         //敵ユニットの生成
-        unitGenerator.PreparateEnemyUnit();
+        //unitGenerator.PreparateEnemyUnit();
 
     }
 
@@ -93,18 +93,17 @@ public class GameManager : MonoBehaviour
     /// <param name="index"></param>
     public void PreparateStage(int index)
     {
-        //ステージデータが持つ敵の配置情報を敵をunitGeneratorへ送る
-        foreach (Vector3 stages in stageDatas[index].enemyTrans)
+        StageInfo stage = Instantiate(stageDatas[index].stagePrefab);
+
+        for(int i = 0; i < stage.enemyPrefabs.Length; i++)
         {
-            unitGenerator.enemyTrans.Add(stages);
+            UnitController enemy = stage.enemyPrefabs[i].GetComponent<UnitController>();
+
+            enemy.StartMoveUnit(this, AllyList);
+
+            enemy.SetupUnitState(enemyUnitDatas, uiManager);
+
+            EnemyList.Add(enemy);
         }
-
-        //ステージデータの採番
-        //for (int i = 0; i < stageDatas.Count; i++)
-        //{
-        //    stageDatas[i].stageLvIndex = i;
-        //}
-
-        //StageInfo stage = Instantiate(stageDatas[index].stagePrefab);
     }
 }

@@ -1301,7 +1301,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b062ffbb6ecae4fd5ae6a9a532aaa138, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyPrefab: {fileID: 5842469560257955075, guid: 32ef427fa60d742a491233c5d0ca3e89, type: 3}
   enemyTrans: []
   txtCostRatio: {fileID: 1419647554}
 --- !u!4 &1289028339
