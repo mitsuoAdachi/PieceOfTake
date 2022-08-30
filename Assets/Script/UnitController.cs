@@ -6,10 +6,7 @@ using DG.Tweening;
 
 public class UnitController : MonoBehaviour
 {
-
-    [SerializeField]
-    private UnitController targetUnit;
-    public UnitController TargetUnit { get => targetUnit; }
+    public UnitController targetUnit;
 
     private GameManager gameManager;
     private UIManager uiManager;
@@ -29,6 +26,8 @@ public class UnitController : MonoBehaviour
     public bool isAttack = false;
 
     private Animator anime;
+    private int attackAnime;
+    private int walkAnime;
 
     //ユニットステータス群
     [SerializeField, Header("ユニットNo.")]
@@ -53,6 +52,15 @@ public class UnitController : MonoBehaviour
     
     public Material material;
 
+    private void Start()
+    {
+        agent = GetComponent<NavMeshAgent>();
+
+        anime = GetComponent<Animator>();
+        attackAnime = Animator.StringToHash("attack");
+        walkAnime = Animator.StringToHash("walk");
+
+    }
     /// <summary>
     /// ユニットステータスの設定
     /// </summary>
@@ -86,7 +94,6 @@ public class UnitController : MonoBehaviour
     public IEnumerator MoveUnit(GameManager gameManager,List<UnitController> unitList)
     {
         this.gameManager = gameManager;
-        anime = GetComponent<Animator>();
 
         //Debug.Log("監視開始");
         while (this.hp >= 0)
@@ -110,10 +117,10 @@ public class UnitController : MonoBehaviour
                     if (targetUnit != null)
                     {
                         //ナビメッシュを使用した移動
-                        agent = GetComponent<NavMeshAgent>();
                         agent.destination = targetUnit.transform.position;
 
-                        anime.SetFloat("walk", agent.velocity.sqrMagnitude);
+                        int walkpower = Animator.StringToHash("walk");
+                        anime.SetFloat(walkpower, agent.velocity.sqrMagnitude);
 
                         transform.LookAt(targetUnit.transform);
                         //進行方向を向く
@@ -124,13 +131,10 @@ public class UnitController : MonoBehaviour
                         //    transform.rotation = Quaternion.LookRotation(diff);
                     }
                     else
-                        //anime.SetFloat("walk", 0);
-                        agent.speed = 0;
+                        anime.SetFloat(walkAnime, 0);
+                        //agent.speed = 0;
 
                 }
-                else
-                    anime.SetFloat("walk", 0);
-                    //agent.speed = 0;
             }
             yield return null;
         }
@@ -164,7 +168,9 @@ public class UnitController : MonoBehaviour
                 {
                     timer = 0;
 
-                    Attack(attackPower);
+                    //Attack(attackPower);
+                    anime.SetTrigger(attackAnime);
+                    
                 }
             }
             yield return null;
@@ -176,31 +182,35 @@ public class UnitController : MonoBehaviour
     /// 対象にダメージを与える、倒した時の処理、ノックバック演出
     /// </summary>
     /// <param name="amount"></param>
-    public void Attack(int amount)
+    public void Attack()
     {
         Debug.Log("Attack()開始");
-        targetUnit.hp = Mathf.Clamp(targetUnit.hp -= amount, 0, maxHp);
-
-        if (targetUnit.hp <= 0)
+        if (targetUnit != null)
         {
-            targetUnit.agent.isStopped = true;
-            targetUnit.targetUnit = null;
+            targetUnit.hp = Mathf.Clamp(targetUnit.hp -= attackPower, 0, maxHp);
 
-            isAttack = false;
-            targetUnit.isAttack = false;
-            standardDistanceValue = 1000;
+            if (targetUnit.hp <= 0)
+            {
+                targetUnit.agent.isStopped = true;
+                targetUnit.targetUnit = null;
 
-            targetUnit.anime.SetTrigger("dead");
+                isAttack = false;
+                targetUnit.isAttack = false;
+                targetUnit.timer = 0;
+                standardDistanceValue = 1000;
 
-            gameManager.EnemyList.Remove(targetUnit);
-            gameManager.AllyList.Remove(targetUnit);
+                targetUnit.anime.SetTrigger("dead");
 
-            Destroy(targetUnit.gameObject,3);
-            targetUnit = null;
+                gameManager.EnemyList.Remove(targetUnit);
+                gameManager.AllyList.Remove(targetUnit);
+
+                Destroy(targetUnit.gameObject, 3);
+                targetUnit = null;
+            }
+            else
+                //ノックバック演出
+                KnockBack(this.blowPower);
         }
-        else
-        //ノックバック演出
-        KnockBack(this.blowPower);
     }
 
     /// <summary>

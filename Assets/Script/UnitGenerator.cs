@@ -22,6 +22,15 @@ public class UnitGenerator : MonoBehaviour
     [SerializeField]
     private Text txtCostRatio;
 
+    private Camera mainCamera;
+
+    //private Transform tran;
+
+    void Start()
+    {
+        //tran = GetComponent<Transform>();
+        mainCamera = Camera.main;
+    }
 
     /// <summary>
     /// クリックした位置にユニットを生成
@@ -48,8 +57,8 @@ public class UnitGenerator : MonoBehaviour
                 {
                     if (Input.GetMouseButton(0))
                     {
-                        //　画面クリックした座標をRay型の変数へ登録
-                        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                       //画面クリックした座標をRay型の変数へキャッシュ
+                       Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
 
                         //　rayが接触したオブジェクトの情報をRaycasthit型の変数へ登録
                         if (Physics.Raycast(ray, out RaycastHit hit))
@@ -125,10 +134,11 @@ public class UnitGenerator : MonoBehaviour
 
             if (Input.GetMouseButton(0) && gameManager.gameMode == GameManager.GameMode.Preparate_Remove)
             {
-                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                if(Physics.Raycast(ray ,out RaycastHit hit) && hit.transform.gameObject.tag=="Ally")
+                Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
+
+                if (Physics.Raycast(ray ,out RaycastHit hit) && hit.transform.gameObject.tag=="Ally")
                 {
-                    UnitController hitUnit = hit.transform.gameObject.GetComponent<UnitController>();
+                    UnitController hitUnit = hit.transform.GetComponent<UnitController>();
 
                     Destroy(hit.transform.gameObject);
 
