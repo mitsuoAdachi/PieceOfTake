@@ -15,7 +15,7 @@ MonoBehaviour:
   enemyUnitDatasList:
   - unitNo: 1
     cost: 0
-    hp: 10
+    hp: 3
     attackPower: 1
     blowPower: 5
     moveSpeed: 0.001

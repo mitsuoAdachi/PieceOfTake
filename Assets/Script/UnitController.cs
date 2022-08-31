@@ -6,7 +6,9 @@ using DG.Tweening;
 
 public class UnitController : MonoBehaviour
 {
-    public UnitController targetUnit;
+    [SerializeField]
+    private UnitController targetUnit;
+    public UnitController TargetUnit { get => targetUnit; }
 
     private GameManager gameManager;
     private UIManager uiManager;
@@ -14,7 +16,7 @@ public class UnitController : MonoBehaviour
     private NavMeshAgent agent;
 
     //敵の距離を比較するための基準となる変数。適当な数値を代入
-    private float standardDistanceValue = 1000;　
+    public float standardDistanceValue = 1000;　
 
     private int maxHp;
 
@@ -27,7 +29,9 @@ public class UnitController : MonoBehaviour
 
     private Animator anime;
     private int attackAnime;
+    private int knockBackAnime;
     private int walkAnime;
+    private int deadAnime;
 
     //ユニットステータス群
     [SerializeField, Header("ユニットNo.")]
@@ -54,12 +58,11 @@ public class UnitController : MonoBehaviour
 
     private void Start()
     {
-        agent = GetComponent<NavMeshAgent>();
-
         anime = GetComponent<Animator>();
         attackAnime = Animator.StringToHash("attack");
+        knockBackAnime = Animator.StringToHash("knockBack");
         walkAnime = Animator.StringToHash("walk");
-
+        deadAnime = Animator.StringToHash("dead");
     }
     /// <summary>
     /// ユニットステータスの設定
@@ -69,6 +72,8 @@ public class UnitController : MonoBehaviour
     /// <returns></returns>
     public void SetupUnitState(List<UnitData> unitDatas,UIManager uiManager)
     {
+        agent = GetComponent<NavMeshAgent>();
+
         this.uiManager = uiManager;
 
         unitNo = unitDatas[uiManager.btnIndex].unitNo;
@@ -76,7 +81,7 @@ public class UnitController : MonoBehaviour
         hp = unitDatas[uiManager.btnIndex].hp;
         attackPower = unitDatas[uiManager.btnIndex].attackPower;
         blowPower = unitDatas[uiManager.btnIndex].blowPower;
-        moveSpeed = unitDatas[uiManager.btnIndex].moveSpeed;
+        agent.speed = unitDatas[uiManager.btnIndex].moveSpeed;
         weight = unitDatas[uiManager.btnIndex].weight;
         (attackRangeSize.size, attackRangeSize.center) = DataBaseManager.instance.GetAttackRange(unitDatas[uiManager.btnIndex].attackRangeType);
         intervalTime = unitDatas[uiManager.btnIndex].intervalTime;
@@ -119,8 +124,7 @@ public class UnitController : MonoBehaviour
                         //ナビメッシュを使用した移動
                         agent.destination = targetUnit.transform.position;
 
-                        int walkpower = Animator.StringToHash("walk");
-                        anime.SetFloat(walkpower, agent.velocity.sqrMagnitude);
+                        anime.SetFloat(walkAnime, agent.velocity.sqrMagnitude);
 
                         transform.LookAt(targetUnit.transform);
                         //進行方向を向く
@@ -131,13 +135,16 @@ public class UnitController : MonoBehaviour
                         //    transform.rotation = Quaternion.LookRotation(diff);
                     }
                     else
+                    {
+                        standardDistanceValue = 1000;
                         anime.SetFloat(walkAnime, 0);
                         //agent.speed = 0;
-
+                    }
                 }
             }
             yield return null;
         }
+        Debug.Log(this.name + "MoveUnit終了");
     }
 
     /// <summary>
@@ -156,10 +163,11 @@ public class UnitController : MonoBehaviour
     /// <returns></returns>
     public IEnumerator PreparateAttack()
     {
-        Debug.Log("攻撃準備開始");
+        //Debug.Log("攻撃準備開始");
 
-        while (isAttack)
-        {
+        //while (isAttack)
+        while (this.hp > 0 && isAttack)
+            {
             if (gameManager.gameMode == GameManager.GameMode.Play)
             {
                 timer++;
@@ -169,11 +177,12 @@ public class UnitController : MonoBehaviour
                     timer = 0;
 
                     //Attack(attackPower);
-                    anime.SetTrigger(attackAnime);
-                    
+                    anime.SetTrigger(attackAnime);                   
                 }
             }
             yield return null;
+
+            Debug.Log(this.name + "攻撃終了");
         }
         yield break;
     }
@@ -191,15 +200,13 @@ public class UnitController : MonoBehaviour
 
             if (targetUnit.hp <= 0)
             {
-                targetUnit.agent.isStopped = true;
+                //targetUnit.agent.isStopped = true;
                 targetUnit.targetUnit = null;
 
                 isAttack = false;
-                targetUnit.isAttack = false;
-                targetUnit.timer = 0;
                 standardDistanceValue = 1000;
 
-                targetUnit.anime.SetTrigger("dead");
+                targetUnit.anime.SetTrigger(deadAnime);
 
                 gameManager.EnemyList.Remove(targetUnit);
                 gameManager.AllyList.Remove(targetUnit);
@@ -220,7 +227,7 @@ public class UnitController : MonoBehaviour
     private void KnockBack(float blowPower)
     {
         targetUnit.agent.velocity += transform.forward * blowPower;
-        targetUnit.anime.SetTrigger("knockBack");
+        targetUnit.anime.SetTrigger(knockBackAnime);
         //Rigidbody targetRb = targetUnit.GetComponent<Rigidbody>();
         //targetRb.velocity = transform.forward * blowPower;
         blowPower *= 0.98f;

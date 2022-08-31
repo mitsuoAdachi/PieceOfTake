@@ -152,14 +152,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 361262222883317613}
-  m_LocalRotation: {x: 0.7253379, y: 0.03521925, z: 0.05199675, w: 0.6855223}
-  m_LocalPosition: {x: 0.07409594, y: 0.012256402, z: -0.054409053}
+  m_LocalRotation: {x: 0.9970315, y: 0.061857812, z: 0.010848557, w: -0.044544976}
+  m_LocalPosition: {x: 0.143, y: 0.021, z: -0.053}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 361262222883550409}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 185.173, y: -0.9279785, z: -7.0579834}
 --- !u!1 &361262222883317615
 GameObject:
   m_ObjectHideFlags: 0
@@ -1980,6 +1980,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetUnit: {fileID: 0}
+  standardDistanceValue: 1000
   timer: 0
   isAttack: 0
   unitNo: 0

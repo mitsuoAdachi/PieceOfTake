@@ -10,9 +10,9 @@ public class AttackRangeCollider : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (unitController.targetUnit != null)
+        if (unitController.TargetUnit != null)
         {
-            if (other.gameObject == unitController.targetUnit.gameObject)
+            if (other.gameObject == unitController.TargetUnit.gameObject)
             {
                 unitController.isAttack = true;
 
@@ -24,7 +24,6 @@ public class AttackRangeCollider : MonoBehaviour
     private void OnTriggerExit(Collider other)
     {
         unitController.isAttack = false;
-
         //unitController.targetUnit = null;
     }
 }
