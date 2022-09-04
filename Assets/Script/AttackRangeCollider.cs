@@ -4,26 +4,29 @@ using UnityEngine;
 
 public class AttackRangeCollider : MonoBehaviour
 {
-
     [SerializeField]
-    private UnitController unitController;
+    private UnitController myUnitController;
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
-        if (unitController.TargetUnit != null)
-        {
-            if (other.gameObject == unitController.TargetUnit.gameObject)
-            {
-                unitController.isAttack = true;
+        //rangeCollider.enabled = true;
 
-                StartCoroutine(unitController.PreparateAttack());
+        if (myUnitController.TargetUnit != null)
+        {
+            if (other.gameObject == myUnitController.TargetUnit.gameObject)
+            {
+                myUnitController.isAttack = true;
+
+                //StartCoroutine(myUnitController.PreparateAttack());
+                myUnitController.PreparateAttack();
             }
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        unitController.isAttack = false;
-        //unitController.targetUnit = null;
+        myUnitController.isAttack = false;
+
+        //myUnitController.TargetUnit.gameObject = null;
     }
 }

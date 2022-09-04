@@ -17,54 +17,54 @@ MonoBehaviour:
     cost: 1
     hp: 10
     attackPower: 1
-    blowPower: 5
-    moveSpeed: 0.0005
+    blowPower: 3
+    moveSpeed: 0.5
     weight: 0
-    intervalTime: 1000
+    intervalTime: 1200
     attackRangeType: 0
-    UnitPrefab: {fileID: 607880150392131809, guid: 3f7dbd67c8468485abac4a15e49d7fe6, type: 3}
-    material: {fileID: 2100000, guid: 745f73edf8da5446d965c48c8299a3a6, type: 2}
-  - unitNo: 0
-    cost: 1
+    UnitPrefab: {fileID: 3272475995211424383, guid: e83bbcc9d3b6341ccb44f29e5534d628, type: 3}
+    material: {fileID: 2100000, guid: 67c6985106584cb489a175f22e14c7bb, type: 2}
+  - unitNo: 1
+    cost: 2
     hp: 10
     attackPower: 4
     blowPower: 2
-    moveSpeed: 0.002
+    moveSpeed: 0.5
     weight: 0
-    intervalTime: 600
-    attackRangeType: 1
+    intervalTime: 1600
+    attackRangeType: 2
     UnitPrefab: {fileID: 4636930327582671047, guid: fe32670d5839542d4adeed7b02da994e, type: 3}
     material: {fileID: 2100000, guid: a810e2b571ffc4a9da6698e85edb239b, type: 2}
-  - unitNo: 0
-    cost: 1
-    hp: 10
-    attackPower: 3
-    blowPower: 3
-    moveSpeed: 0.004
-    weight: 0
-    intervalTime: 400
-    attackRangeType: 0
-    UnitPrefab: {fileID: 0}
-    material: {fileID: 2100000, guid: 34c568ad656b1491dbc32e3958c3ab06, type: 2}
-  - unitNo: 0
-    cost: 1
-    hp: 10
-    attackPower: 4
-    blowPower: 4
-    moveSpeed: 0.005
-    weight: 0
-    intervalTime: 500
-    attackRangeType: 0
-    UnitPrefab: {fileID: 0}
-    material: {fileID: 2100000, guid: 4c241d422ae6146bcbdb5d4e9e62c313, type: 2}
-  - unitNo: 0
-    cost: 1
-    hp: 10
-    attackPower: 5
+  - unitNo: 2
+    cost: 2
+    hp: 2
+    attackPower: 2
     blowPower: 5
-    moveSpeed: 0.006
+    moveSpeed: 0.5
     weight: 0
-    intervalTime: 600
+    intervalTime: 1000
+    attackRangeType: 3
+    UnitPrefab: {fileID: 6399221382794076619, guid: 00efbacf35f1c4647b219684a2f32086, type: 3}
+    material: {fileID: 2100000, guid: cc40f1b9a8fbd6642ad5b1f7b08366e7, type: 2}
+  - unitNo: 3
+    cost: 1
+    hp: 20
+    attackPower: 1
+    blowPower: 1
+    moveSpeed: 0.5
+    weight: 0
+    intervalTime: 2000
     attackRangeType: 0
-    UnitPrefab: {fileID: 0}
-    material: {fileID: 2100000, guid: 073557bfd22b84a7099de56f8bb9d7f3, type: 2}
+    UnitPrefab: {fileID: 6806981910525638440, guid: 8742c8b364aea4dc9a1b1eb0c42c0d1a, type: 3}
+    material: {fileID: 2100000, guid: cc40f1b9a8fbd6642ad5b1f7b08366e7, type: 2}
+  - unitNo: 4
+    cost: 1
+    hp: 2
+    attackPower: 1
+    blowPower: 0
+    moveSpeed: 0.5
+    weight: 0
+    intervalTime: 4000
+    attackRangeType: 3
+    UnitPrefab: {fileID: 7909274397895849068, guid: 56c94e334881849b691ee546f27e9d29, type: 3}
+    material: {fileID: 2100000, guid: 477b1ce20530f594b87bce7fe5ba012a, type: 2}

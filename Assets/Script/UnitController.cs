@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-using DG.Tweening;
 
 public class UnitController : MonoBehaviour
 {
@@ -10,20 +9,22 @@ public class UnitController : MonoBehaviour
     private UnitController targetUnit;
     public UnitController TargetUnit { get => targetUnit; }
 
+    [SerializeField]
+    private ParticleSystem attackParticle;
+
+    //攻撃間隔用タイマー
+    [SerializeField]
+    private int timer;
+
+    //敵の距離を比較するための基準となる変数。適当な数値を代入
+    public float standardDistanceValue = 1000;
+
     private GameManager gameManager;
     private UIManager uiManager;
 
     private NavMeshAgent agent;
 
-    //敵の距離を比較するための基準となる変数。適当な数値を代入
-    public float standardDistanceValue = 1000;　
-
     private int maxHp;
-
-    [SerializeField]
-    private int timer;
-
-    private Vector3 latestPos;
 
     public bool isAttack = false;
 
@@ -41,23 +42,23 @@ public class UnitController : MonoBehaviour
     public int Cost { get => cost; }
     [SerializeField, Header("HP")]
     private int hp;
-    [SerializeField, Header("攻撃力")]
-    private int attackPower;
+    [Header("攻撃力")]
+    public int attackPower;
     [SerializeField, Header("衝撃力")]
     private float blowPower;
     [SerializeField, Header("移動速度")]
-    private float moveSpeed = 0.01f;
+    private float moveSpeed;
     [SerializeField, Header("重量")]
     private float weight;
     [SerializeField, Header("攻撃間隔")]
     private float intervalTime;
     [SerializeField, Header("攻撃範囲")]
-    private BoxCollider attackRangeSize;
-    
-    public Material material;
+    private BoxCollider attackRangeSize;   
+    //public Material material;
 
     private void Start()
     {
+        //コンポーネントのキャッシュ
         anime = GetComponent<Animator>();
         attackAnime = Animator.StringToHash("attack");
         knockBackAnime = Animator.StringToHash("knockBack");
@@ -87,8 +88,8 @@ public class UnitController : MonoBehaviour
         intervalTime = unitDatas[uiManager.btnIndex].intervalTime;
         maxHp = hp;
 
-        material = unitDatas[uiManager.btnIndex].material;
-        this.GetComponent<Renderer>().material = material;
+        //material = unitDatas[uiManager.btnIndex].material;
+        //this.GetComponent<Renderer>().material = material;
     }
 
     /// <summary>
@@ -101,13 +102,16 @@ public class UnitController : MonoBehaviour
         this.gameManager = gameManager;
 
         //Debug.Log("監視開始");
-        while (this.hp >= 0)
+        while (this.hp > 0)
         {
             //EnemyListに登録してあるユニットの内、一番近いユニットに向かって移動する処理↓↓                 
             foreach (UnitController target in unitList)
             {
                 if (gameManager.gameMode == GameManager.GameMode.Play && target != null)
                 {
+                    //攻撃間隔タイマーはMoveUnitメソッド内で換算
+                    timer++;
+
                     //EnemyUnitList内に登録してあるオブジェクトとの距離を測り変数に代入する
                     float nearTargetDistanceValue = Vector3.SqrMagnitude(target.transform.position - transform.position);
 
@@ -161,34 +165,25 @@ public class UnitController : MonoBehaviour
     /// 一定間隔毎にAttack()メソッドを実行
     /// </summary>
     /// <returns></returns>
-    public IEnumerator PreparateAttack()
+    public void PreparateAttack()
     {
-        //Debug.Log("攻撃準備開始");
-
-        //while (isAttack)
-        while (this.hp > 0 && isAttack)
+        if (this.hp > 0 && gameManager.gameMode == GameManager.GameMode.Play)
+        {
+            if (targetUnit.hp > 0)
             {
-            if (gameManager.gameMode == GameManager.GameMode.Play)
-            {
-                timer++;
-
                 if (timer > intervalTime)
                 {
                     timer = 0;
 
                     //Attack(attackPower);
-                    anime.SetTrigger(attackAnime);                   
+                    anime.SetTrigger(attackAnime);
                 }
             }
-            yield return null;
-
-            Debug.Log(this.name + "攻撃終了");
         }
-        yield break;
     }
 
     /// <summary>
-    /// 対象にダメージを与える、倒した時の処理、ノックバック演出
+    /// 対象にダメージを与える、倒した時の処理
     /// </summary>
     /// <param name="amount"></param>
     public void Attack()
@@ -214,10 +209,30 @@ public class UnitController : MonoBehaviour
                 Destroy(targetUnit.gameObject, 3);
                 targetUnit = null;
             }
-            else
-                //ノックバック演出
-                KnockBack(this.blowPower);
         }
+    }
+
+    /// <summary>
+    /// 弓兵用(複数の敵にダメージを与える場合の処理)
+    /// </summary>
+    /// <param name="amount"></param>
+    public void Damage(int amount)
+    {
+        this.hp = Mathf.Clamp(this.hp -= amount, 0, maxHp);
+
+        if(this.hp <= 0)
+        {
+            targetUnit = null;
+            anime.SetTrigger(deadAnime);
+
+            gameManager.EnemyList.Remove(this);
+            gameManager.AllyList.Remove(this);
+
+            Destroy(this.gameObject, 3);
+        }
+        else
+            //ノックバック演出
+            KnockBack(this.blowPower);
     }
 
     /// <summary>
@@ -226,12 +241,27 @@ public class UnitController : MonoBehaviour
     /// <param name="blowPower"></param>
     private void KnockBack(float blowPower)
     {
-        targetUnit.agent.velocity += transform.forward * blowPower;
-        targetUnit.anime.SetTrigger(knockBackAnime);
-        //Rigidbody targetRb = targetUnit.GetComponent<Rigidbody>();
-        //targetRb.velocity = transform.forward * blowPower;
-        blowPower *= 0.98f;
-        //targetUnit.transform.DOMove(transform.forward * blowPower,1);
+        agent.velocity -= transform.forward * blowPower;
+        anime.SetTrigger(knockBackAnime);
+    }
 
+    /// <summary>
+    /// 弓矢・魔法を発射するエフェクト
+    /// </summary>
+    public void AttackPartical()
+    {
+        attackParticle.Play();
+    }
+
+    /// <summary>
+    /// 攻撃アニメーションに組み込むメソッド
+    /// </summary>
+    public void AnimationEventDamage()
+    {
+        if(targetUnit != null)
+        targetUnit.Damage(this.attackPower);
+
+        //ノックバック演出
+        KnockBack(this.blowPower);
     }
 }

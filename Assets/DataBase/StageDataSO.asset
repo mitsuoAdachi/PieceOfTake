@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stageDataList:
   - stageLvIndex: 0
-    stageCost: 4
+    stageCost: 5
     stagePrefab: {fileID: 5478011967272678776, guid: 721853b9caa8c411ba02f8f6dc10a90d, type: 3}
   - stageLvIndex: 0
     stageCost: 6

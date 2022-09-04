@@ -9,7 +9,7 @@ public class UnitGenerator : MonoBehaviour
     private GameManager gameManager;
     private UIManager uiManager;
 
-    private int generateTimer = 100;    //ユニット生成待機時間の初期値
+    public int generateTimer = 100;    //ユニット生成待機時間の初期値
 
     //// PreparateEnemyUnit()で使用するメンバ変数群
     //[SerializeField]
@@ -46,19 +46,22 @@ public class UnitGenerator : MonoBehaviour
         StartCoroutine(RemoveLayoutUnit());
 
         //　ステージコスト＞配置ユニットの総コストの間ループ
-        while (gameManager.stageDatas[gameManager.stageLv].stageCost > gameManager.totalCost)
+        while (true)
         {
-            generateTimer++;
+            //generateTimer++;
 
-            if (gameManager.gameMode == GameManager.GameMode.Preparate && GenerateIntervalBool())
+            gameManager.totalCost = Mathf.Clamp(gameManager.totalCost, 0, gameManager.stageDatas[gameManager.stageLv].stageCost);
+
+            if (gameManager.stageDatas[gameManager.stageLv].stageCost > gameManager.totalCost)
             {
-                //　UI上ではRayが反応しないようにする
-                if (!EventSystem.current.IsPointerOverGameObject())
+                if (gameManager.gameMode == GameManager.GameMode.Preparate)
+                    //if (gameManager.gameMode == GameManager.GameMode.Preparate && GenerateIntervalBool())
                 {
-                    if (Input.GetMouseButton(0))
+                    //　UI上ではRayが反応しないようにする
+                    if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
                     {
-                       //画面クリックした座標をRay型の変数へキャッシュ
-                       Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
+                        //画面クリックした座標をRay型の変数へキャッシュ
+                        Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
 
                         //　rayが接触したオブジェクトの情報をRaycasthit型の変数へ登録
                         if (Physics.Raycast(ray, out RaycastHit hit))
@@ -73,7 +76,7 @@ public class UnitGenerator : MonoBehaviour
                             allyUnit.StartMoveUnit(gameManager, gameManager.EnemyList);
 
                             //生成したユニットにステータスを付与
-                            allyUnit.SetupUnitState(gameManager.allyUnitDatas,uiManager);
+                            allyUnit.SetupUnitState(gameManager.allyUnitDatas, uiManager);
 
                             //生成したユニット用のリストに追加
                             gameManager.AllyList.Add(allyUnit);
@@ -81,7 +84,7 @@ public class UnitGenerator : MonoBehaviour
                             //生成したユニットのコスト値を加算
                             gameManager.totalCost += allyUnit.Cost;
 
-                            generateTimer = 0;
+                            //generateTimer = 0;                            
                         }
                     }
                 }
@@ -89,36 +92,6 @@ public class UnitGenerator : MonoBehaviour
             yield return null;
         }    
     }
-
-    /// <summary>
-    /// ユニットの生成に待機時間を作るためのブーリアン
-    /// </summary>
-    /// <returns></returns>
-    private bool GenerateIntervalBool()
-    {
-        if(generateTimer >= gameManager.GenerateIntaervalTime) return true;
-      else return false;       
-    }
-
-    /// <summary>
-    /// 敵ユニットの生成
-    /// </summary>
-    //public void PreparateEnemyUnit()
-    //{
-    //    for (int i = 0; i < enemyTrans.Count; i++)
-    //    {
-    //        UnitController enemyUnit = Instantiate(gameManager.enemyUnitDatas[i].UnitPrefab, enemyTrans[i], Quaternion.identity);
-
-    //        //生成したユニット用のリストに追加
-    //        gameManager.EnemyList.Add(enemyUnit);
-
-    //        //生成したユニットに移動能力を付与
-    //        enemyUnit.StartMoveUnit(gameManager, gameManager.AllyList);
-
-    //        //生成したユニットにステータスを付与
-    //        enemyUnit.SetupUnitState(gameManager.enemyUnitDatas, uiManager);
-    //    }
-    //}
 
     /// <summary>
     /// Preparate_Removeモード時クリックしたユニットを削除する
@@ -151,4 +124,36 @@ public class UnitGenerator : MonoBehaviour
             yield return null;
         }
     }
+
+    /// <summary>
+    /// ユニットの生成に待機時間を作るためのブーリアン
+    /// </summary>
+    /// <returns></returns>
+    private bool GenerateIntervalBool()
+    {
+        if (generateTimer >= gameManager.GenerateIntaervalTime) return true;
+        else return false;
+    }
+
+
+    /// <summary>
+    /// 敵ユニットの生成
+    /// </summary>
+    //public void PreparateEnemyUnit()
+    //{
+    //    for (int i = 0; i < enemyTrans.Count; i++)
+    //    {
+    //        UnitController enemyUnit = Instantiate(gameManager.enemyUnitDatas[i].UnitPrefab, enemyTrans[i], Quaternion.identity);
+
+    //        //生成したユニット用のリストに追加
+    //        gameManager.EnemyList.Add(enemyUnit);
+
+    //        //生成したユニットに移動能力を付与
+    //        enemyUnit.StartMoveUnit(gameManager, gameManager.AllyList);
+
+    //        //生成したユニットにステータスを付与
+    //        enemyUnit.SetupUnitState(gameManager.enemyUnitDatas, uiManager);
+    //    }
+    //}
+
 }
