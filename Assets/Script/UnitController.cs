@@ -44,8 +44,8 @@ public class UnitController : MonoBehaviour
     private int hp;
     [Header("攻撃力")]
     public int attackPower;
-    [SerializeField, Header("衝撃力")]
-    private float blowPower;
+    [Header("衝撃力")]
+    public float blowPower;
     [SerializeField, Header("移動速度")]
     private float moveSpeed;
     [SerializeField, Header("重量")]
@@ -54,7 +54,7 @@ public class UnitController : MonoBehaviour
     private float intervalTime;
     [SerializeField, Header("攻撃範囲")]
     private BoxCollider attackRangeSize;   
-    //public Material material;
+    public Material material;
 
     private void Start()
     {
@@ -88,8 +88,28 @@ public class UnitController : MonoBehaviour
         intervalTime = unitDatas[uiManager.btnIndex].intervalTime;
         maxHp = hp;
 
-        //material = unitDatas[uiManager.btnIndex].material;
-        //this.GetComponent<Renderer>().material = material;
+        material = unitDatas[uiManager.btnIndex].material;
+        this.GetComponent<Renderer>().material = material;
+    }
+
+    public void SetupUnitState2(List<UnitData> unitDatas)
+    {
+        agent = GetComponent<NavMeshAgent>();
+
+
+        unitNo = unitDatas[gameManager.unitsIndex].unitNo;
+        cost = unitDatas[gameManager.unitsIndex].cost;
+        hp = unitDatas[gameManager.unitsIndex].hp;
+        attackPower = unitDatas[gameManager.unitsIndex].attackPower;
+        blowPower = unitDatas[gameManager.unitsIndex].blowPower;
+        agent.speed = unitDatas[gameManager.unitsIndex].moveSpeed;
+        weight = unitDatas[gameManager.unitsIndex].weight;
+        (attackRangeSize.size, attackRangeSize.center) = DataBaseManager.instance.GetAttackRange(unitDatas[gameManager.unitsIndex].attackRangeType);
+        intervalTime = unitDatas[gameManager.unitsIndex].intervalTime;
+        maxHp = hp;
+
+        material = unitDatas[gameManager.unitsIndex].material;
+        this.GetComponent<Renderer>().material = material;
     }
 
     /// <summary>
@@ -222,6 +242,7 @@ public class UnitController : MonoBehaviour
 
         if(this.hp <= 0)
         {
+            agent.isStopped = true;
             targetUnit = null;
             anime.SetTrigger(deadAnime);
 
@@ -230,16 +251,13 @@ public class UnitController : MonoBehaviour
 
             Destroy(this.gameObject, 3);
         }
-        else
-            //ノックバック演出
-            KnockBack(this.blowPower);
     }
 
     /// <summary>
     /// ノックバック演出
     /// </summary>
     /// <param name="blowPower"></param>
-    private void KnockBack(float blowPower)
+    public void KnockBack(float blowPower)
     {
         agent.velocity -= transform.forward * blowPower;
         anime.SetTrigger(knockBackAnime);
@@ -258,10 +276,12 @@ public class UnitController : MonoBehaviour
     /// </summary>
     public void AnimationEventDamage()
     {
-        if(targetUnit != null)
-        targetUnit.Damage(this.attackPower);
+        if (targetUnit != null)
+        {
+            targetUnit.Damage(this.attackPower);
 
-        //ノックバック演出
-        KnockBack(this.blowPower);
+            //ノックバック演出
+            targetUnit.KnockBack(this.blowPower);
+        }
     }
 }

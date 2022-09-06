@@ -14,6 +14,8 @@ public class GameManager : MonoBehaviour
     }
     public GameMode gameMode;
 
+    public int unitsIndex;
+
     //ステージデータのリスト
     public List<StageData> stageDatas = new List<StageData>();
 
@@ -49,7 +51,7 @@ public class GameManager : MonoBehaviour
         SetupSOData();
 
         //ステージの準備
-        PreparateStage(stageLv);
+        PreparateStage2(stageLv,0,1,1);
 
         //ユニット選択ボタンを設定
         uiManager.SetupUnitButton(this, modeChange);
@@ -90,14 +92,32 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// ステージ毎に敵ユニットを配置する
     /// </summary>
-    /// <param name="index"></param>
-    public void PreparateStage(int index)
+    /// <param name="stageLv"></param>
+    public void PreparateStage(int stageLv)
     {
-        StageInfo stage = Instantiate(stageDatas[index].stagePrefab);
+        StageInfo stage = Instantiate(stageDatas[stageLv].stagePrefab);
 
         for(int i = 0; i < stage.enemyPrefabs.Length; i++)
         {
             UnitController enemy = stage.enemyPrefabs[i].GetComponent<UnitController>();
+
+            enemy.StartMoveUnit(this, AllyList);
+
+            enemy.SetupUnitState(enemyUnitDatas, uiManager);
+
+            EnemyList.Add(enemy);
+        }
+    }
+
+    public void PreparateStage2(int stageLv, params int[] units)
+    {
+        StageObjTran stage = Instantiate(stageDatas[stageLv].stagPrefab2);
+
+        for (int i = 0; i < units.Length; i++)
+        {
+            unitsIndex = units[i];
+
+            UnitController enemy = Instantiate(enemyUnitDatas[units[i]].UnitPrefab, stage.enemyTrans[i], false);
 
             enemy.StartMoveUnit(this, AllyList);
 

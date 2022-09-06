@@ -14,7 +14,7 @@ public class UnitData
     public AttackRangeType attackRangeType;
     public UnitController UnitPrefab;
 
-    //public Material material;
+    public Material material;
 
     //public Sprite unitSprite;
     //public AnimationClip moveAnime;
