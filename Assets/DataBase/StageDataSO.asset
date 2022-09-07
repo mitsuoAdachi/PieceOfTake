@@ -16,6 +16,8 @@ MonoBehaviour:
   - stageLvIndex: 0
     stageCost: 5
     stagePrefab: {fileID: 5478011967272678776, guid: 721853b9caa8c411ba02f8f6dc10a90d, type: 3}
+    stagPrefab2: {fileID: 123863867886569514, guid: f896908ece5e342ce84e618c856567ef, type: 3}
   - stageLvIndex: 0
     stageCost: 6
     stagePrefab: {fileID: 0}
+    stagPrefab2: {fileID: 0}

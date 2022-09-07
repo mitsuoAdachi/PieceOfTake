@@ -1317,6 +1317,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameMode: 0
+  unitsIndex: 0
   stageDatas: []
   allyUnitDatas: []
   enemyUnitDatas: []

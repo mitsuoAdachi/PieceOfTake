@@ -51,7 +51,7 @@ public class GameManager : MonoBehaviour
         SetupSOData();
 
         //ステージの準備
-        PreparateStage2(stageLv,0,1,1);
+        PreparateStage2(stageLv,0,1,2);
 
         //ユニット選択ボタンを設定
         uiManager.SetupUnitButton(this, modeChange);
@@ -121,7 +121,7 @@ public class GameManager : MonoBehaviour
 
             enemy.StartMoveUnit(this, AllyList);
 
-            enemy.SetupUnitState(enemyUnitDatas, uiManager);
+            enemy.SetupUnitState2(enemyUnitDatas);
 
             EnemyList.Add(enemy);
         }
