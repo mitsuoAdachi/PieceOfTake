@@ -22,7 +22,7 @@ MonoBehaviour:
     weight: 0
     intervalTime: 2000
     attackRangeType: 1
-    UnitPrefab: {fileID: 834000593253369552, guid: 4d7ad4d2cfdb4481c9da73dff10f7a6f, type: 3}
+    UnitPrefab: {fileID: 2760980825175953369, guid: 1541f45050a4942a69972b75f22fc1db, type: 3}
     material: {fileID: 2100000, guid: 2ac9e7a5952e84973973f7b5be4127a7, type: 2}
   - unitNo: 1
     cost: 0
@@ -33,7 +33,7 @@ MonoBehaviour:
     weight: 0
     intervalTime: 2000
     attackRangeType: 2
-    UnitPrefab: {fileID: 1344952306156266202, guid: edb8733ece2b24ef0a866eda3158c768, type: 3}
+    UnitPrefab: {fileID: 834000593253369552, guid: 4d7ad4d2cfdb4481c9da73dff10f7a6f, type: 3}
     material: {fileID: 2100000, guid: 2ac9e7a5952e84973973f7b5be4127a7, type: 2}
   - unitNo: 1
     cost: 0
@@ -44,5 +44,5 @@ MonoBehaviour:
     weight: 0
     intervalTime: 2000
     attackRangeType: 1
-    UnitPrefab: {fileID: 1344952306156266202, guid: edb8733ece2b24ef0a866eda3158c768, type: 3}
+    UnitPrefab: {fileID: 1801818050419777562, guid: 5ed664923ee1d40f3b0842c8e66a9f04, type: 3}
     material: {fileID: 2100000, guid: 2ac9e7a5952e84973973f7b5be4127a7, type: 2}

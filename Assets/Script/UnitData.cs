@@ -3,7 +3,6 @@ using UnityEngine;
 [System.Serializable]
 public class UnitData 
 {
-    public int unitNo;
     public int cost;
     public int hp;
     public int attackPower;

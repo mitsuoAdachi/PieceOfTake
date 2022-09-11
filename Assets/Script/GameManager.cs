@@ -24,8 +24,8 @@ public class GameManager : MonoBehaviour
     public List<UnitData> enemyUnitDatas = new List<UnitData>();
 
     //生成された味方ユニットと敵ユニットのリストを用意
-    public List<UnitController> AllyList = new List<UnitController>();
-    public List<UnitController> EnemyList = new List<UnitController>();
+    public List<UnitController> GenerateAllyList = new List<UnitController>();
+    public List<UnitController> GenerateEnemyList = new List<UnitController>();
 
     [SerializeField]
     private UnitGenerator unitGenerator;
@@ -38,7 +38,7 @@ public class GameManager : MonoBehaviour
 
     public int totalCost; //配置ユニットの総コスト
 
-    public int stageLv=1;
+    public int stageLevel=0;
 
     [Header("ユニットの生成待機時間"),SerializeField]
     private float generateIntaervalTime;
@@ -51,24 +51,20 @@ public class GameManager : MonoBehaviour
         SetupSOData();
 
         //ステージの準備
-        PreparateStage2(stageLv,0,1,2);
+        PreparateStage(stageLevel);
 
         //ユニット選択ボタンを設定
         uiManager.SetupUnitButton(this, modeChange);
 
         //各種ボタン押下時の準備
-        modeChange.SetupModeChangeButton(this);
+        modeChange.SetupChangeModeButton(this);
 
         //味方ユニットの生成準備
         StartCoroutine(unitGenerator.LayoutUnit(this,uiManager));
-
-        //敵ユニットの生成
-        //unitGenerator.PreparateEnemyUnit();
-
     }
 
     /// <summary>
-    /// ゲーム実行時にunitDataSO内のデータリストをGameManager内のデータリストに収納し直す
+    /// ゲーム実行時にunitDataSO内のデータリストをGameManager内のデータリストに格納する
     /// </summary>
     public void SetupSOData()
     {
@@ -90,40 +86,23 @@ public class GameManager : MonoBehaviour
     }
 
     /// <summary>
-    /// ステージ毎に敵ユニットを配置する
+    /// ステージレベルに合わせてステージデータを生成し、敵ユニットも生成する
     /// </summary>
-    /// <param name="stageLv"></param>
-    public void PreparateStage(int stageLv)
+    /// <param name="stageLevelIndex"></param>
+    public void PreparateStage(int stageLevelIndex)
     {
-        StageInfo stage = Instantiate(stageDatas[stageLv].stagePrefab);
+        StageInfo stage = Instantiate(stageDatas[stageLevelIndex].stagPrefab);
 
-        for(int i = 0; i < stage.enemyPrefabs.Length; i++)
+        //for(int i=0;i<stage.enemyPrefabs.Length;i++ )
+        foreach(UnitController enemy in stage.enemyPrefabs)
         {
-            UnitController enemy = stage.enemyPrefabs[i].GetComponent<UnitController>();
+            //units.GetComponent<UnitController>();
 
-            enemy.StartMoveUnit(this, AllyList);
+            enemy.StartMoveUnit(this, GenerateAllyList);
 
-            enemy.SetupUnitState(enemyUnitDatas, uiManager);
+            enemy.SetupUnitStateEnemy(enemyUnitDatas);
 
-            EnemyList.Add(enemy);
-        }
-    }
-
-    public void PreparateStage2(int stageLv, params int[] units)
-    {
-        StageObjTran stage = Instantiate(stageDatas[stageLv].stagPrefab2);
-
-        for (int i = 0; i < units.Length; i++)
-        {
-            unitsIndex = units[i];
-
-            UnitController enemy = Instantiate(enemyUnitDatas[units[i]].UnitPrefab, stage.enemyTrans[i], false);
-
-            enemy.StartMoveUnit(this, AllyList);
-
-            enemy.SetupUnitState2(enemyUnitDatas);
-
-            EnemyList.Add(enemy);
+            GenerateEnemyList.Add(enemy);
         }
     }
 }

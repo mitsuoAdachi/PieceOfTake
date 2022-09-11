@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using DG.Tweening;
 
 public class UnitController : MonoBehaviour
 {
@@ -10,14 +11,14 @@ public class UnitController : MonoBehaviour
     public UnitController TargetUnit { get => targetUnit; }
 
     [SerializeField]
-    private ParticleSystem attackParticle;
+    private ParticleSystem isAttackParticle;
 
     //攻撃間隔用タイマー
     [SerializeField]
     private int timer;
 
     //敵の距離を比較するための基準となる変数。適当な数値を代入
-    public float standardDistanceValue = 1000;
+    public float standerdDistanceValue = 1000;
 
     private GameManager gameManager;
     private UIManager uiManager;
@@ -25,6 +26,8 @@ public class UnitController : MonoBehaviour
     private NavMeshAgent agent;
 
     private int maxHp;
+
+    public int unitNumber;
 
     public bool isAttack = false;
 
@@ -35,8 +38,6 @@ public class UnitController : MonoBehaviour
     private int deadAnime;
 
     //ユニットステータス群
-    [SerializeField, Header("ユニットNo.")]
-    private int unitNo;
     [SerializeField, Header("コスト")]
     private int cost;
     public int Cost { get => cost; }
@@ -71,13 +72,12 @@ public class UnitController : MonoBehaviour
     /// <param name="uiManager"></param>
     /// <param name="unitGenerator"></param>
     /// <returns></returns>
-    public void SetupUnitState(List<UnitData> unitDatas,UIManager uiManager)
+    public void SetupUnitStateAlly(List<UnitData> unitDatas,UIManager uiManager)
     {
         agent = GetComponent<NavMeshAgent>();
 
         this.uiManager = uiManager;
 
-        unitNo = unitDatas[uiManager.btnIndex].unitNo;
         cost = unitDatas[uiManager.btnIndex].cost;
         hp = unitDatas[uiManager.btnIndex].hp;
         attackPower = unitDatas[uiManager.btnIndex].attackPower;
@@ -92,23 +92,21 @@ public class UnitController : MonoBehaviour
         this.GetComponent<Renderer>().material = material;
     }
 
-    public void SetupUnitState2(List<UnitData> unitDatas)
+    public void SetupUnitStateEnemy(List<UnitData> unitDatas)
     {
         agent = GetComponent<NavMeshAgent>();
 
-
-        unitNo = unitDatas[gameManager.unitsIndex].unitNo;
-        cost = unitDatas[gameManager.unitsIndex].cost;
-        hp = unitDatas[gameManager.unitsIndex].hp;
-        attackPower = unitDatas[gameManager.unitsIndex].attackPower;
-        blowPower = unitDatas[gameManager.unitsIndex].blowPower;
-        agent.speed = unitDatas[gameManager.unitsIndex].moveSpeed;
-        weight = unitDatas[gameManager.unitsIndex].weight;
-        (attackRangeSize.size, attackRangeSize.center) = DataBaseManager.instance.GetAttackRange(unitDatas[gameManager.unitsIndex].attackRangeType);
-        intervalTime = unitDatas[gameManager.unitsIndex].intervalTime;
+        cost = unitDatas[unitNumber].cost;
+        hp = unitDatas[unitNumber].hp;
+        attackPower = unitDatas[unitNumber].attackPower;
+        blowPower = unitDatas[unitNumber].blowPower;
+        agent.speed = unitDatas[unitNumber].moveSpeed;
+        weight = unitDatas[unitNumber].weight;
+        (attackRangeSize.size, attackRangeSize.center) = DataBaseManager.instance.GetAttackRange(unitDatas[unitNumber].attackRangeType);
+        intervalTime = unitDatas[unitNumber].intervalTime;
         maxHp = hp;
 
-        material = unitDatas[gameManager.unitsIndex].material;
+        material = unitDatas[unitNumber].material;
         this.GetComponent<Renderer>().material = material;
     }
 
@@ -117,7 +115,7 @@ public class UnitController : MonoBehaviour
     /// </summary>
     /// <param name="gameManager"></param>
     /// <returns></returns>
-    public IEnumerator MoveUnit(GameManager gameManager,List<UnitController> unitList)
+    public IEnumerator OnMoveUnit(GameManager gameManager,List<UnitController> unitList)
     {
         this.gameManager = gameManager;
 
@@ -136,9 +134,9 @@ public class UnitController : MonoBehaviour
                     float nearTargetDistanceValue = Vector3.SqrMagnitude(target.transform.position - transform.position);
 
                     //基準値より小さければその数値を基準値に代入していき一番小さい数値が変数に残る。その数値を持つオブジェクトが一番近い敵となる
-                    if (standardDistanceValue > nearTargetDistanceValue)
+                    if (standerdDistanceValue > nearTargetDistanceValue)
                     {
-                        standardDistanceValue = nearTargetDistanceValue;
+                        standerdDistanceValue = nearTargetDistanceValue;
 
                         targetUnit = target;
                     }
@@ -150,19 +148,13 @@ public class UnitController : MonoBehaviour
 
                         anime.SetFloat(walkAnime, agent.velocity.sqrMagnitude);
 
-                        transform.LookAt(targetUnit.transform);
                         //進行方向を向く
-                        //Vector3 diff = transform.position - latestPos;
-                        //latestPos = transform.position;
-
-                        //if (diff.magnitude > 0.01f)
-                        //    transform.rotation = Quaternion.LookRotation(diff);
+                        transform.LookAt(targetUnit.transform);
                     }
                     else
                     {
-                        standardDistanceValue = 1000;
+                        standerdDistanceValue = 1000;
                         anime.SetFloat(walkAnime, 0);
-                        //agent.speed = 0;
                     }
                 }
             }
@@ -178,11 +170,11 @@ public class UnitController : MonoBehaviour
     /// <param name="unitList"></param>
     public void StartMoveUnit(GameManager gameManager, List<UnitController> unitList)
     {
-        StartCoroutine(MoveUnit(gameManager, unitList));
+        StartCoroutine(OnMoveUnit(gameManager, unitList));
     }
 
     /// <summary>
-    /// 一定間隔毎にAttack()メソッドを実行
+    /// 一定間隔毎に攻撃アニメーションを実行
     /// </summary>
     /// <returns></returns>
     public void PreparateAttack()
@@ -203,40 +195,10 @@ public class UnitController : MonoBehaviour
     }
 
     /// <summary>
-    /// 対象にダメージを与える、倒した時の処理
+    /// ダメージを与える処理
     /// </summary>
     /// <param name="amount"></param>
-    public void Attack()
-    {
-        Debug.Log("Attack()開始");
-        if (targetUnit != null)
-        {
-            targetUnit.hp = Mathf.Clamp(targetUnit.hp -= attackPower, 0, maxHp);
-
-            if (targetUnit.hp <= 0)
-            {
-                //targetUnit.agent.isStopped = true;
-                targetUnit.targetUnit = null;
-
-                isAttack = false;
-                standardDistanceValue = 1000;
-
-                targetUnit.anime.SetTrigger(deadAnime);
-
-                gameManager.EnemyList.Remove(targetUnit);
-                gameManager.AllyList.Remove(targetUnit);
-
-                Destroy(targetUnit.gameObject, 3);
-                targetUnit = null;
-            }
-        }
-    }
-
-    /// <summary>
-    /// 弓兵用(複数の敵にダメージを与える場合の処理)
-    /// </summary>
-    /// <param name="amount"></param>
-    public void Damage(int amount)
+    public void OnDamage(int amount)
     {
         this.hp = Mathf.Clamp(this.hp -= amount, 0, maxHp);
 
@@ -246,8 +208,8 @@ public class UnitController : MonoBehaviour
             targetUnit = null;
             anime.SetTrigger(deadAnime);
 
-            gameManager.EnemyList.Remove(this);
-            gameManager.AllyList.Remove(this);
+            gameManager.GenerateEnemyList.Remove(this);
+            gameManager.GenerateAllyList.Remove(this);
 
             Destroy(this.gameObject, 3);
         }
@@ -257,18 +219,20 @@ public class UnitController : MonoBehaviour
     /// ノックバック演出
     /// </summary>
     /// <param name="blowPower"></param>
-    public void KnockBack(float blowPower)
+    public void OnKnockBack(float blowPower)
     {
-        agent.velocity -= transform.forward * blowPower;
-        anime.SetTrigger(knockBackAnime);
+        //agent.velocity -= transform.forward * blowPower;
+        //anime.SetTrigger(knockBackAnime);
+
+        transform.DOMove(transform.forward * -blowPower,1);
     }
 
     /// <summary>
     /// 弓矢・魔法を発射するエフェクト
     /// </summary>
-    public void AttackPartical()
+    public void OnAttackPartical()
     {
-        attackParticle.Play();
+        isAttackParticle.Play();
     }
 
     /// <summary>
@@ -278,10 +242,10 @@ public class UnitController : MonoBehaviour
     {
         if (targetUnit != null)
         {
-            targetUnit.Damage(this.attackPower);
+            targetUnit.OnDamage(this.attackPower);
 
             //ノックバック演出
-            targetUnit.KnockBack(this.blowPower);
+            targetUnit.OnKnockBack(this.blowPower);
         }
     }
 }

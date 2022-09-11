@@ -7,6 +7,5 @@ public class StageData
 {
     public int stageLvIndex;
     public int stageCost;
-    public StageInfo stagePrefab;
-    public StageObjTran stagPrefab2;
+    public StageInfo stagPrefab;
 }

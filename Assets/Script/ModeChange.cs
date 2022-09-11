@@ -17,6 +17,9 @@ public class ModeChange : MonoBehaviour
     [SerializeField]
     private Text txtModeChangeButton;
 
+    [SerializeField]
+    private GameObject selectUnitPanel;
+
     //ユニット設置/削除ボタン用のメンバ変数群
     [SerializeField]
     private Button btnPreparateModeChange;
@@ -31,19 +34,19 @@ public class ModeChange : MonoBehaviour
     /// メソッドをボタンに設定
     /// </summary>
     /// <param name="gameManager"></param>
-    public void SetupModeChangeButton(GameManager gameManager)
+    public void SetupChangeModeButton(GameManager gameManager)
     {
         this.gameManager = gameManager;
 
-        btnModeChange.onClick.AddListener(() => GameModeChange());
-        btnPreparateModeChange.onClick.AddListener(() => PreparateGameModeChange());
+        btnModeChange.onClick.AddListener(() => ChangeGameMode());
+        btnPreparateModeChange.onClick.AddListener(() => PreparateChangeGameMode());
     }
 
     /// <summary>
     /// ゲームモードの切り替え
     /// </summary>
     /// <param name="gameManager"></param>
-    public void GameModeChange()
+    public void ChangeGameMode()
     {
         if (gameManager.gameMode != GameManager.GameMode.Play)
         {
@@ -51,6 +54,9 @@ public class ModeChange : MonoBehaviour
 
             txtModeChangeButton.text = "STOP";
             txtGameMode.text = "GAME MODE：プレイ";
+
+            //ユニット選択パネルを非アクティブにする
+            selectUnitPanel.SetActive(false);
 
             //ユニット設置モードボタンを押せない状態にする
             btnPreparateModeChange.interactable = false;
@@ -67,7 +73,7 @@ public class ModeChange : MonoBehaviour
     /// <summary>
     /// ユニット設置/削除モードの切り替え
     /// </summary>
-    public void PreparateGameModeChange()
+    public void PreparateChangeGameMode()
     {
         if (gameManager.gameMode != GameManager.GameMode.Preparate_Remove)
         {

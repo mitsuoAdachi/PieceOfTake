@@ -13,8 +13,8 @@ public class ParticleCollision : MonoBehaviour
         {
             if (other.TryGetComponent(out UnitController targetUnit))
             {
-                targetUnit.Damage(myUnitController.attackPower);
-                myUnitController.KnockBack(myUnitController.blowPower);
+                targetUnit.OnDamage(myUnitController.attackPower);
+                myUnitController.OnKnockBack(myUnitController.blowPower);
             }
         }
 

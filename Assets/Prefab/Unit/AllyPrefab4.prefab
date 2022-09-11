@@ -9958,7 +9958,7 @@ GameObject:
   - component: {fileID: 7909274397895849041}
   m_Layer: 7
   m_Name: AllyPrefab4
-  m_TagString: Untagged
+  m_TagString: Ally
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10120,11 +10120,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetUnit: {fileID: 0}
-  attackParticle: {fileID: 804962070231768223}
+  isAttackParticle: {fileID: 804962070231768223}
   timer: 0
-  standardDistanceValue: 1000
+  standerdDistanceValue: 1000
+  unitNumber: 4
   isAttack: 0
-  unitNo: 0
   cost: 0
   hp: 1
   attackPower: 0
