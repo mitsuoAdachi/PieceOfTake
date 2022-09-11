@@ -3,8 +3,11 @@
 /// </summary>
 public enum AttackRangeType
 {
-    Short,　　
-    Middle,
-    Long,
-    Wide
+    Knuckle,　　
+    Sword,
+    Scythe,
+    Axe,
+    Spear,
+    Magic,
+    Arrow
 }

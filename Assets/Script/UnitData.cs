@@ -10,6 +10,7 @@ public class UnitData
     public float moveSpeed;
     public float weight;
     public float intervalTime;
+    public bool isGround;
     public AttackRangeType attackRangeType;
     public UnitController UnitPrefab;
 

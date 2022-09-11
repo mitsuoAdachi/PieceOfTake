@@ -6,9 +6,13 @@ using DG.Tweening;
 
 public class UnitController : MonoBehaviour
 {
+    private Rigidbody rigid;
+
     [SerializeField]
     private UnitController targetUnit;
     public UnitController TargetUnit { get => targetUnit; }
+
+    private List<UnitController> unitList = new List<UnitController>();
 
     [SerializeField]
     private ParticleSystem isAttackParticle;
@@ -30,6 +34,8 @@ public class UnitController : MonoBehaviour
     public int unitNumber;
 
     public bool isAttack = false;
+
+    private Tweener tweener;
 
     private Animator anime;
     private int attackAnime;
@@ -54,7 +60,8 @@ public class UnitController : MonoBehaviour
     [SerializeField, Header("攻撃間隔")]
     private float intervalTime;
     [SerializeField, Header("攻撃範囲")]
-    private BoxCollider attackRangeSize;   
+    private BoxCollider attackRangeSize;
+    public bool isGround;
     public Material material;
 
     private void Start()
@@ -65,6 +72,10 @@ public class UnitController : MonoBehaviour
         knockBackAnime = Animator.StringToHash("knockBack");
         walkAnime = Animator.StringToHash("walk");
         deadAnime = Animator.StringToHash("dead");
+
+        rigid = GetComponent<Rigidbody>();
+
+        isGround = true;
     }
     /// <summary>
     /// ユニットステータスの設定
@@ -85,6 +96,7 @@ public class UnitController : MonoBehaviour
         agent.speed = unitDatas[uiManager.btnIndex].moveSpeed;
         weight = unitDatas[uiManager.btnIndex].weight;
         (attackRangeSize.size, attackRangeSize.center) = DataBaseManager.instance.GetAttackRange(unitDatas[uiManager.btnIndex].attackRangeType);
+        isGround = unitDatas[uiManager.btnIndex].isGround;
         intervalTime = unitDatas[uiManager.btnIndex].intervalTime;
         maxHp = hp;
 
@@ -103,6 +115,7 @@ public class UnitController : MonoBehaviour
         agent.speed = unitDatas[unitNumber].moveSpeed;
         weight = unitDatas[unitNumber].weight;
         (attackRangeSize.size, attackRangeSize.center) = DataBaseManager.instance.GetAttackRange(unitDatas[unitNumber].attackRangeType);
+        isGround = unitDatas[unitNumber].isGround;
         intervalTime = unitDatas[unitNumber].intervalTime;
         maxHp = hp;
 
@@ -111,14 +124,25 @@ public class UnitController : MonoBehaviour
     }
 
     /// <summary>
+    /// MoveUnitをUnitController上でCoroutineで動かすためのメソッド
+    /// </summary>
+    /// <param name="gameManager"></param>
+    /// <param name="unitList"></param>
+    public void StartMoveUnit(GameManager gameManager, List<UnitController> unitList)
+    {
+        this.unitList = unitList;
+        this.gameManager = gameManager;
+
+        StartCoroutine("OnMoveUnit");
+    }
+
+    /// <summary>
     /// ユニットの移動
     /// </summary>
     /// <param name="gameManager"></param>
     /// <returns></returns>
-    public IEnumerator OnMoveUnit(GameManager gameManager,List<UnitController> unitList)
+    public IEnumerator OnMoveUnit()
     {
-        this.gameManager = gameManager;
-
         //Debug.Log("監視開始");
         while (this.hp > 0)
         {
@@ -129,7 +153,7 @@ public class UnitController : MonoBehaviour
                 {
                     //攻撃間隔タイマーはMoveUnitメソッド内で換算
                     timer++;
-
+                    
                     //EnemyUnitList内に登録してあるオブジェクトとの距離を測り変数に代入する
                     float nearTargetDistanceValue = Vector3.SqrMagnitude(target.transform.position - transform.position);
 
@@ -161,16 +185,6 @@ public class UnitController : MonoBehaviour
             yield return null;
         }
         Debug.Log(this.name + "MoveUnit終了");
-    }
-
-    /// <summary>
-    /// MoveUnitをUnitController上でCoroutineで動かすためのメソッド
-    /// </summary>
-    /// <param name="gameManager"></param>
-    /// <param name="unitList"></param>
-    public void StartMoveUnit(GameManager gameManager, List<UnitController> unitList)
-    {
-        StartCoroutine(OnMoveUnit(gameManager, unitList));
     }
 
     /// <summary>
@@ -221,10 +235,16 @@ public class UnitController : MonoBehaviour
     /// <param name="blowPower"></param>
     public void OnKnockBack(float blowPower)
     {
-        //agent.velocity -= transform.forward * blowPower;
-        //anime.SetTrigger(knockBackAnime);
+        anime.SetTrigger(knockBackAnime);
 
-        transform.DOMove(transform.forward * -blowPower,1);
+        //ステージ外に出たら落ちて破壊される処理
+        StopCoroutine("OnMoveUnit");
+        targetUnit = null;
+        //agent.ResetPath();
+        agent.enabled = false;
+        tweener = transform.DOMove(transform.forward * -blowPower, 1)
+            .OnComplete(() => OnJudgeGoround())
+            .SetLink(this.gameObject);
     }
 
     /// <summary>
@@ -236,7 +256,7 @@ public class UnitController : MonoBehaviour
     }
 
     /// <summary>
-    /// 攻撃アニメーションに組み込むメソッド
+    /// 攻撃アニメーションで呼び出すメソッド
     /// </summary>
     public void AnimationEventDamage()
     {
@@ -246,6 +266,24 @@ public class UnitController : MonoBehaviour
 
             //ノックバック演出
             targetUnit.OnKnockBack(this.blowPower);
+        }
+    }
+
+    /// <summary>
+    /// ステージ上にいるかどうかの判定
+    /// </summary>
+    private void OnJudgeGoround()
+    {
+        if (isGround)
+        {
+            agent.enabled = true;
+            StartCoroutine("OnMoveUnit");
+
+        }
+        else
+        {
+            rigid.isKinematic = false;
+            Destroy(this.gameObject, 1);
         }
     }
 }

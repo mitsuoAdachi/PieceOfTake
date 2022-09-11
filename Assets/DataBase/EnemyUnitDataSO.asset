@@ -13,36 +13,36 @@ MonoBehaviour:
   m_Name: EnemyUnitDataSO
   m_EditorClassIdentifier: 
   enemyUnitDatasList:
-  - unitNo: 1
-    cost: 0
+  - cost: 0
     hp: 3
     attackPower: 1
     blowPower: 3
     moveSpeed: 1
     weight: 0
     intervalTime: 2000
+    isGround: 0
     attackRangeType: 1
     UnitPrefab: {fileID: 2760980825175953369, guid: 1541f45050a4942a69972b75f22fc1db, type: 3}
     material: {fileID: 2100000, guid: 2ac9e7a5952e84973973f7b5be4127a7, type: 2}
-  - unitNo: 1
-    cost: 0
+  - cost: 0
     hp: 3
     attackPower: 2
     blowPower: 3
     moveSpeed: 0.5
     weight: 0
     intervalTime: 2000
-    attackRangeType: 2
+    isGround: 0
+    attackRangeType: 1
     UnitPrefab: {fileID: 834000593253369552, guid: 4d7ad4d2cfdb4481c9da73dff10f7a6f, type: 3}
     material: {fileID: 2100000, guid: 2ac9e7a5952e84973973f7b5be4127a7, type: 2}
-  - unitNo: 1
-    cost: 0
+  - cost: 0
     hp: 5
     attackPower: 2
     blowPower: 3
     moveSpeed: 0.5
     weight: 0
     intervalTime: 2000
-    attackRangeType: 1
+    isGround: 0
+    attackRangeType: 2
     UnitPrefab: {fileID: 1801818050419777562, guid: 5ed664923ee1d40f3b0842c8e66a9f04, type: 3}
     material: {fileID: 2100000, guid: 2ac9e7a5952e84973973f7b5be4127a7, type: 2}

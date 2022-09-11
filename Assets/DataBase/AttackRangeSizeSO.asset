@@ -19,9 +19,15 @@ MonoBehaviour:
   - attackRangeType: 1
     rangeSize: {x: 1.5, y: 1, z: 1.5}
     colliderPos: {x: 0, y: 0, z: 0.3}
-  - attackRangeType: 2
+  - attackRangeType: 4
     rangeSize: {x: 1.5, y: 1, z: 4}
     colliderPos: {x: 0, y: 0, z: 1.6}
-  - attackRangeType: 3
+  - attackRangeType: 6
     rangeSize: {x: 8.08, y: 1, z: 10.22}
     colliderPos: {x: 0, y: 0, z: 4.53}
+  - attackRangeType: 5
+    rangeSize: {x: 8.08, y: 1, z: 10.22}
+    colliderPos: {x: 0, y: 0, z: 4.53}
+  - attackRangeType: 2
+    rangeSize: {x: 0.7150612, y: 0.51073873, z: 0.96103686}
+    colliderPos: {x: 0, y: 0, z: 0.27255854}
