@@ -44,6 +44,9 @@ public class GameManager : MonoBehaviour
     private float generateIntaervalTime;
     public float GenerateIntaervalTime { get => generateIntaervalTime; }
 
+    [SerializeField]
+    private Transform stageTran;
+
 
     void Start()
     {
@@ -91,7 +94,7 @@ public class GameManager : MonoBehaviour
     /// <param name="stageLevelIndex"></param>
     public void PreparateStage(int stageLevelIndex)
     {
-        StageInfo stage = Instantiate(stageDatas[stageLevelIndex].stagPrefab);
+        StageInfo stage = Instantiate(stageDatas[stageLevelIndex].stagPrefab,stageTran,false);
 
         //for(int i=0;i<stage.enemyPrefabs.Length;i++ )
         foreach(UnitController enemy in stage.enemyPrefabs)
