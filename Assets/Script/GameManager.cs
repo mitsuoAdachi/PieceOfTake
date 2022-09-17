@@ -64,6 +64,8 @@ public class GameManager : MonoBehaviour
 
         //味方ユニットの生成準備
         StartCoroutine(unitGenerator.LayoutUnit(this,uiManager));
+
+        
     }
 
     /// <summary>
@@ -94,10 +96,11 @@ public class GameManager : MonoBehaviour
     /// <param name="stageLevelIndex"></param>
     public void PreparateStage(int stageLevelIndex)
     {
-        StageInfo stage = Instantiate(stageDatas[stageLevelIndex].stagPrefab,stageTran,false);
+        //StageInfo stage = Instantiate(stageDatas[stageLevelIndex].stagPrefab,stageTran,false);
+        StageInfo stage = Instantiate(stageDatas[stageLevelIndex].stagPrefab);
 
         //for(int i=0;i<stage.enemyPrefabs.Length;i++ )
-        foreach(UnitController enemy in stage.enemyPrefabs)
+        foreach (UnitController enemy in stage.enemyPrefabs)
         {
             //units.GetComponent<UnitController>();
 

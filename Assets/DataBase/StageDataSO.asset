@@ -15,4 +15,4 @@ MonoBehaviour:
   stageDataList:
   - stageLvIndex: 0
     stageCost: 5
-    stagPrefab: {fileID: 5027043909275380727, guid: ed3e0911bf59b4610bcc3e61ce7e8f34, type: 3}
+    stagPrefab: {fileID: 7129040851846083456, guid: dbaa9aea5f51f4047b3776a013dedfa6, type: 3}

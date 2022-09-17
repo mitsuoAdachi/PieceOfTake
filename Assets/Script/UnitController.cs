@@ -29,13 +29,13 @@ public class UnitController : MonoBehaviour
 
     private NavMeshAgent agent;
 
+    public Tweener tweener;
+
     private int maxHp;
 
     public int unitNumber;
 
     public bool isAttack = false;
-
-    private Tweener tweener;
 
     private Animator anime;
     private int attackAnime;
@@ -76,6 +76,8 @@ public class UnitController : MonoBehaviour
         rigid = GetComponent<Rigidbody>();
 
         isGround = true;
+
+        OnJudgeGround();
     }
     /// <summary>
     /// ユニットステータスの設定
@@ -165,7 +167,7 @@ public class UnitController : MonoBehaviour
                         targetUnit = target;
                     }
 
-                    if (targetUnit != null)
+                    if (targetUnit != null　&& targetUnit.isGround == true)
                     {
                         //ナビメッシュを使用した移動
                         agent.destination = targetUnit.transform.position;
@@ -218,6 +220,7 @@ public class UnitController : MonoBehaviour
 
         if(this.hp <= 0)
         {
+            agent.enabled = true;
             agent.isStopped = true;
             targetUnit = null;
             anime.SetTrigger(deadAnime);
@@ -239,11 +242,10 @@ public class UnitController : MonoBehaviour
 
         //ステージ外に出たら落ちて破壊される処理
         StopCoroutine("OnMoveUnit");
-        targetUnit = null;
-        //agent.ResetPath();
+        //targetUnit = null;
         agent.enabled = false;
         tweener = transform.DOMove(transform.forward * -blowPower, 1)
-            .OnComplete(() => OnJudgeGoround())
+            .OnComplete(() => SwitchOnMoveUnit())
             .SetLink(this.gameObject);
     }
 
@@ -269,21 +271,43 @@ public class UnitController : MonoBehaviour
         }
     }
 
+    private void OnJudgeGround()
+    {
+        StartCoroutine(JudgeGoround());
+    }
+
     /// <summary>
     /// ステージ上にいるかどうかの判定
     /// </summary>
-    private void OnJudgeGoround()
+    private IEnumerator JudgeGoround()
+    {
+        while (true)
+        {
+            if (isGround)
+            {
+                //agent.enabled = true;
+                //StartCoroutine("OnMoveUnit");
+
+            }
+            else
+            {
+                //agent.ResetPath();
+                StopCoroutine("OnMoveUnit");
+                agent.enabled = false;
+                rigid.isKinematic = false;
+                //tweener.Kill();
+                Destroy(this.gameObject, 1);
+            }
+            yield return null;                
+        }
+    }
+
+    private void SwitchOnMoveUnit()
     {
         if (isGround)
         {
             agent.enabled = true;
             StartCoroutine("OnMoveUnit");
-
-        }
-        else
-        {
-            rigid.isKinematic = false;
-            Destroy(this.gameObject, 1);
         }
     }
 }

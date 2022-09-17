@@ -1,11 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
-public class DropUnitCollider : MonoBehaviour
+public class OutSideDropCollider : MonoBehaviour
 {
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
         if (other.CompareTag("Ally") || other.CompareTag("Enemy"))
         {
