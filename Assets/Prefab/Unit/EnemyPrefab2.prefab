@@ -300,6 +300,9 @@ MonoBehaviour:
   standerdDistanceValue: 1000
   unitNumber: 2
   isAttack: 0
+  stageLayer:
+    serializedVersion: 2
+    m_Bits: 8
   cost: 0
   hp: 1
   attackPower: 0

@@ -37,6 +37,9 @@ public class UnitController : MonoBehaviour
 
     public bool isAttack = false;
 
+    [SerializeField]
+    LayerMask stageLayer;
+
     private Animator anime;
     private int attackAnime;
     private int knockBackAnime;
@@ -77,7 +80,7 @@ public class UnitController : MonoBehaviour
 
         isGround = true;
 
-        OnJudgeGround();
+        //OnJudgeGround();
     }
     /// <summary>
     /// ユニットステータスの設定
@@ -244,7 +247,8 @@ public class UnitController : MonoBehaviour
         StopCoroutine("OnMoveUnit");
         //targetUnit = null;
         agent.enabled = false;
-        tweener = transform.DOMove(transform.forward * -blowPower, 1)
+        rigid.isKinematic = false;
+        tweener = rigid.DOMove(transform.forward * -blowPower, 1)
             .OnComplete(() => SwitchOnMoveUnit())
             .SetLink(this.gameObject);
     }
@@ -271,43 +275,48 @@ public class UnitController : MonoBehaviour
         }
     }
 
-    private void OnJudgeGround()
-    {
-        StartCoroutine(JudgeGoround());
-    }
+    //private void OnJudgeGround()
+    //{
+    //    StartCoroutine(JudgeGoround());
+    //}
 
-    /// <summary>
-    /// ステージ上にいるかどうかの判定
-    /// </summary>
-    private IEnumerator JudgeGoround()
-    {
-        while (true)
-        {
-            if (isGround)
-            {
-                //agent.enabled = true;
-                //StartCoroutine("OnMoveUnit");
-
-            }
-            else
-            {
-                //agent.ResetPath();
-                StopCoroutine("OnMoveUnit");
-                agent.enabled = false;
-                rigid.isKinematic = false;
-                //tweener.Kill();
-                Destroy(this.gameObject, 1);
-            }
-            yield return null;                
-        }
-    }
+    //private IEnumerator JudgeGoround()
+    //{
+    //    while (true)
+    //    {
+    //        if (!isGround)
+    //        {
+    //            StopCoroutine(OnMoveUnit());
+    //            agent.enabled = false;
+    //            rigid.isKinematic = false;
+    //            Destroy(this.gameObject, 1);
+    //        }
+    //        yield return null;                
+    //    }
+    //}
 
     private void SwitchOnMoveUnit()
     {
-        if (isGround)
+        if (JudgeGround() == true)
         {
+            rigid.isKinematic = true;
             agent.enabled = true;
             StartCoroutine("OnMoveUnit");
         }
+    }
+
+    /// <summary>
+    /// ノックバック後ユニットから下方向へRayを飛ばしstageLayerのオブジェクトに接触した場合はステージ上にいるとしてtrueを返す。
+    /// </summary>
+    /// <returns></returns>
+    private bool JudgeGround()
+    {
+        Ray ray = new Ray(transform.position + Vector3.up * 0.2f, Vector3.down);
+        Debug.DrawRay(transform.position + Vector3.up * 0.2f, Vector3.down);
+        if (Physics.Raycast(ray.origin, ray.direction, out RaycastHit hit, 4.0f, stageLayer))
+        {
+            return true;
+        }
+        return false;
     }
 }

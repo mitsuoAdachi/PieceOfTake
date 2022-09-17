@@ -249,6 +249,9 @@ MonoBehaviour:
   standerdDistanceValue: 1000
   unitNumber: 1
   isAttack: 0
+  stageLayer:
+    serializedVersion: 2
+    m_Bits: 8
   cost: 0
   hp: 1
   attackPower: 0
@@ -257,6 +260,7 @@ MonoBehaviour:
   weight: 0
   intervalTime: 0
   attackRangeSize: {fileID: 4344737803134321442}
+  isGround: 0
   material: {fileID: 0}
 --- !u!195 &241209228603151909
 NavMeshAgent:
