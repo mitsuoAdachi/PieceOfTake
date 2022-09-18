@@ -29,12 +29,12 @@ public class GameManager : MonoBehaviour
 
     [SerializeField]
     private UnitGenerator unitGenerator;
-
     [SerializeField]
     private ModeChange modeChange;
-
     [SerializeField]
     private UIManager uiManager;
+    [SerializeField]
+    private StageGenerator stageGenerator;
 
     public int totalCost; //配置ユニットの総コスト
 
@@ -44,17 +44,13 @@ public class GameManager : MonoBehaviour
     private float generateIntaervalTime;
     public float GenerateIntaervalTime { get => generateIntaervalTime; }
 
-    [SerializeField]
-    private Transform stageTran;
-
-
     void Start()
     {
         //SOデータを読み込む
         SetupSOData();
 
         //ステージの準備
-        PreparateStage(stageLevel);
+        stageGenerator.PreparateStage(stageLevel,this);
 
         //ユニット選択ボタンを設定
         uiManager.SetupUnitButton(this, modeChange);
@@ -64,8 +60,6 @@ public class GameManager : MonoBehaviour
 
         //味方ユニットの生成準備
         StartCoroutine(unitGenerator.LayoutUnit(this,uiManager));
-
-        
     }
 
     /// <summary>
@@ -87,28 +81,6 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < DataBaseManager.instance.enemyUnitDataSO.enemyUnitDatasList.Count; i++)
         {
             enemyUnitDatas.Add(DataBaseManager.instance.enemyUnitDataSO.enemyUnitDatasList[i]);
-        }
-    }
-
-    /// <summary>
-    /// ステージレベルに合わせてステージデータを生成し、敵ユニットも生成する
-    /// </summary>
-    /// <param name="stageLevelIndex"></param>
-    public void PreparateStage(int stageLevelIndex)
-    {
-        //StageInfo stage = Instantiate(stageDatas[stageLevelIndex].stagPrefab,stageTran,false);
-        StageInfo stage = Instantiate(stageDatas[stageLevelIndex].stagPrefab);
-
-        //for(int i=0;i<stage.enemyPrefabs.Length;i++ )
-        foreach (UnitController enemy in stage.enemyPrefabs)
-        {
-            //units.GetComponent<UnitController>();
-
-            enemy.StartMoveUnit(this, GenerateAllyList);
-
-            enemy.SetupUnitStateEnemy(enemyUnitDatas);
-
-            GenerateEnemyList.Add(enemy);
         }
     }
 }

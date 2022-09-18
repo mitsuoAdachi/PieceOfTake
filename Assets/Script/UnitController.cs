@@ -80,7 +80,6 @@ public class UnitController : MonoBehaviour
 
         isGround = true;
 
-        //OnJudgeGround();
     }
     /// <summary>
     /// ユニットステータスの設定
@@ -176,9 +175,6 @@ public class UnitController : MonoBehaviour
                         agent.destination = targetUnit.transform.position;
 
                         anime.SetFloat(walkAnime, agent.velocity.sqrMagnitude);
-
-                        //進行方向を向く
-                        transform.LookAt(targetUnit.transform);
                     }
                     else
                     {
@@ -245,7 +241,6 @@ public class UnitController : MonoBehaviour
 
         //ステージ外に出たら落ちて破壊される処理
         StopCoroutine("OnMoveUnit");
-        //targetUnit = null;
         agent.enabled = false;
         rigid.isKinematic = false;
         tweener = rigid.DOMove(transform.forward * -blowPower, 1)
@@ -275,26 +270,6 @@ public class UnitController : MonoBehaviour
         }
     }
 
-    //private void OnJudgeGround()
-    //{
-    //    StartCoroutine(JudgeGoround());
-    //}
-
-    //private IEnumerator JudgeGoround()
-    //{
-    //    while (true)
-    //    {
-    //        if (!isGround)
-    //        {
-    //            StopCoroutine(OnMoveUnit());
-    //            agent.enabled = false;
-    //            rigid.isKinematic = false;
-    //            Destroy(this.gameObject, 1);
-    //        }
-    //        yield return null;                
-    //    }
-    //}
-
     private void SwitchOnMoveUnit()
     {
         if (JudgeGround() == true)
@@ -302,6 +277,10 @@ public class UnitController : MonoBehaviour
             rigid.isKinematic = true;
             agent.enabled = true;
             StartCoroutine("OnMoveUnit");
+        }
+        else
+        {
+            Destroy(this.gameManager, 1);
         }
     }
 
@@ -312,7 +291,7 @@ public class UnitController : MonoBehaviour
     private bool JudgeGround()
     {
         Ray ray = new Ray(transform.position + Vector3.up * 0.2f, Vector3.down);
-        Debug.DrawRay(transform.position + Vector3.up * 0.2f, Vector3.down);
+        Debug.DrawRay(transform.position + Vector3.up * 0.2f, Vector3.down,Color.red,1);
         if (Physics.Raycast(ray.origin, ray.direction, out RaycastHit hit, 4.0f, stageLayer))
         {
             return true;
