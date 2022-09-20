@@ -19,7 +19,7 @@ MonoBehaviour:
     blowPower: 5
     moveSpeed: 1
     weight: 0
-    intervalTime: 2000
+    intervalTime: 1000
     isGround: 0
     attackRangeType: 1
     UnitPrefab: {fileID: 2760980825175953369, guid: 1541f45050a4942a69972b75f22fc1db, type: 3}
@@ -27,10 +27,10 @@ MonoBehaviour:
   - cost: 0
     hp: 3
     attackPower: 2
-    blowPower: 5
-    moveSpeed: 0.5
+    blowPower: 6
+    moveSpeed: 0.8
     weight: 0
-    intervalTime: 2000
+    intervalTime: 1000
     isGround: 0
     attackRangeType: 1
     UnitPrefab: {fileID: 834000593253369552, guid: 4d7ad4d2cfdb4481c9da73dff10f7a6f, type: 3}
@@ -39,9 +39,9 @@ MonoBehaviour:
     hp: 5
     attackPower: 2
     blowPower: 5
-    moveSpeed: 0.5
+    moveSpeed: 0.8
     weight: 0
-    intervalTime: 2000
+    intervalTime: 1000
     isGround: 0
     attackRangeType: 2
     UnitPrefab: {fileID: 1801818050419777562, guid: 5ed664923ee1d40f3b0842c8e66a9f04, type: 3}

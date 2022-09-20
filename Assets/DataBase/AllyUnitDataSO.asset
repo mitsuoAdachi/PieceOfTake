@@ -17,9 +17,9 @@ MonoBehaviour:
     hp: 20
     attackPower: 1
     blowPower: 6
-    moveSpeed: 0.5
+    moveSpeed: 0.8
     weight: 0
-    intervalTime: 1200
+    intervalTime: 3500
     isGround: 0
     attackRangeType: 1
     UnitPrefab: {fileID: 3272475995211424383, guid: e83bbcc9d3b6341ccb44f29e5534d628, type: 3}
