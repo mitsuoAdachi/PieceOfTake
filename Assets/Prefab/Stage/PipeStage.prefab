@@ -25812,13 +25812,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7171945643515253717}
-  - component: {fileID: 6758849365671707258}
+  - component: {fileID: 6791710643154809692}
   m_Layer: 0
   m_Name: Stages
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &7171945643515253717
 Transform:
@@ -25839,7 +25839,7 @@ Transform:
   m_Father: {fileID: 5021241317977896327}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6758849365671707258
+--- !u!114 &6791710643154809692
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -25848,15 +25848,26 @@ MonoBehaviour:
   m_GameObject: {fileID: 1714346764431253969}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 25d950f75cd8443a8afb6ed9e06ca02b, type: 3}
+  m_Script: {fileID: 11500000, guid: 7a5ac11cc976e418e8d13136b07e1f52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyPrefabs:
-  - {fileID: 8489851360725256578}
-  - {fileID: 6913754332148169654}
-  - {fileID: 8528364853885007269}
-  - {fileID: 3602691215228951912}
-  - {fileID: 3549519638287493758}
+  m_AgentTypeID: 0
+  m_CollectObjects: 2
+  m_Size: {x: 10, y: 10, z: 10}
+  m_Center: {x: 0, y: 2, z: 0}
+  m_LayerMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_UseGeometry: 0
+  m_DefaultArea: 0
+  m_IgnoreNavMeshAgent: 1
+  m_IgnoreNavMeshObstacle: 1
+  m_OverrideTileSize: 0
+  m_TileSize: 256
+  m_OverrideVoxelSize: 0
+  m_VoxelSize: 0.07333333
+  m_BuildHeightMesh: 0
+  m_NavMeshData: {fileID: 23800000, guid: c2a37ddfc1242470ea47fa25d129a58a, type: 2}
 --- !u!1 &2299127003310136514
 GameObject:
   m_ObjectHideFlags: 0
@@ -51698,7 +51709,7 @@ Transform:
   m_GameObject: {fileID: 7606766522481420787}
   m_LocalRotation: {x: -0.46378535, y: -0.3114826, z: 0.39041033, w: 0.73175234}
   m_LocalPosition: {x: -0.0354, y: -0.0184, z: 0.015}
-  m_LocalScale: {x: 0.76, y: 0.6, z: 0.50000006}
+  m_LocalScale: {x: 0.46, y: 0.6, z: 0.50000006}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3549519638296577478}

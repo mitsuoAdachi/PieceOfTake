@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class GameManager : MonoBehaviour
 {
@@ -35,6 +36,9 @@ public class GameManager : MonoBehaviour
     private UIManager uiManager;
     [SerializeField]
     private StageGenerator stageGenerator;
+
+    [SerializeField]
+    private StageInfo stage1;
 
     public int totalCost; //配置ユニットの総コスト
 
@@ -82,5 +86,21 @@ public class GameManager : MonoBehaviour
         {
             enemyUnitDatas.Add(DataBaseManager.instance.enemyUnitDataSO.enemyUnitDatasList[i]);
         }
+    }
+
+    private IEnumerator ChangeStage()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Destroy(stage1.gameObject);
+
+            yield return new WaitForSeconds(2);
+
+            StageInfo stage = Instantiate(stageDatas[1].stagPrefab);
+        }
+    }
+    private void Update()
+    {
+        StartCoroutine(ChangeStage());
     }
 }

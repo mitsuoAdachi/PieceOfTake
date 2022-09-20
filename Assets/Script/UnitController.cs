@@ -240,9 +240,9 @@ public class UnitController : MonoBehaviour
         anime.SetTrigger(knockBackAnime);
 
         //ステージ外に出たら落ちて破壊される処理
+        rigid.isKinematic = false;
         StopCoroutine("OnMoveUnit");
         agent.enabled = false;
-        rigid.isKinematic = false;
         tweener = rigid.DOMove(transform.forward * -blowPower, 1)
             .OnComplete(() => SwitchOnMoveUnit())
             .SetLink(this.gameObject);
@@ -280,7 +280,7 @@ public class UnitController : MonoBehaviour
         }
         else
         {
-            Destroy(this.gameManager, 1);
+            Destroy(this.gameObject, 1);
         }
     }
 
