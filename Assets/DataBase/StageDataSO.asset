@@ -16,3 +16,8 @@ MonoBehaviour:
   - stageLvIndex: 0
     stageCost: 5
     stagPrefab: {fileID: 5780660914742466747, guid: 94dbb356ba328478baed86c5e476e254, type: 3}
+    navmeshData: {fileID: 23800000, guid: c2a37ddfc1242470ea47fa25d129a58a, type: 2}
+  - stageLvIndex: 1
+    stageCost: 5
+    stagPrefab: {fileID: 1234354471715471147, guid: e8bfa8f12b5c649fba61ebd0b79f8681, type: 3}
+    navmeshData: {fileID: 23800000, guid: 6321cdd95c3d84ea1b7ba5d4bcde8bb0, type: 2}

@@ -16,7 +16,7 @@ MonoBehaviour:
   - cost: 0
     hp: 3
     attackPower: 1
-    blowPower: 4
+    blowPower: 5
     moveSpeed: 1
     weight: 0
     intervalTime: 2000
@@ -27,7 +27,7 @@ MonoBehaviour:
   - cost: 0
     hp: 3
     attackPower: 2
-    blowPower: 4
+    blowPower: 5
     moveSpeed: 0.5
     weight: 0
     intervalTime: 2000
@@ -38,7 +38,7 @@ MonoBehaviour:
   - cost: 0
     hp: 5
     attackPower: 2
-    blowPower: 4
+    blowPower: 5
     moveSpeed: 0.5
     weight: 0
     intervalTime: 2000
