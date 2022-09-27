@@ -1982,10 +1982,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetUnit: {fileID: 0}
-  isAttackParticle: {fileID: 0}
-  timer: 0
-  standerdDistanceValue: 1000
-  unitNumber: 0
+  attackParticle: {fileID: 0}
+  unitNumber: 6
   isAttack: 0
   stageLayer:
     serializedVersion: 2
@@ -1998,7 +1996,6 @@ MonoBehaviour:
   weight: 0
   intervalTime: 0
   attackRangeSize: {fileID: 3445654479350355926}
-  isGround: 0
   material: {fileID: 0}
 --- !u!195 &2483801844157662091
 NavMeshAgent:

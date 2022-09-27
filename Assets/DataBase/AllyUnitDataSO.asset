@@ -20,7 +20,6 @@ MonoBehaviour:
     moveSpeed: 0.8
     weight: 0
     intervalTime: 3500
-    isGround: 0
     attackRangeType: 1
     UnitPrefab: {fileID: 3272475995211424383, guid: e83bbcc9d3b6341ccb44f29e5534d628, type: 3}
     material: {fileID: 2100000, guid: 67c6985106584cb489a175f22e14c7bb, type: 2}
@@ -31,7 +30,6 @@ MonoBehaviour:
     moveSpeed: 0.5
     weight: 0
     intervalTime: 1600
-    isGround: 0
     attackRangeType: 2
     UnitPrefab: {fileID: 1344952306156266202, guid: edb8733ece2b24ef0a866eda3158c768, type: 3}
     material: {fileID: 2100000, guid: 26a233237f1b0e64f9f81ec5272d508b, type: 2}
@@ -42,8 +40,7 @@ MonoBehaviour:
     moveSpeed: 0.5
     weight: 0
     intervalTime: 1000
-    isGround: 0
-    attackRangeType: 3
+    attackRangeType: 6
     UnitPrefab: {fileID: 6399221382794076619, guid: 00efbacf35f1c4647b219684a2f32086, type: 3}
     material: {fileID: 2100000, guid: e1cd1a76ecd557440a55dfaeead52541, type: 2}
   - cost: 1
@@ -53,7 +50,6 @@ MonoBehaviour:
     moveSpeed: 0.5
     weight: 0
     intervalTime: 2000
-    isGround: 0
     attackRangeType: 0
     UnitPrefab: {fileID: 6806981910525638440, guid: 8742c8b364aea4dc9a1b1eb0c42c0d1a, type: 3}
     material: {fileID: 2100000, guid: cc40f1b9a8fbd6642ad5b1f7b08366e7, type: 2}
@@ -64,7 +60,6 @@ MonoBehaviour:
     moveSpeed: 0.5
     weight: 0
     intervalTime: 4000
-    isGround: 0
     attackRangeType: 3
     UnitPrefab: {fileID: 7909274397895849068, guid: 56c94e334881849b691ee546f27e9d29, type: 3}
     material: {fileID: 2100000, guid: 477b1ce20530f594b87bce7fe5ba012a, type: 2}
@@ -75,7 +70,6 @@ MonoBehaviour:
     moveSpeed: 0.3
     weight: 0
     intervalTime: 2000
-    isGround: 0
     attackRangeType: 3
     UnitPrefab: {fileID: 3676871700908550375, guid: 1daeee21ecb6a4381989c43c3dfcdeff, type: 3}
     material: {fileID: 2100000, guid: 37673ecc6a14727438d03633d94dc1a8, type: 2}
@@ -86,7 +80,16 @@ MonoBehaviour:
     moveSpeed: 0.3
     weight: 0
     intervalTime: 2000
-    isGround: 0
     attackRangeType: 3
     UnitPrefab: {fileID: 2483801844157662090, guid: 02cff57d74c514d259f67d3c2085277e, type: 3}
     material: {fileID: 2100000, guid: 76ebb576ec1d04a41939056baebf3399, type: 2}
+  - cost: 2
+    hp: 10
+    attackPower: 5
+    blowPower: 5
+    moveSpeed: 0.3
+    weight: 0
+    intervalTime: 2000
+    attackRangeType: 6
+    UnitPrefab: {fileID: 4653425023585479928, guid: 294aff3d0fd4e41dcbb8f240e09df13e, type: 3}
+    material: {fileID: 2100000, guid: 12048ea754e6d0f44aa81f84449f65f0, type: 2}

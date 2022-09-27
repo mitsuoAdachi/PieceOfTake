@@ -2,10 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using DG.Tweening;
 
 public class StageGenerator : MonoBehaviour
 {
-    private NavMeshDataInstance instance;
+    //private NavMeshDataInstance instance;
 
     private GameManager gameManager;
 
@@ -16,6 +17,9 @@ public class StageGenerator : MonoBehaviour
     public void PreparateStage(int stageLevelIndex, GameManager gameManager)
     {
         this.gameManager = gameManager;
+
+        //SkyBoxの設定
+        SetupSkyBox(stageLevelIndex);
 
         //ステージ生成
         StageInfo stage = Instantiate(gameManager.stageDatas[stageLevelIndex].stagPrefab);
@@ -52,4 +56,17 @@ public class StageGenerator : MonoBehaviour
     //    NavMesh.RemoveNavMeshData(instance);
     //}
 
+    /// <summary>
+    /// 各ステージ毎にSkyBoxを設定する
+    /// </summary>
+    /// <param name="stageLevelIndex"></param>
+    private void SetupSkyBox(int stageLevelIndex)
+    {
+        //インスタンス化されたステージのstageDatasからSkyBox用のマテリアルデータを取得する
+        RenderSettings.skybox = gameManager.stageDatas[stageLevelIndex].sky;
+
+        //SkyBoxマテリアルを回転させる
+        gameManager.stageDatas[stageLevelIndex].sky.DOFloat(360, "_Rotation", 360)
+            .SetLoops(-1, LoopType.Restart);
+    }
 }

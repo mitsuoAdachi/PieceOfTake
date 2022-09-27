@@ -7746,7 +7746,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 8029
+  m_VersionIndex: 8228
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -7803,7 +7803,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: c22777d6e868e4f2fb421913386b154e, type: 2}
+  - {fileID: 2100000, guid: ce1ddd8e466bcef44937c4f1ee17b988, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -15593,7 +15593,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 8029
+  m_VersionIndex: 8148
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -15650,7 +15650,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: c22777d6e868e4f2fb421913386b154e, type: 2}
+  - {fileID: 2100000, guid: ce1ddd8e466bcef44937c4f1ee17b988, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -17817,6 +17817,7 @@ Transform:
   m_Children:
   - {fileID: 7171945643515253717}
   - {fileID: 6092449722518342363}
+  - {fileID: 8715297761143652018}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -25584,7 +25585,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 8023
+  m_VersionIndex: 8142
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -25641,7 +25642,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: c22777d6e868e4f2fb421913386b154e, type: 2}
+  - {fileID: 2100000, guid: ce1ddd8e466bcef44937c4f1ee17b988, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -25654,7 +25655,7 @@ MeshRenderer:
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
   m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
+  m_SelectedEditorRenderState: 2
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
@@ -25865,7 +25866,7 @@ MonoBehaviour:
   m_OverrideTileSize: 0
   m_TileSize: 256
   m_OverrideVoxelSize: 0
-  m_VoxelSize: 0.07333333
+  m_VoxelSize: 0.016666668
   m_BuildHeightMesh: 0
   m_NavMeshData: {fileID: 23800000, guid: c2a37ddfc1242470ea47fa25d129a58a, type: 2}
 --- !u!1 &2299127003310136514
@@ -26078,9 +26079,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetUnit: {fileID: 0}
-  isAttackParticle: {fileID: 0}
-  timer: 0
-  standerdDistanceValue: 1000
+  attackParticle: {fileID: 0}
   unitNumber: 1
   isAttack: 0
   stageLayer:
@@ -26094,7 +26093,6 @@ MonoBehaviour:
   weight: 0
   intervalTime: 0
   attackRangeSize: {fileID: 4022734259480362813}
-  isGround: 0
   material: {fileID: 0}
 --- !u!54 &7764987146359555546
 Rigidbody:
@@ -27237,9 +27235,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetUnit: {fileID: 0}
-  isAttackParticle: {fileID: 0}
-  timer: 0
-  standerdDistanceValue: 1000
+  attackParticle: {fileID: 0}
   unitNumber: 2
   isAttack: 0
   stageLayer:
@@ -27253,7 +27249,6 @@ MonoBehaviour:
   weight: 0
   intervalTime: 0
   attackRangeSize: {fileID: 3354031907972833244}
-  isGround: 0
   material: {fileID: 0}
 --- !u!195 &3549519638287493753
 NavMeshAgent:
@@ -35775,9 +35770,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetUnit: {fileID: 0}
-  isAttackParticle: {fileID: 0}
-  timer: 0
-  standerdDistanceValue: 1000
+  attackParticle: {fileID: 0}
   unitNumber: 0
   isAttack: 0
   stageLayer:
@@ -35791,7 +35784,6 @@ MonoBehaviour:
   weight: 0
   intervalTime: 0
   attackRangeSize: {fileID: 4794167065023805918}
-  isGround: 0
   material: {fileID: 0}
 --- !u!195 &1578971980939419444
 NavMeshAgent:
@@ -46195,7 +46187,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 8029
+  m_VersionIndex: 8148
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -46252,7 +46244,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: c22777d6e868e4f2fb421913386b154e, type: 2}
+  - {fileID: 2100000, guid: ce1ddd8e466bcef44937c4f1ee17b988, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -46509,9 +46501,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetUnit: {fileID: 0}
-  isAttackParticle: {fileID: 0}
-  timer: 0
-  standerdDistanceValue: 1000
+  attackParticle: {fileID: 0}
   unitNumber: 1
   isAttack: 0
   stageLayer:
@@ -46525,7 +46515,6 @@ MonoBehaviour:
   weight: 0
   intervalTime: 0
   attackRangeSize: {fileID: 8103696784700168176}
-  isGround: 0
   material: {fileID: 0}
 --- !u!54 &3199601514148916503
 Rigidbody:
@@ -46802,6 +46791,64 @@ Transform:
   m_Father: {fileID: 6362919835148560875}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6652818199712290950
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8715297761143652018}
+  - component: {fileID: 2044044294651167377}
+  - component: {fileID: 2912822513848798197}
+  m_Layer: 0
+  m_Name: OutSideCollider
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8715297761143652018
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6652818199712290950}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.04, y: 0.22, z: 3.3999999}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5021241317977896327}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &2044044294651167377
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6652818199712290950}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 27.070515, y: 0.6987839, z: 24.929302}
+  m_Center: {x: 0.066244125, y: -3.1949282, z: -0.005071163}
+--- !u!114 &2912822513848798197
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6652818199712290950}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c82627fd2bdef4dc9a742cc88123c3db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7532226851544668057
 GameObject:
   m_ObjectHideFlags: 0
@@ -53079,9 +53126,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetUnit: {fileID: 0}
-  isAttackParticle: {fileID: 0}
-  timer: 0
-  standerdDistanceValue: 1000
+  attackParticle: {fileID: 0}
   unitNumber: 0
   isAttack: 0
   stageLayer:
@@ -53095,7 +53140,6 @@ MonoBehaviour:
   weight: 0
   intervalTime: 0
   attackRangeSize: {fileID: 7541516927705402346}
-  isGround: 0
   material: {fileID: 0}
 --- !u!195 &4596264943952030976
 NavMeshAgent:

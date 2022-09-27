@@ -15,8 +15,6 @@ public class GameManager : MonoBehaviour
     }
     public GameMode gameMode;
 
-    public int unitsIndex;
-
     //ステージデータのリスト
     public List<StageData> stageDatas = new List<StageData>();
 
@@ -37,12 +35,9 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private StageGenerator stageGenerator;
 
-    [SerializeField]
-    private StageInfo stage1;
+    public int stageLevel = 0; //生成するステージのレベル
 
     public int totalCost; //配置ユニットの総コスト
-
-    public int stageLevel=0;
 
     [Header("ユニットの生成待機時間"),SerializeField]
     private float generateIntaervalTime;
@@ -86,21 +81,5 @@ public class GameManager : MonoBehaviour
         {
             enemyUnitDatas.Add(DataBaseManager.instance.enemyUnitDataSO.enemyUnitDatasList[i]);
         }
-    }
-
-    private IEnumerator ChangeStage()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            Destroy(stage1.gameObject);
-
-            yield return new WaitForSeconds(2);
-
-            StageInfo stage = Instantiate(stageDatas[1].stagPrefab);
-        }
-    }
-    private void Update()
-    {
-        StartCoroutine(ChangeStage());
     }
 }

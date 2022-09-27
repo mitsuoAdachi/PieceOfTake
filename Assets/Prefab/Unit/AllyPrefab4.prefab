@@ -87,6 +87,65 @@ SkinnedMeshRenderer:
     m_Center: {x: -0.24831031, y: 0.013522446, z: 0.18534404}
     m_Extent: {x: 0.3078307, y: 0.13697942, z: 0.9011528}
   m_DirtyAABB: 0
+--- !u!1 &3778114757589257769
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6381315798898950872}
+  - component: {fileID: 1198401443614995064}
+  - component: {fileID: 6321479595910988574}
+  m_Layer: 7
+  m_Name: LookTargetCollider
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6381315798898950872
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3778114757589257769}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.6108599, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7909274397888388054}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1198401443614995064
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3778114757589257769}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3126dff0ac6c473d920baaed963de47, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unitController: {fileID: 7909274397895849068}
+--- !u!65 &6321479595910988574
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3778114757589257769}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 12.558483, y: 1, z: 12.301889}
+  m_Center: {x: 0.068326, y: 0, z: 1.2550819}
 --- !u!1 &4206882998924137863
 GameObject:
   m_ObjectHideFlags: 0
@@ -98,7 +157,7 @@ GameObject:
   - component: {fileID: 3761287287968457710}
   - component: {fileID: 979096047258608242}
   - component: {fileID: 4859556286547629345}
-  m_Layer: 7
+  m_Layer: 9
   m_Name: SubEmitter0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4969,7 +5028,7 @@ GameObject:
   - component: {fileID: 804962070231768223}
   - component: {fileID: 6422958015114134061}
   - component: {fileID: 521075027114670501}
-  m_Layer: 7
+  m_Layer: 9
   m_Name: FirePartical
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8798,11 +8857,11 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     minKillSpeed: 0
-    maxKillSpeed: 10000
+    maxKillSpeed: 0
     radiusScale: 1
     collidesWith:
       serializedVersion: 2
-      m_Bits: 127
+      m_Bits: 64
     maxCollisionShapes: 256
     quality: 0
     voxelSize: 0.5
@@ -9979,6 +10038,7 @@ Transform:
   - {fileID: 7909274397888388058}
   - {fileID: 2221772182692451951}
   - {fileID: 8647531326783478787}
+  - {fileID: 6381315798898950872}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -10120,9 +10180,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetUnit: {fileID: 0}
-  isAttackParticle: {fileID: 804962070231768223}
-  timer: 0
-  standerdDistanceValue: 1000
+  attackParticle: {fileID: 804962070231768223}
   unitNumber: 4
   isAttack: 0
   stageLayer:
@@ -10136,7 +10194,6 @@ MonoBehaviour:
   weight: 0
   intervalTime: 0
   attackRangeSize: {fileID: 8647531326783478785}
-  isGround: 0
   material: {fileID: 0}
 --- !u!195 &7909274397895849043
 NavMeshAgent:

@@ -296,9 +296,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetUnit: {fileID: 0}
-  isAttackParticle: {fileID: 0}
-  timer: 0
-  standerdDistanceValue: 1000
+  attackParticle: {fileID: 0}
   unitNumber: 2
   isAttack: 0
   stageLayer:
@@ -312,7 +310,6 @@ MonoBehaviour:
   weight: 0
   intervalTime: 0
   attackRangeSize: {fileID: 488869849054156216}
-  isGround: 0
   material: {fileID: 0}
 --- !u!195 &1801818050419777565
 NavMeshAgent:
@@ -2459,7 +2456,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2053101392144254146}
   - component: {fileID: 4811990834643162374}
-  - component: {fileID: 2730061388444059764}
+  - component: {fileID: 5710949718260555155}
   m_Layer: 7
   m_Name: LookTargetCollider
   m_TagString: Untagged
@@ -2475,7 +2472,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4725317010205961859}
   m_LocalRotation: {x: -0, y: -1, z: -0, w: 0}
-  m_LocalPosition: {x: -0.08877018, y: 0.14557628, z: 0.14581966}
+  m_LocalPosition: {x: 0.011830449, y: 0.14557628, z: 0.01581955}
   m_LocalScale: {x: 0.25, y: 0.25, z: 0.25}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2495,19 +2492,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unitController: {fileID: 1801818050419777562}
---- !u!65 &2730061388444059764
-BoxCollider:
+--- !u!135 &5710949718260555155
+SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4725317010205961859}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 5.516482, y: 2.125786, z: 5.6290135}
-  m_Center: {x: 0.011595964, y: 0.56289303, z: 0.3736117}
+  m_Radius: 2.25
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &488869849725354387
 PrefabInstance:
   m_ObjectHideFlags: 0

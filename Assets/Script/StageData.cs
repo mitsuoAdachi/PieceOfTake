@@ -10,4 +10,5 @@ public class StageData
     public int stageCost;
     public StageInfo stagPrefab;
     public NavMeshData navmeshData;
+    public Material sky;
 }

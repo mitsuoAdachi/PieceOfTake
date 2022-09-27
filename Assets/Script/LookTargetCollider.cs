@@ -9,11 +9,8 @@ public class LookTargetCollider : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if(other.CompareTag("Ally") || other.CompareTag("Enemy"))
-        {
-            if(unitController.TargetUnit != null)
-            //進行方向を向く
-            transform.LookAt(unitController.TargetUnit.transform);
-        }
+        if(unitController.TargetUnit != null)
+        //進行方向を向く
+        unitController.transform.LookAt(unitController.TargetUnit.transform.position);
     }
 }

@@ -464,9 +464,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetUnit: {fileID: 0}
-  isAttackParticle: {fileID: 0}
-  timer: 0
-  standerdDistanceValue: 1000
+  attackParticle: {fileID: 0}
   unitNumber: 1
   isAttack: 0
   stageLayer:
@@ -480,7 +478,6 @@ MonoBehaviour:
   weight: 0
   intervalTime: 0
   attackRangeSize: {fileID: 990295980470412421}
-  isGround: 0
   material: {fileID: 0}
 --- !u!54 &5886034456850800226
 Rigidbody:
@@ -525,7 +522,7 @@ NavMeshAgent:
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 300
-  m_StoppingDistance: 0.7
+  m_StoppingDistance: 1
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 0
   m_AutoRepath: 1
@@ -575,7 +572,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6208918190035292356}
   - component: {fileID: 9191032473054994663}
-  - component: {fileID: 701673922507259060}
+  - component: {fileID: 3176513329492288372}
   m_Layer: 7
   m_Name: LookTargetCollider
   m_TagString: Untagged
@@ -591,7 +588,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7566131755707160792}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.16669683, y: 0.38870552, z: -0.2954071}
+  m_LocalPosition: {x: 0.004732098, y: 0.38870552, z: -0.03826414}
   m_LocalScale: {x: 0.71428573, y: 0.71428573, z: 0.71428573}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -611,8 +608,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unitController: {fileID: 834000593253369552}
---- !u!65 &701673922507259060
-BoxCollider:
+--- !u!135 &3176513329492288372
+SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -622,8 +619,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 5.516482, y: 2.125786, z: 5.6290135}
-  m_Center: {x: 0.011595964, y: 0.56289303, z: 0.3736117}
+  m_Radius: 2.69
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8299327513050069760
 GameObject:
   m_ObjectHideFlags: 0

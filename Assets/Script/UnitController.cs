@@ -6,39 +6,35 @@ using DG.Tweening;
 
 public class UnitController : MonoBehaviour
 {
-    private Rigidbody rigid;
+    private List<UnitController> unitList = new List<UnitController>();
 
     [SerializeField]
     private UnitController targetUnit;
     public UnitController TargetUnit { get => targetUnit; }
 
-    private List<UnitController> unitList = new List<UnitController>();
-
     [SerializeField]
-    private ParticleSystem isAttackParticle;
+    private ParticleSystem attackParticle; //インスペクター上で攻撃エフェクトをアタッチ
 
-    //攻撃間隔用タイマー
-    [SerializeField]
-    private int timer;
+    private int intervalTimer;     //攻撃間隔用タイマー
 
-    //敵の距離を比較するための基準となる変数。適当な数値を代入
-    public float standerdDistanceValue = 1000;
+    private float standerdDistanceValue = 1000;    //敵の距離を比較するための基準となる変数。適当な数値を代入
+
 
     private GameManager gameManager;
     private UIManager uiManager;
 
+    private Rigidbody rigid;
     private NavMeshAgent agent;
-
-    public Tweener tweener;
 
     private int maxHp;
 
-    public int unitNumber;
+    public int unitNumber;　　　//ユニットの整理番号
 
     public bool isAttack = false;
+    private bool isKnockBack = false;
 
     [SerializeField]
-    LayerMask stageLayer;
+    LayerMask stageLayer;     //地上判定用のレイヤー(stage)をインスペクター上で設定
 
     private Animator anime;
     private int attackAnime;
@@ -64,22 +60,17 @@ public class UnitController : MonoBehaviour
     private float intervalTime;
     [SerializeField, Header("攻撃範囲")]
     private BoxCollider attackRangeSize;
-    public bool isGround;
     public Material material;
 
     private void Start()
     {
         //コンポーネントのキャッシュ
+        rigid = GetComponent<Rigidbody>();
         anime = GetComponent<Animator>();
         attackAnime = Animator.StringToHash("attack");
         knockBackAnime = Animator.StringToHash("knockBack");
         walkAnime = Animator.StringToHash("walk");
         deadAnime = Animator.StringToHash("dead");
-
-        rigid = GetComponent<Rigidbody>();
-
-        isGround = true;
-
     }
     /// <summary>
     /// ユニットステータスの設定
@@ -100,7 +91,6 @@ public class UnitController : MonoBehaviour
         agent.speed = unitDatas[uiManager.btnIndex].moveSpeed;
         weight = unitDatas[uiManager.btnIndex].weight;
         (attackRangeSize.size, attackRangeSize.center) = DataBaseManager.instance.GetAttackRange(unitDatas[uiManager.btnIndex].attackRangeType);
-        isGround = unitDatas[uiManager.btnIndex].isGround;
         intervalTime = unitDatas[uiManager.btnIndex].intervalTime;
         maxHp = hp;
 
@@ -119,7 +109,6 @@ public class UnitController : MonoBehaviour
         agent.speed = unitDatas[unitNumber].moveSpeed;
         weight = unitDatas[unitNumber].weight;
         (attackRangeSize.size, attackRangeSize.center) = DataBaseManager.instance.GetAttackRange(unitDatas[unitNumber].attackRangeType);
-        isGround = unitDatas[unitNumber].isGround;
         intervalTime = unitDatas[unitNumber].intervalTime;
         maxHp = hp;
 
@@ -155,8 +144,8 @@ public class UnitController : MonoBehaviour
             {
                 if (gameManager.gameMode == GameManager.GameMode.Play && target != null)
                 {
-                    //攻撃間隔タイマーはMoveUnitメソッド内で換算
-                    timer++;
+                    //攻撃間隔タイマーをMoveUnitメソッド内で加算
+                    intervalTimer++;
                     
                     //EnemyUnitList内に登録してあるオブジェクトとの距離を測り変数に代入する
                     float nearTargetDistanceValue = Vector3.SqrMagnitude(target.transform.position - transform.position);
@@ -169,7 +158,7 @@ public class UnitController : MonoBehaviour
                         targetUnit = target;
                     }
 
-                    if (targetUnit != null　&& targetUnit.isGround == true)
+                    if (targetUnit != null)
                     {
                         //ナビメッシュを使用した移動
                         agent.destination = targetUnit.transform.position;
@@ -198,14 +187,27 @@ public class UnitController : MonoBehaviour
         {
             if (targetUnit.hp > 0)
             {
-                if (timer > intervalTime)
+                if (intervalTimer > intervalTime)
                 {
-                    timer = 0;
+                    intervalTimer = 0;
 
                     //Attack(attackPower);
                     anime.SetTrigger(attackAnime);
                 }
             }
+        }
+    }
+
+    /// <summary>
+    /// アニメーションイベントでダメージを与えるメソッドとノックバックさせるメソッドを呼び出す
+    /// </summary>
+    public void AnimationEventDamage()
+    {
+        if (targetUnit != null)
+        {
+            targetUnit.OnDamage(this.attackPower);
+
+            targetUnit.OnKnockBack(this.blowPower);
         }
     }
 
@@ -222,6 +224,7 @@ public class UnitController : MonoBehaviour
             agent.enabled = true;
             agent.isStopped = true;
             targetUnit = null;
+            isAttack = false;
             anime.SetTrigger(deadAnime);
 
             gameManager.GenerateEnemyList.Remove(this);
@@ -239,51 +242,52 @@ public class UnitController : MonoBehaviour
     {
         anime.SetTrigger(knockBackAnime);
 
-        //ステージ外に出たら落ちて破壊される処理
+        //ステージ(Navmesh)外に出るように障害機能を一旦切る
         rigid.isKinematic = false;
         StopCoroutine("OnMoveUnit");
         agent.enabled = false;
-        tweener = rigid.DOMove(transform.forward * -blowPower, 1)
-            .OnComplete(() => SwitchOnMoveUnit())
-            .SetLink(this.gameObject);
+
+        //ノックバックはFixedUpdateで動かす
+        isKnockBack = true;
+        StartCoroutine(RetrunOnMoveUnit());
+
+        //rigid.DOMove(transform.forward * -blowPower, 1)
+        //    .OnComplete(() => SwitchOnMoveUnit())
+        //    .SetLink(this.gameObject);       
     }
 
     /// <summary>
-    /// 弓矢・魔法を発射するエフェクト
+    /// ノックバックをFixedUpdateで動かす
     /// </summary>
-    public void OnAttackPartical()
+    private void FixedUpdate()
     {
-        isAttackParticle.Play();
-    }
-
-    /// <summary>
-    /// 攻撃アニメーションで呼び出すメソッド
-    /// </summary>
-    public void AnimationEventDamage()
-    {
-        if (targetUnit != null)
+        if (isKnockBack)
         {
-            targetUnit.OnDamage(this.attackPower);
-
-            //ノックバック演出
-            targetUnit.OnKnockBack(this.blowPower);
+            rigid.AddForce(-transform.forward * blowPower, ForceMode.VelocityChange);
         }
     }
 
-    private void SwitchOnMoveUnit()
+    /// <summary>
+    /// ノックバック後、ステージ上にいるかどうかで処理を変更
+    /// </summary>
+    /// <returns></returns>
+    private IEnumerator RetrunOnMoveUnit()
     {
+        yield return new WaitForSeconds(0.5f);
+
         if (JudgeGround() == true)
         {
+            isKnockBack = false;
             rigid.isKinematic = true;
             agent.enabled = true;
             StartCoroutine("OnMoveUnit");
         }
         else
         {
-            Destroy(this.gameObject, 1);
+            Debug.Log("空中です");
+            isKnockBack = false;
         }
     }
-
     /// <summary>
     /// ノックバック後ユニットから下方向へRayを飛ばしstageLayerのオブジェクトに接触した場合はステージ上にいるとしてtrueを返す。
     /// </summary>
@@ -298,4 +302,29 @@ public class UnitController : MonoBehaviour
         }
         return false;
     }
+
+    /// <summary>
+    /// 弓矢・魔法を発射するエフェクト
+    /// </summary>
+    public void OnAttackPartical()
+    {
+        attackParticle.Play();
+    }
+
+
+    //private void SwitchOnMoveUnit()
+    //{
+    //    if (JudgeGround() == true)
+    //    {
+    //        rigid.isKinematic = true;
+    //        agent.enabled = true;
+    //        StartCoroutine("OnMoveUnit");
+    //    }
+    //    else
+    //    {
+    //        Debug.Log("空中"+ JudgeGround());
+    //        Destroy(this.gameObject, 1);
+    //    }
+    //}
+
 }

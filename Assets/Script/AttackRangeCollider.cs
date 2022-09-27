@@ -9,15 +9,12 @@ public class AttackRangeCollider : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        //rangeCollider.enabled = true;
-
         if (myUnitController.TargetUnit != null)
         {
             if (other.gameObject == myUnitController.TargetUnit.gameObject)
             {
                 myUnitController.isAttack = true;
 
-                //StartCoroutine(myUnitController.PreparateAttack());
                 myUnitController.PreparateAttack();
             }
         }
@@ -26,7 +23,5 @@ public class AttackRangeCollider : MonoBehaviour
     private void OnTriggerExit(Collider other)
     {
         myUnitController.isAttack = false;
-
-        //myUnitController.TargetUnit.gameObject = null;
     }
 }
