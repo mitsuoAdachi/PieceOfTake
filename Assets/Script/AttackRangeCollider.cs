@@ -24,4 +24,10 @@ public class AttackRangeCollider : MonoBehaviour
     {
         myUnitController.isAttack = false;
     }
+
+    private void Reset()
+    {
+        transform.parent.TryGetComponent(out myUnitController);
+    }
+
 }

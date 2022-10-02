@@ -3,6 +3,7 @@ using UnityEngine;
 [System.Serializable]
 public class UnitData 
 {
+    public int id;
     public int cost;
     public int hp;
     public int attackPower;
@@ -10,11 +11,9 @@ public class UnitData
     public float moveSpeed;
     public float weight;
     public float intervalTime;
-    public AttackRangeType attackRangeType;
     public UnitController UnitPrefab;
 
-    public Material material;
-
+    //public AttackRangeType attackRangeType;
     //public Sprite unitSprite;
     //public AnimationClip moveAnime;
     //public AnimationClip attackAnime;

@@ -13,4 +13,10 @@ public class LookTargetCollider : MonoBehaviour
         //進行方向を向く
         unitController.transform.LookAt(unitController.TargetUnit.transform.position);
     }
+
+    private void Reset()
+    {
+        transform.parent.TryGetComponent(out unitController);
+    }
+
 }

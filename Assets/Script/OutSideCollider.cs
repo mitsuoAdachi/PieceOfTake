@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class OutSideCollider : MonoBehaviour
 {
-    private void OnTriggerExit(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
-        Destroy(other.gameObject, 1);
+        Destroy(other.gameObject);
     }
 }

@@ -297,11 +297,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetUnit: {fileID: 0}
   attackParticle: {fileID: 0}
-  unitNumber: 2
-  isAttack: 0
   stageLayer:
     serializedVersion: 2
     m_Bits: 8
+  attackCol: {fileID: 488869849054156216}
+  isAttack: 0
   cost: 0
   hp: 1
   attackPower: 0

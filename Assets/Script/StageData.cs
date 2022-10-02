@@ -12,3 +12,10 @@ public class StageData
     public NavMeshData navmeshData;
     public Material sky;
 }
+
+[System.Serializable]
+public class GenerateUnitData
+{
+    public Transform generateTran;
+    public int unitId;
+}

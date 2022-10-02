@@ -15,26 +15,25 @@ public class UnitController : MonoBehaviour
     [SerializeField]
     private ParticleSystem attackParticle; //インスペクター上で攻撃エフェクトをアタッチ
 
-    private int intervalTimer;     //攻撃間隔用タイマー
+    [SerializeField]
+    LayerMask stageLayer;     //地上判定用のレイヤー(stage)をインスペクター上で設定
 
-    private float standerdDistanceValue = 1000;    //敵の距離を比較するための基準となる変数。適当な数値を代入
-
-
-    private GameManager gameManager;
-    private UIManager uiManager;
-
-    private Rigidbody rigid;
-    private NavMeshAgent agent;
+    public int intervalTimer;     //攻撃間隔用タイマー
 
     private int maxHp;
 
     public int unitNumber;　　　//ユニットの整理番号
 
+    private float standerdDistanceValue = 1000;    //敵の距離を比較するための基準となる変数。適当な数値を代入
+
+    public GameManager gameManager;
+    private UIManager uiManager;
+
+    private Rigidbody rigid;
+    private NavMeshAgent agent;
+
     public bool isAttack = false;
     private bool isKnockBack = false;
-
-    [SerializeField]
-    LayerMask stageLayer;     //地上判定用のレイヤー(stage)をインスペクター上で設定
 
     private Animator anime;
     private int attackAnime;
@@ -58,9 +57,6 @@ public class UnitController : MonoBehaviour
     private float weight;
     [SerializeField, Header("攻撃間隔")]
     private float intervalTime;
-    [SerializeField, Header("攻撃範囲")]
-    private BoxCollider attackRangeSize;
-    public Material material;
 
     private void Start()
     {
@@ -90,12 +86,10 @@ public class UnitController : MonoBehaviour
         blowPower = unitDatas[uiManager.btnIndex].blowPower;
         agent.speed = unitDatas[uiManager.btnIndex].moveSpeed;
         weight = unitDatas[uiManager.btnIndex].weight;
-        (attackRangeSize.size, attackRangeSize.center) = DataBaseManager.instance.GetAttackRange(unitDatas[uiManager.btnIndex].attackRangeType);
+        //(attackRangeSize.size, attackRangeSize.center) = DataBaseManager.instance.GetAttackRange(unitDatas[uiManager.btnIndex].attackRangeType);
         intervalTime = unitDatas[uiManager.btnIndex].intervalTime;
         maxHp = hp;
 
-        material = unitDatas[uiManager.btnIndex].material;
-        this.GetComponent<Renderer>().material = material;
     }
 
     public void SetupUnitStateEnemy(List<UnitData> unitDatas)
@@ -108,12 +102,9 @@ public class UnitController : MonoBehaviour
         blowPower = unitDatas[unitNumber].blowPower;
         agent.speed = unitDatas[unitNumber].moveSpeed;
         weight = unitDatas[unitNumber].weight;
-        (attackRangeSize.size, attackRangeSize.center) = DataBaseManager.instance.GetAttackRange(unitDatas[unitNumber].attackRangeType);
+        //(attackRangeSize.size, attackRangeSize.center) = DataBaseManager.instance.GetAttackRange(unitDatas[unitNumber].attackRangeType);
         intervalTime = unitDatas[unitNumber].intervalTime;
         maxHp = hp;
-
-        material = unitDatas[unitNumber].material;
-        this.GetComponent<Renderer>().material = material;
     }
 
     /// <summary>
@@ -289,12 +280,12 @@ public class UnitController : MonoBehaviour
         }
     }
     /// <summary>
-    /// ノックバック後ユニットから下方向へRayを飛ばしstageLayerのオブジェクトに接触した場合はステージ上にいるとしてtrueを返す。
+    /// ノックバック後ユニットから下方向へRayを飛ばしstageLayerのオブジェクトに接触した場合はtrueを返す。
     /// </summary>
     /// <returns></returns>
     private bool JudgeGround()
     {
-        Ray ray = new Ray(transform.position + Vector3.up * 0.2f, Vector3.down);
+        Ray ray = new Ray(transform.position + transform.forward*0.2f + Vector3.up * 0.2f, Vector3.down);
         Debug.DrawRay(transform.position + Vector3.up * 0.2f, Vector3.down,Color.red,1);
         if (Physics.Raycast(ray.origin, ray.direction, out RaycastHit hit, 4.0f, stageLayer))
         {
@@ -304,27 +295,11 @@ public class UnitController : MonoBehaviour
     }
 
     /// <summary>
-    /// 弓矢・魔法を発射するエフェクト
+    /// 弓矢・魔法を発射する
     /// </summary>
     public void OnAttackPartical()
     {
         attackParticle.Play();
     }
-
-
-    //private void SwitchOnMoveUnit()
-    //{
-    //    if (JudgeGround() == true)
-    //    {
-    //        rigid.isKinematic = true;
-    //        agent.enabled = true;
-    //        StartCoroutine("OnMoveUnit");
-    //    }
-    //    else
-    //    {
-    //        Debug.Log("空中"+ JudgeGround());
-    //        Destroy(this.gameObject, 1);
-    //    }
-    //}
 
 }

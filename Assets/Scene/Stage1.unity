@@ -1451,7 +1451,7 @@ MonoBehaviour:
   modeChange: {fileID: 1289028341}
   uiManager: {fileID: 1289028342}
   stageGenerator: {fileID: 1289028343}
-  stageLevel: 0
+  stageLevel: 8
   totalCost: 0
   generateIntaervalTime: 80
 --- !u!114 &1289028341
@@ -1748,7 +1748,6 @@ MonoBehaviour:
   stageDataSO: {fileID: 11400000, guid: d5d8e9cf6bc9b49caaa37709544576e6, type: 2}
   allyUnitDataSO: {fileID: 11400000, guid: fe98f4aac999141279d316db64c924e8, type: 2}
   enemyUnitDataSO: {fileID: 11400000, guid: 0b2acc1aebb44444bb1f3da2ba7b663e, type: 2}
-  attackRangeSizeSO: {fileID: 11400000, guid: 1a5276c790cb546a0aba7dd97db6db0b, type: 2}
 --- !u!4 &1513742239
 Transform:
   m_ObjectHideFlags: 0

@@ -671,11 +671,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetUnit: {fileID: 0}
   attackParticle: {fileID: 0}
-  unitNumber: 0
-  isAttack: 0
   stageLayer:
     serializedVersion: 2
     m_Bits: 8
+  intervalTimer: 0
+  unitNumber: 0
+  gameManager: {fileID: 0}
+  isAttack: 0
   cost: 0
   hp: 1
   attackPower: 0
@@ -683,8 +685,6 @@ MonoBehaviour:
   moveSpeed: 0.01
   weight: 0
   intervalTime: 0
-  attackRangeSize: {fileID: 1227994174196596613}
-  material: {fileID: 0}
 --- !u!195 &5074247385472964975
 NavMeshAgent:
   m_ObjectHideFlags: 0

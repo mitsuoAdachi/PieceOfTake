@@ -13,7 +13,7 @@ public class DataBaseManager : MonoBehaviour
 
     public EnemyUnitDataSO enemyUnitDataSO;
 
-    public AttackRangeSizeSO attackRangeSizeSO;
+    //public AttackRangeSizeSO attackRangeSizeSO;
 
     //シングルトンの作成
     void Awake()
@@ -29,16 +29,21 @@ public class DataBaseManager : MonoBehaviour
         }
     }
 
+    public UnitController GetUnitController(int searchId)
+    {
+        return enemyUnitDataSO.enemyUnitDatasList[searchId].UnitPrefab;
+    }
+
     /// <summary>
     /// 各ユニットのattckRangeTypeより攻撃コライダーのサイズと位置のVector3を取得
     /// </summary>
     /// <param name="attackRangeType"></param>
     /// <returns></returns>
-    public (Vector3 size, Vector3 pos) GetAttackRange(AttackRangeType attackRangeType)
-    {
-        return (attackRangeSizeSO.attackRangeSizeList.Find(x => x.attackRangeType == attackRangeType).rangeSize,
-                     attackRangeSizeSO.attackRangeSizeList.Find(x => x.attackRangeType == attackRangeType).colliderPos);
-    }
+    //public (Vector3 size, Vector3 pos) GetAttackRange(AttackRangeType attackRangeType)
+    //{
+    //    return (attackRangeSizeSO.attackRangeSizeList.Find(x => x.attackRangeType == attackRangeType).rangeSize,
+    //                 attackRangeSizeSO.attackRangeSizeList.Find(x => x.attackRangeType == attackRangeType).colliderPos);
+    //}
 
     //タプル型を使用しない場合
     //public Vector3 GetAttackRangeSize(AttackRangeType selectAttackRangeType)

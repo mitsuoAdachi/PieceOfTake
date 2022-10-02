@@ -86,6 +86,65 @@ SkinnedMeshRenderer:
     m_Center: {x: -0.2900143, y: -0.0055247545, z: 0.58778584}
     m_Extent: {x: 0.26777562, y: 0.07052766, z: 0.7777165}
   m_DirtyAABB: 0
+--- !u!1 &1738347127064256286
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3751607523743300532}
+  - component: {fileID: 1969197017314444954}
+  - component: {fileID: 3672540611707574923}
+  m_Layer: 2
+  m_Name: LookTargetCollider
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3751607523743300532
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1738347127064256286}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6806981910535149733}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1969197017314444954
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1738347127064256286}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3126dff0ac6c473d920baaed963de47, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unitController: {fileID: 6806981910525638440}
+--- !u!65 &3672540611707574923
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1738347127064256286}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 3.44, y: 1, z: 3.21}
+  m_Center: {x: 0, y: 0.6, z: 0}
 --- !u!1 &5902482360302917869
 GameObject:
   m_ObjectHideFlags: 0
@@ -1808,6 +1867,7 @@ Transform:
   - {fileID: 5260613471292664393}
   - {fileID: 6806981910535149737}
   - {fileID: 3592473380855983643}
+  - {fileID: 3751607523743300532}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1844,14 +1904,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetUnit: {fileID: 0}
-  isAttackParticle: {fileID: 0}
-  timer: 0
-  standerdDistanceValue: 1000
-  unitNumber: 3
-  isAttack: 0
+  attackParticle: {fileID: 0}
   stageLayer:
     serializedVersion: 2
     m_Bits: 8
+  attackCol: {fileID: 5437167900921139401}
+  unitNumber: 3
+  isAttack: 0
   cost: 0
   hp: 1
   attackPower: 0
@@ -1859,9 +1918,6 @@ MonoBehaviour:
   moveSpeed: 0.01
   weight: 0
   intervalTime: 0
-  attackRangeSize: {fileID: 5437167900921139401}
-  isGround: 0
-  material: {fileID: 0}
 --- !u!195 &6806981910525638439
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -2128,7 +2184,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 1.77, y: 3.25, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &7998806999911990299
 MonoBehaviour:
