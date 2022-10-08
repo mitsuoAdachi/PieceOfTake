@@ -1451,7 +1451,7 @@ MonoBehaviour:
   modeChange: {fileID: 1289028341}
   uiManager: {fileID: 1289028342}
   stageGenerator: {fileID: 1289028343}
-  stageLevel: 8
+  stageLevel: 5
   totalCost: 0
   generateIntaervalTime: 80
 --- !u!114 &1289028341

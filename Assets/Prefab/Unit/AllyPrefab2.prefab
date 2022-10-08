@@ -1732,7 +1732,9 @@ MonoBehaviour:
   stageLayer:
     serializedVersion: 2
     m_Bits: 8
+  intervalTimer: 0
   unitNumber: 2
+  gameManager: {fileID: 0}
   isAttack: 0
   cost: 0
   hp: 1
@@ -2166,6 +2168,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ArrowPartical
       objectReference: {fileID: 0}
+    - target: {fileID: 5469263069585856210, guid: 87f5b1f4552a7407fafb781911c07d23, type: 3}
+      propertyPath: ps
+      value: 
+      objectReference: {fileID: 62333874}
     - target: {fileID: 5469263069585856210, guid: 87f5b1f4552a7407fafb781911c07d23, type: 3}
       propertyPath: myUnitController
       value: 

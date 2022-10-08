@@ -58,7 +58,7 @@ public class UnitController : MonoBehaviour
     [SerializeField, Header("攻撃間隔")]
     private float intervalTime;
 
-    private void Start()
+    private void Awake()
     {
         //コンポーネントのキャッシュ
         rigid = GetComponent<Rigidbody>();
@@ -151,8 +151,13 @@ public class UnitController : MonoBehaviour
 
                     if (targetUnit != null)
                     {
+                        //Debug.Log(this.gameObject.name + targetUnit);
+                        //Debug.Log(this.gameObject.name + agent);
+
                         //ナビメッシュを使用した移動
-                        agent.destination = targetUnit.transform.position;
+                        agent.SetDestination(targetUnit.transform.position);
+
+                        Debug.Log(anime);
 
                         anime.SetFloat(walkAnime, agent.velocity.sqrMagnitude);
                     }

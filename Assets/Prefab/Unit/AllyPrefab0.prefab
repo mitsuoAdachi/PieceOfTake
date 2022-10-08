@@ -1874,8 +1874,9 @@ MonoBehaviour:
   stageLayer:
     serializedVersion: 2
     m_Bits: 8
-  attackCol: {fileID: 2714056889150391291}
+  intervalTimer: 0
   unitNumber: 0
+  gameManager: {fileID: 0}
   isAttack: 0
   cost: 0
   hp: 1
@@ -1884,8 +1885,6 @@ MonoBehaviour:
   moveSpeed: 0
   weight: 0
   intervalTime: 0
-  attackRangeSize: {fileID: 2714056889150391291}
-  material: {fileID: 0}
 --- !u!195 &4947680711278861415
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -2122,7 +2121,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8584819210399042841}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 5, y: 1, z: 5}

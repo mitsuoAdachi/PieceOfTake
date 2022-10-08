@@ -45,6 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   creaturePrefab: {fileID: 617698205942131745, guid: 7e11b193bfcbf4a8eab180749f7ba994, type: 3}
+  creatureTran: {fileID: 0}
   summoner: {fileID: 0}
 --- !u!1 &1671423611453446049
 GameObject:
