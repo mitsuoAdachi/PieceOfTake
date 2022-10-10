@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
 
 public class GameManager : MonoBehaviour
 {
@@ -26,6 +25,7 @@ public class GameManager : MonoBehaviour
     public List<UnitController> GenerateAllyList = new List<UnitController>();
     public List<UnitController> GenerateEnemyList = new List<UnitController>();
 
+    //各コンポーネントを取得
     [SerializeField]
     private UnitGenerator unitGenerator;
     [SerializeField]
@@ -34,6 +34,8 @@ public class GameManager : MonoBehaviour
     private UIManager uiManager;
     [SerializeField]
     private StageGenerator stageGenerator;
+    [SerializeField]
+    private Spawner spawner;
 
     public int stageLevel = 0; //生成するステージのレベル
 
@@ -59,6 +61,9 @@ public class GameManager : MonoBehaviour
 
         //味方ユニットの生成準備
         StartCoroutine(unitGenerator.LayoutUnit(this,uiManager));
+
+        StartCoroutine(spawner.AllySpawnLoop(this));
+        StartCoroutine(spawner.EnemySpawnLoop(this));
     }
 
     /// <summary>

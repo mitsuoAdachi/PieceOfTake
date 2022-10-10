@@ -133,7 +133,7 @@ public class UnitController : MonoBehaviour
             //EnemyListに登録してあるユニットの内、一番近いユニットに向かって移動する処理↓↓                 
             foreach (UnitController target in unitList)
             {
-                if (gameManager.gameMode == GameManager.GameMode.Play && target != null)
+                if (gameManager.gameMode == GameManager.GameMode.Play )
                 {
                     //攻撃間隔タイマーをMoveUnitメソッド内で加算
                     intervalTimer++;
