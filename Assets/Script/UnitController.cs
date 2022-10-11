@@ -133,12 +133,12 @@ public class UnitController : MonoBehaviour
             //EnemyListに登録してあるユニットの内、一番近いユニットに向かって移動する処理↓↓                 
             foreach (UnitController target in unitList)
             {
-                if (gameManager.gameMode == GameManager.GameMode.Play )
+                if (gameManager.gameMode == GameManager.GameMode.Play && target != null )
                 {
                     //攻撃間隔タイマーをMoveUnitメソッド内で加算
                     intervalTimer++;
                     
-                    //EnemyUnitList内に登録してあるオブジェクトとの距離を測り変数に代入する
+                    //UnitList内に登録してあるオブジェクトとの距離を測り変数に代入する
                     float nearTargetDistanceValue = Vector3.SqrMagnitude(target.transform.position - transform.position);
 
                     //基準値より小さければその数値を基準値に代入していき一番小さい数値が変数に残る。その数値を持つオブジェクトが一番近い敵となる

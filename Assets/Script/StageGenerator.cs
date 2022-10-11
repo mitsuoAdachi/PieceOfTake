@@ -6,7 +6,6 @@ using DG.Tweening;
 
 public class StageGenerator : MonoBehaviour
 {
-    //private NavMeshDataInstance instance;
 
     private GameManager gameManager;
 

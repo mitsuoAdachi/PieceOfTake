@@ -19,7 +19,6 @@ public class ScytheController : MonoBehaviour
     private void OnPendulm()
     {
         var sequence = DOTween.Sequence();
-        //sequence.AppendInterval(5.0f);
         sequence.Append(transform.DORotate(new Vector3(0, 0, 200), 2)
             .SetRelative(true)
             .SetDelay(2))

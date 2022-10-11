@@ -16,10 +16,15 @@ public class Spawner : MonoBehaviour
 
     private GameManager gameManager;
 
-
-    public IEnumerator AllySpawnLoop(GameManager gameManager)
+    private void Start()
     {
-        yield return new WaitForSeconds(1);
+        StartCoroutine(EnemySpawnLoop());
+        StartCoroutine(AllySpawnLoop());
+    }
+
+    public IEnumerator AllySpawnLoop()
+    {
+        yield return new WaitForSeconds(2);
 
         while (true)
         {
@@ -45,8 +50,13 @@ public class Spawner : MonoBehaviour
 
     }
 
-    public IEnumerator EnemySpawnLoop(GameManager gameManager)
+    public IEnumerator EnemySpawnLoop()
     {
+        if(TryGetComponent(out gameManager) == true)
+        {
+            Debug.Log(gameManager);
+        }
+
         yield return new WaitForSeconds(1);
 
         while (true)

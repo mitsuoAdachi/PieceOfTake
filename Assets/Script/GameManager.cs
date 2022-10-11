@@ -34,8 +34,6 @@ public class GameManager : MonoBehaviour
     private UIManager uiManager;
     [SerializeField]
     private StageGenerator stageGenerator;
-    [SerializeField]
-    private Spawner spawner;
 
     public int stageLevel = 0; //生成するステージのレベル
 
@@ -61,9 +59,6 @@ public class GameManager : MonoBehaviour
 
         //味方ユニットの生成準備
         StartCoroutine(unitGenerator.LayoutUnit(this,uiManager));
-
-        StartCoroutine(spawner.AllySpawnLoop(this));
-        StartCoroutine(spawner.EnemySpawnLoop(this));
     }
 
     /// <summary>

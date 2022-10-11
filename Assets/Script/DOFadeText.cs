@@ -9,6 +9,9 @@ public class DOFadeText : MonoBehaviour
     [SerializeField]
     private Image titleTxt;
     [SerializeField]
+    private Image titleTTxt;
+
+    [SerializeField]
     private Image startButton;
 
     private Vector3 titleDefaultPositon;
@@ -21,6 +24,7 @@ public class DOFadeText : MonoBehaviour
         titleDefaultPositon = titleTxt.transform.localPosition;
         titleTxt.transform.localPosition = new Vector3(titleDefaultPositon.x, -10, 0);
         titleTxt.DOFade(0, 0);
+        titleTTxt.DOFade(0, 0);
 
         startButtonDefaultPositon = startButton.transform.localPosition;
         startButton.transform.localPosition = new Vector3(startButtonDefaultPositon.x, -10, 0);
@@ -31,10 +35,23 @@ public class DOFadeText : MonoBehaviour
 
     private IEnumerator OnStartSceneUI()
     {
+        var sequence = DOTween.Sequence();
+
         yield return new WaitForSeconds(2);
 
         titleTxt.DOFade(100, 1);
-        titleTxt.transform.DOLocalMove(titleDefaultPositon,1);
+        titleTTxt.DOFade(100, 1);
+        sequence.Append(titleTxt.transform.DOLocalMove(titleDefaultPositon, 1)) //TODO タイトルのTの文字だけ一定間隔毎にY軸で回転させる
+                .Append(titleTTxt.transform.DORotate(Vector3.up * 180, 1)
+                .SetDelay(3))
+                .SetLoops(-1, LoopType.Restart);
+       
+        //.OnComplete(() =>
+        //{
+        //    sequence.Append(titleTTxt.transform.DORotate(Vector3.up * 180, 1)
+        //    .SetDelay(3))
+        //    .SetLoops(-1,LoopType.Yoyo);
+        //});
 
         yield return new WaitForSeconds(3);
 
