@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using System;
+using DG.Tweening;
 
 public class UIManager : MonoBehaviour
 {
@@ -19,10 +19,6 @@ public class UIManager : MonoBehaviour
     private Transform btnTran;
 
     public List<Button> unitSelectButtons = new List<Button>();
-
-    //[SerializeField]
-    //private Text txtCostRatio;
-
 
     /// <summary>
     /// ボタン押下時用のメソッド
@@ -68,11 +64,13 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    ///// <summary>
-    ///// 配置モードのテキストを変更する
-    ///// </summary>
-    //public void CostRatioTextChange()
-    //{
-    //    txtCostRatio.text = "Stage Cost  " + gameManager.totalCost.ToString() + " / " + gameManager.stageDatas[gameManager.stageLv].stageCost.ToString();
-    //}
+    public void OnDOTweenUI(Image ui)
+    {
+        ui.gameObject.SetActive(true);
+        Tween tween;
+        var sequence = DOTween.Sequence();
+        tween = sequence.Append(ui.DOFade(1, 1).SetEase(Ease.OutCubic))
+                        .Join(ui.transform.DOScale(6, 2).SetEase(Ease.OutBounce));
+                      
+    }
 }

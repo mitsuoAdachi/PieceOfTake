@@ -25,21 +25,16 @@ public class StageGenerator : MonoBehaviour
 
         stage.SetupStageInfo(gameManager);
 
+        //Debug.Log(gameManager.changeStage.stage);
+        //ChangeStageクラスのstage変数にも要素を代入
+        gameManager.changeStage.stage = stage;
+
         //敵をステージに生成する
         gameManager.GenerateEnemyList = stage.GenerateEnemys();
 
         //Navmeshをベイク
         LoadNavmesh();
 
-        //配置された敵ユニットに移動性能とステータスを付与
-        //foreach (UnitController enemy in stage.enemyPrefabs)
-        //{
-        //    enemy.StartMoveUnit(gameManager, gameManager.GenerateAllyList);
-
-        //    enemy.SetupUnitStateEnemy(gameManager.enemyUnitDatas);
-
-        //    gameManager.GenerateEnemyList.Add(enemy);
-        //}
     }
 
     /// <summary>

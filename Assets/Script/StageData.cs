@@ -6,6 +6,7 @@ using System.Collections.Generic;
 [System.Serializable]
 public class StageData
 {
+    public string stageNumber;
     public int stageLvIndex;
     public int stageCost;
     public StageInfo stagPrefab;

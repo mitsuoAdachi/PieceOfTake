@@ -1,37 +1,56 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ChangeStage : MonoBehaviour
 {
-    [SerializeField]
-    private StageInfo stage;
+    public StageInfo stage;
 
-    [SerializeField]
     private GameManager gameManager;
 
-    int stageLv;
+    [SerializeField]
+    Fade fade;
 
-    // Start is called before the first frame update
-    void Start()
+    public IEnumerator StageChange(GameManager gameManager)
     {
-        
-    }
+        this.gameManager = gameManager;
 
-    // Update is called once per frame
-    void Update()
-    {
-        StartCoroutine(StageChange());
-    }
+        gameManager.stageNumberDisplay.enabled = false;
 
-    private IEnumerator StageChange()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
+        yield return new WaitForSeconds(3);
+
+        fade.FadeIn(3, () =>
         {
-            Destroy(stage.gameObject);
-            stageLv++;
-            yield return new WaitForSeconds(1);
-            stage = Instantiate(gameManager.stageDatas[stageLv].stagPrefab);
-        }
+            fade.FadeOut(7);
+        });
+
+        yield return new WaitForSeconds(4);
+
+        Destroy(stage.gameObject);
+        gameManager.stageLevel ++;
+        gameManager.stageNumberDisplay.enabled = true;
+
+        ResetStageSetting();
+
+        gameManager.stageGenerator.PreparateStage(gameManager.stageLevel, gameManager);
+
     }
+
+    private void ResetStageSetting()
+    {
+        for (int i = 0; i < gameManager.GenerateEnemyList.Count; i++)
+        {
+            Destroy(gameManager.GenerateEnemyList[i].gameObject);
+        }
+        gameManager.GenerateEnemyList.Clear();
+
+        for (int i = 0; i < gameManager.GenerateAllyList.Count; i++)
+        {
+            Destroy(gameManager.GenerateAllyList[i].gameObject);
+        }
+        gameManager.GenerateAllyList.Clear();
+
+    }
+
 }

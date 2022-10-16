@@ -35,28 +35,19 @@ public class DOFadeText : MonoBehaviour
 
     private IEnumerator OnStartSceneUI()
     {
-        var sequence = DOTween.Sequence();
-
         yield return new WaitForSeconds(2);
 
         titleTxt.DOFade(100, 1);
         titleTTxt.DOFade(100, 1);
-        sequence.Append(titleTxt.transform.DOLocalMove(titleDefaultPositon, 1)) //TODO タイトルのTの文字だけ一定間隔毎にY軸で回転させる
-                .Append(titleTTxt.transform.DORotate(Vector3.up * 180, 1)
+        titleTxt.transform.DOLocalMove(titleDefaultPositon, 1);
+        var sequence = DOTween.Sequence();
+                sequence.Append(titleTTxt.transform.DORotate(Vector3.up * 180, 1)
                 .SetDelay(3))
-                .SetLoops(-1, LoopType.Restart);
+                .SetLoops(-1, LoopType.Yoyo);
        
-        //.OnComplete(() =>
-        //{
-        //    sequence.Append(titleTTxt.transform.DORotate(Vector3.up * 180, 1)
-        //    .SetDelay(3))
-        //    .SetLoops(-1,LoopType.Yoyo);
-        //});
-
         yield return new WaitForSeconds(3);
 
         startButton.DOFade(100, 1);
         startButton.transform.DOLocalMove(startButtonDefaultPositon, 1);
-
     }
 }

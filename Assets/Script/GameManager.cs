@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using DG.Tweening;
 
 public class GameManager : MonoBehaviour
 {
@@ -32,8 +34,15 @@ public class GameManager : MonoBehaviour
     private ModeChange modeChange;
     [SerializeField]
     private UIManager uiManager;
+
+    public StageNumberDisplay stageNumberDisplay;
+
     [SerializeField]
-    private StageGenerator stageGenerator;
+    private LoadScene loadScene;
+
+    public StageGenerator stageGenerator;
+    
+    public ChangeStage changeStage;
 
     public int stageLevel = 0; //生成するステージのレベル
 
@@ -43,8 +52,43 @@ public class GameManager : MonoBehaviour
     private float generateIntaervalTime;
     public float GenerateIntaervalTime { get => generateIntaervalTime; }
 
+    [SerializeField]
+    private Image stageClearImage;
+    [SerializeField]
+    private Image gameOverImage;
+    [SerializeField]
+    private Image titleImage;
+    [SerializeField]
+    private Image nextImage;
+    [SerializeField]
+    private Image againImage;
+
+    private bool isJudgeClear = true;
+
+    [SerializeField]
+    private Button nextButton;
+
+    [SerializeField]
+    private AudioClip pushAudio;
+
+    [SerializeField]
+    private Fade fade;
+
+    //private void OnEnable()
+    //{
+    //    //フェイドイン演出
+    //    //stageNumberDisplay.SetupStageNumberDisplay(this);
+    //    SceneStartFade();
+
+    //}
+
     void Start()
     {
+        //フェイドイン演出
+        SceneStartFade();
+
+        loadScene.SetUpLoadScene(this);
+
         //SOデータを読み込む
         SetupSOData();
 
@@ -59,6 +103,11 @@ public class GameManager : MonoBehaviour
 
         //味方ユニットの生成準備
         StartCoroutine(unitGenerator.LayoutUnit(this,uiManager));
+
+        //勝敗条件の監視
+        StartCoroutine(JudgeStageClear());
+
+        nextButton.onClick.AddListener(SetupStageChange);
     }
 
     /// <summary>
@@ -81,5 +130,64 @@ public class GameManager : MonoBehaviour
         {
             enemyUnitDatas.Add(DataBaseManager.instance.enemyUnitDataSO.enemyUnitDatasList[i]);
         }
+    }
+
+    /// <summary>
+    /// 勝敗の条件を設定
+    /// </summary>
+    /// <returns></returns>
+    private IEnumerator JudgeStageClear()
+    {
+        while (isJudgeClear == true)
+        {
+            Debug.Log("監視開始");
+
+            if (gameMode == GameMode.Play && GenerateEnemyList.Count <= 0)
+            {
+                Debug.Log("勝利");
+
+                uiManager.OnDOTweenUI(stageClearImage);
+                DOVirtual.DelayedCall(4, () =>
+                {
+                    uiManager.OnDOTweenUI(titleImage);
+                    uiManager.OnDOTweenUI(nextImage);
+                });
+
+                isJudgeClear = false;
+                
+            }
+
+            if(gameMode == GameMode.Play && GenerateAllyList.Count <= 0)
+            {
+                Debug.Log("敗北");
+
+                uiManager.OnDOTweenUI(gameOverImage);
+                DOVirtual.DelayedCall(4, () =>
+                {
+                    uiManager.OnDOTweenUI(titleImage);
+                    uiManager.OnDOTweenUI(againImage);
+                });
+
+                isJudgeClear = false;
+            }
+
+            yield return null;
+        }
+    }
+
+    private void SetupStageChange()
+    {
+        AudioSource.PlayClipAtPoint(pushAudio, Camera.main.transform.position, 1f);
+        nextImage.transform.DOShakeScale(5);
+
+        StartCoroutine(changeStage.StageChange(this));
+    }
+
+    private void SceneStartFade()
+    {
+        fade.FadeIn(0.00001f, () =>
+        {
+            fade.FadeOut(4);
+        });
     }
 }

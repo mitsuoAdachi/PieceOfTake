@@ -157,7 +157,7 @@ public class UnitController : MonoBehaviour
                         //ナビメッシュを使用した移動
                         agent.SetDestination(targetUnit.transform.position);
 
-                        Debug.Log(anime);
+                        //Debug.Log(anime);
 
                         anime.SetFloat(walkAnime, agent.velocity.sqrMagnitude);
                     }
@@ -217,14 +217,14 @@ public class UnitController : MonoBehaviour
 
         if(this.hp <= 0)
         {
+            gameManager.GenerateEnemyList.Remove(this);
+            gameManager.GenerateAllyList.Remove(this);
+
             agent.enabled = true;
             agent.isStopped = true;
             targetUnit = null;
             isAttack = false;
             anime.SetTrigger(deadAnime);
-
-            gameManager.GenerateEnemyList.Remove(this);
-            gameManager.GenerateAllyList.Remove(this);
 
             Destroy(this.gameObject, 3);
         }
