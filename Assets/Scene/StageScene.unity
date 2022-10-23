@@ -1364,7 +1364,7 @@ RectTransform:
   m_GameObject: {fileID: 858032892}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.66, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 992937845}
@@ -1372,7 +1372,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -194.77647}
+  m_AnchoredPosition: {x: 0, y: -192}
   m_SizeDelta: {x: 0, y: -389.553}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &858032894
@@ -1395,8 +1395,8 @@ MonoBehaviour:
   m_ChildAlignment: 4
   m_StartCorner: 0
   m_StartAxis: 0
-  m_CellSize: {x: 91.74, y: 58.7}
-  m_Spacing: {x: 8.2, y: 0}
+  m_CellSize: {x: 71.61, y: 46.46}
+  m_Spacing: {x: 25, y: 0}
   m_Constraint: 0
   m_ConstraintCount: 2
 --- !u!114 &858032895
@@ -1412,7 +1412,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_Color: {r: 0.009433985, g: 0.008766486, b: 0.008766486, a: 0.46666667}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -2079,7 +2079,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b062ffbb6ecae4fd5ae6a9a532aaa138, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  generateTimer: 100
   txtCostRatio: {fileID: 1419647554}
 --- !u!4 &1289028339
 Transform:
@@ -2117,13 +2116,10 @@ MonoBehaviour:
   unitGenerator: {fileID: 1289028338}
   modeChange: {fileID: 1289028341}
   uiManager: {fileID: 1289028342}
-  stageNumberDisplay: {fileID: 1289028346}
   loadScene: {fileID: 1289028345}
   stageGenerator: {fileID: 1289028343}
-  changeStage: {fileID: 1289028344}
-  stageLevel: 0
+  stageNumberDisplay: {fileID: 1289028346}
   totalCost: 0
-  generateIntaervalTime: 80
   stageClearImage: {fileID: 1126423268}
   gameOverImage: {fileID: 1495974527}
   titleImage: {fileID: 1878633869}
@@ -2207,6 +2203,7 @@ MonoBehaviour:
   startButton: {fileID: 1242528523}
   titleButton: {fileID: 1878633871}
   againButton: {fileID: 1756196847}
+  nextButton: {fileID: 273735520}
   pushAudio: {fileID: 8300000, guid: 1184d487c97e244a2a3b4559148a20d8, type: 3}
   fade: {fileID: 934956257}
 --- !u!114 &1289028346

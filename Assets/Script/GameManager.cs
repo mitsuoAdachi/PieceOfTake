@@ -35,22 +35,19 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private UIManager uiManager;
 
-    public StageNumberDisplay stageNumberDisplay;
-
     [SerializeField]
     private LoadScene loadScene;
 
     public StageGenerator stageGenerator;
-    
-    public ChangeStage changeStage;
 
-    public int stageLevel = 0; //生成するステージのレベル
+    public StageNumberDisplay stageNumberDisplay;
 
-    public int totalCost; //配置ユニットの総コスト
+    //生成するステージのレベル
+    [SerializeField]
+    public static int stageLevel = 10;
 
-    [Header("ユニットの生成待機時間"),SerializeField]
-    private float generateIntaervalTime;
-    public float GenerateIntaervalTime { get => generateIntaervalTime; }
+    //配置ユニットの総コスト
+    public int totalCost; 
 
     [SerializeField]
     private Image stageClearImage;
@@ -74,23 +71,14 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private Fade fade;
 
-    //private void OnEnable()
-    //{
-    //    //フェイドイン演出
-    //    //stageNumberDisplay.SetupStageNumberDisplay(this);
-    //    SceneStartFade();
-
-    //}
-
     void Start()
     {
-        //フェイドイン演出
-        SceneStartFade();
-
-        loadScene.SetUpLoadScene(this);
-
         //SOデータを読み込む
         SetupSOData();
+
+        //フェイドイン演出
+        SceneStartFade();
+        loadScene.SetUpLoadScene(this);
 
         //ステージの準備
         stageGenerator.PreparateStage(stageLevel,this);
@@ -107,7 +95,6 @@ public class GameManager : MonoBehaviour
         //勝敗条件の監視
         StartCoroutine(JudgeStageClear());
 
-        nextButton.onClick.AddListener(SetupStageChange);
     }
 
     /// <summary>
@@ -175,14 +162,9 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void SetupStageChange()
-    {
-        AudioSource.PlayClipAtPoint(pushAudio, Camera.main.transform.position, 1f);
-        nextImage.transform.DOShakeScale(5);
-
-        StartCoroutine(changeStage.StageChange(this));
-    }
-
+    /// <summary>
+    /// スタートボタン押下時フェードアウト演出
+    /// </summary>
     private void SceneStartFade()
     {
         fade.FadeIn(0.00001f, () =>

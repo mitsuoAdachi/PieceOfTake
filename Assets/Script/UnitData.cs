@@ -4,6 +4,7 @@ using UnityEngine;
 public class UnitData 
 {
     public int id;
+    public string name;
     public int cost;
     public int hp;
     public int attackPower;
@@ -12,6 +13,8 @@ public class UnitData
     public float weight;
     public float intervalTime;
     public UnitController UnitPrefab;
+    public Sprite unitImage;
+    public AudioSource generateVoice;
 
     //public AttackRangeType attackRangeType;
     //public Sprite unitSprite;

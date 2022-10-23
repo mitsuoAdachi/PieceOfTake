@@ -17,6 +17,9 @@ public class LoadScene : MonoBehaviour
     private Button againButton;
 
     [SerializeField]
+    private Button nextButton;
+
+    [SerializeField]
     private AudioClip pushAudio;
 
     [SerializeField]
@@ -29,6 +32,7 @@ public class LoadScene : MonoBehaviour
     {
         startButton.onClick.AddListener(OnLoadStageScene);
         titleButton.onClick.AddListener(OnLoadStartScene);
+        nextButton.onClick.AddListener(OnLoadNextStageScene);
         againButton.onClick.AddListener(OnLoadAgainScene);
     }
 
@@ -51,6 +55,7 @@ public class LoadScene : MonoBehaviour
 
     public void OnLoadStageScene()
     {
+        GameManager.stageLevel = 0;
         StartCoroutine(LoadStageScene(startButton,"StageScene"));
     }
 
@@ -65,6 +70,16 @@ public class LoadScene : MonoBehaviour
 
         StartCoroutine(LoadStageScene(againButton, SceneAgain));
     }
+
+    public void OnLoadNextStageScene()
+    {
+        string SceneAgain = SceneManager.GetActiveScene().name;
+
+        GameManager.stageLevel++;
+
+        StartCoroutine(LoadStageScene(againButton, SceneAgain));
+    }
+
 
     public void SetUpLoadScene(GameManager gameManeger)
     {

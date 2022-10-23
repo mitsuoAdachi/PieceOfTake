@@ -14,74 +14,98 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   allyUnitDatasList:
   - id: 0
+    name: Soldier
     cost: 1
-    hp: 20
-    attackPower: 1
-    blowPower: 3
+    hp: 3
+    attackPower: 2
+    blowPower: 2
     moveSpeed: 0.8
     weight: 0
     intervalTime: 2000
     UnitPrefab: {fileID: 3272475995211424383, guid: e83bbcc9d3b6341ccb44f29e5534d628, type: 3}
+    unitImage: {fileID: 21300000, guid: b2a6c8996cd6c4f438916307475a670d, type: 3}
+    generateVoice: {fileID: -3114132588604393510, guid: e83bbcc9d3b6341ccb44f29e5534d628, type: 3}
   - id: 1
-    cost: 1
-    hp: 20
-    attackPower: 4
-    blowPower: 3
-    moveSpeed: 0.5
-    weight: 0
-    intervalTime: 3000
-    UnitPrefab: {fileID: 1344952306156266202, guid: edb8733ece2b24ef0a866eda3158c768, type: 3}
-  - id: 2
-    cost: 1
-    hp: 2
-    attackPower: 2
-    blowPower: 1
-    moveSpeed: 0.5
-    weight: 0
-    intervalTime: 2000
-    UnitPrefab: {fileID: 6399221382794076619, guid: 00efbacf35f1c4647b219684a2f32086, type: 3}
-  - id: 3
-    cost: 1
-    hp: 20
+    name: Knight
+    cost: 2
+    hp: 10
     attackPower: 1
-    blowPower: 1
-    moveSpeed: 0.5
-    weight: 0
-    intervalTime: 2000
-    UnitPrefab: {fileID: 6806981910525638440, guid: 8742c8b364aea4dc9a1b1eb0c42c0d1a, type: 3}
-  - id: 4
-    cost: 1
-    hp: 1
-    attackPower: 8
     blowPower: 0
     moveSpeed: 0.5
     weight: 0
     intervalTime: 3000
-    UnitPrefab: {fileID: 7909274397895849068, guid: 56c94e334881849b691ee546f27e9d29, type: 3}
-  - id: 5
-    cost: 1
-    hp: 30
-    attackPower: 5
-    blowPower: 3
-    moveSpeed: 0.3
-    weight: 0
-    intervalTime: 1000
-    UnitPrefab: {fileID: 3676871700908550375, guid: 1daeee21ecb6a4381989c43c3dfcdeff, type: 3}
-  - id: 6
+    UnitPrefab: {fileID: 6806981910525638440, guid: 8742c8b364aea4dc9a1b1eb0c42c0d1a, type: 3}
+    unitImage: {fileID: 21300000, guid: 83d072776a10e4e408ec8de2edb3f863, type: 3}
+    generateVoice: {fileID: 0}
+  - id: 2
+    name: Spear
     cost: 2
+    hp: 4
+    attackPower: 2
+    blowPower: 2
+    moveSpeed: 0.5
+    weight: 0
+    intervalTime: 3000
+    UnitPrefab: {fileID: 1344952306156266202, guid: edb8733ece2b24ef0a866eda3158c768, type: 3}
+    unitImage: {fileID: 21300000, guid: 62946e4c9482c4cb38fb063f830dfec5, type: 3}
+    generateVoice: {fileID: 0}
+  - id: 3
+    name: Archer
+    cost: 3
     hp: 1
     attackPower: 1
+    blowPower: 0
+    moveSpeed: 0.3
+    weight: 0
+    intervalTime: 2000
+    UnitPrefab: {fileID: 6399221382794076619, guid: 00efbacf35f1c4647b219684a2f32086, type: 3}
+    unitImage: {fileID: 21300000, guid: 8d0931dffb8eb45faba112aa6ad5bf3f, type: 3}
+    generateVoice: {fileID: 0}
+  - id: 4
+    name: Bowler
+    cost: 3
+    hp: 5
+    attackPower: 5
+    blowPower: 5
+    moveSpeed: 0.3
+    weight: 0
+    intervalTime: 5000
+    UnitPrefab: {fileID: 4653425023585479928, guid: 294aff3d0fd4e41dcbb8f240e09df13e, type: 3}
+    unitImage: {fileID: 21300000, guid: 0e6784476701e49b4811e451e8617bd4, type: 3}
+    generateVoice: {fileID: 0}
+  - id: 5
+    name: Magic
+    cost: 3
+    hp: 1
+    attackPower: 4
+    blowPower: 1
+    moveSpeed: 0.3
+    weight: 0
+    intervalTime: 3000
+    UnitPrefab: {fileID: 7909274397895849068, guid: 56c94e334881849b691ee546f27e9d29, type: 3}
+    unitImage: {fileID: 21300000, guid: 2f57f0b6059754261a3ce1437c506056, type: 3}
+    generateVoice: {fileID: 0}
+  - id: 6
+    name: SwordMan
+    cost: 4
+    hp: 1
+    attackPower: 2
     blowPower: 1
     moveSpeed: 2
     weight: 0
     intervalTime: 2000
     UnitPrefab: {fileID: 2483801844157662090, guid: 02cff57d74c514d259f67d3c2085277e, type: 3}
+    unitImage: {fileID: 21300000, guid: a1af480cabf47491fbf9fc78d318972e, type: 3}
+    generateVoice: {fileID: 0}
   - id: 7
-    cost: 2
-    hp: 10
-    attackPower: 5
-    blowPower: 5
-    moveSpeed: 0.5
+    name: Titan
+    cost: 5
+    hp: 20
+    attackPower: 4
+    blowPower: 3
+    moveSpeed: 0.3
     weight: 0
-    intervalTime: 5000
-    UnitPrefab: {fileID: 4653425023585479928, guid: 294aff3d0fd4e41dcbb8f240e09df13e, type: 3}
+    intervalTime: 1000
+    UnitPrefab: {fileID: 3676871700908550375, guid: 1daeee21ecb6a4381989c43c3dfcdeff, type: 3}
+    unitImage: {fileID: 21300000, guid: 78c9c695fa0f84e598744c1e8960fa03, type: 3}
+    generateVoice: {fileID: 0}

@@ -86,7 +86,6 @@ public class UnitController : MonoBehaviour
         blowPower = unitDatas[uiManager.btnIndex].blowPower;
         agent.speed = unitDatas[uiManager.btnIndex].moveSpeed;
         weight = unitDatas[uiManager.btnIndex].weight;
-        //(attackRangeSize.size, attackRangeSize.center) = DataBaseManager.instance.GetAttackRange(unitDatas[uiManager.btnIndex].attackRangeType);
         intervalTime = unitDatas[uiManager.btnIndex].intervalTime;
         maxHp = hp;
 
@@ -102,7 +101,6 @@ public class UnitController : MonoBehaviour
         blowPower = unitDatas[unitNumber].blowPower;
         agent.speed = unitDatas[unitNumber].moveSpeed;
         weight = unitDatas[unitNumber].weight;
-        //(attackRangeSize.size, attackRangeSize.center) = DataBaseManager.instance.GetAttackRange(unitDatas[unitNumber].attackRangeType);
         intervalTime = unitDatas[unitNumber].intervalTime;
         maxHp = hp;
     }
@@ -187,7 +185,6 @@ public class UnitController : MonoBehaviour
                 {
                     intervalTimer = 0;
 
-                    //Attack(attackPower);
                     anime.SetTrigger(attackAnime);
                 }
             }
@@ -246,10 +243,6 @@ public class UnitController : MonoBehaviour
         //ノックバックはFixedUpdateで動かす
         isKnockBack = true;
         StartCoroutine(RetrunOnMoveUnit());
-
-        //rigid.DOMove(transform.forward * -blowPower, 1)
-        //    .OnComplete(() => SwitchOnMoveUnit())
-        //    .SetLink(this.gameObject);       
     }
 
     /// <summary>

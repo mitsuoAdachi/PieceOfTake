@@ -33,12 +33,6 @@ public class UIManager : MonoBehaviour
 
         modeChange.TxtPreparateModeChangeButton.text = "Put";
         modeChange.BtnPreparateModeChange.image.color = new Color32(0, 246, 67, 150);
-
-
-        ////ボタン要素を変数に代入しArray.IndexOfで配列番号を取得する
-        //Button element = EventSystem.current.currentSelectedGameObject.GetComponent<Button>();
-        //btnIndex = Array.IndexOf(unitSelectButtons, element);
-        //Debug.Log(btnIndex);
     }
 
     /// <summary>
@@ -56,8 +50,18 @@ public class UIManager : MonoBehaviour
 
             //ボタン生成
             Button unitButton = Instantiate(btnPrefab, btnTran, false);
+            //イメージの設定
+            unitButton.image.sprite = gameManager.allyUnitDatas[i].unitImage;
+            //コスト表記の設定
+            Text cost = unitButton.transform.GetChild(0).GetComponent<Text>();
+            cost.text = gameManager.allyUnitDatas[i].cost.ToString();
+            //ユニットネームの設定
+            Text name = unitButton.transform.GetChild(1).GetComponent<Text>();
+            name.text = gameManager.allyUnitDatas[i].name.ToString();
+            
             //リストに追加
             unitSelectButtons.Add(unitButton);
+
             //生成したボタンにUnitSelectメソッドと付与した順番のindexを登録
             int index = i;
             unitSelectButtons[i].onClick.AddListener(() => UnitSelect(index));

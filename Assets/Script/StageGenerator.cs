@@ -25,10 +25,6 @@ public class StageGenerator : MonoBehaviour
 
         stage.SetupStageInfo(gameManager);
 
-        //Debug.Log(gameManager.changeStage.stage);
-        //ChangeStageクラスのstage変数にも要素を代入
-        gameManager.changeStage.stage = stage;
-
         //敵をステージに生成する
         gameManager.GenerateEnemyList = stage.GenerateEnemys();
 
@@ -44,7 +40,7 @@ public class StageGenerator : MonoBehaviour
     public void LoadNavmesh()
     {
         // NavMeshの生成
-        string assetname = gameManager.stageDatas[gameManager.stageLevel].navmeshData.name;
+        string assetname = gameManager.stageDatas[GameManager.stageLevel].navmeshData.name;
         NavMeshData navemeshBake = Resources.Load<NavMeshData>(assetname);
         //instance = NavMesh.AddNavMeshData(navemeshBake);
     }

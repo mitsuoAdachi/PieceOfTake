@@ -11,7 +11,7 @@ public class StageNumberDisplay : MonoBehaviour
 
     private GameManager gameManager;
 
-    private void OnEnable()
+    private void Start()
     {
         if(TryGetComponent(out gameManager) == true)
         {
@@ -26,7 +26,8 @@ public class StageNumberDisplay : MonoBehaviour
 
         stageNumbertxt.DOFade(1, 0.001f);
 
-        stageNumbertxt.text = "Stage" + gameManager.stageLevel.ToString();
+        //stageNumbertxt.text = "Stage" + gameManager.stageLevel.ToString();
+        stageNumbertxt.text = gameManager.stageDatas[GameManager.stageLevel].stageNumber.ToString();
 
         stageNumbertxt.DOFade(0, 5);
 

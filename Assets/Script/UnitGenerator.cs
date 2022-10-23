@@ -9,8 +9,6 @@ public class UnitGenerator : MonoBehaviour
     private GameManager gameManager;
     private UIManager uiManager;
 
-    public int generateTimer = 100;    //ユニット生成待機時間の初期値
-
     //RemoveLayoutUnit()で使用するメンバ変数
     [SerializeField]
     private Text txtCostRatio;
@@ -39,14 +37,11 @@ public class UnitGenerator : MonoBehaviour
         //　ステージコスト＞配置ユニットの総コストの間ループ
         while (true)
         {
-            //generateTimer++;
+            gameManager.totalCost = Mathf.Clamp(gameManager.totalCost, 0, gameManager.stageDatas[GameManager.stageLevel].stageCost);
 
-            gameManager.totalCost = Mathf.Clamp(gameManager.totalCost, 0, gameManager.stageDatas[gameManager.stageLevel].stageCost);
-
-            if (gameManager.stageDatas[gameManager.stageLevel].stageCost > gameManager.totalCost)
+            if (gameManager.stageDatas[GameManager.stageLevel].stageCost > gameManager.totalCost)
             {
                 if (gameManager.gameMode == GameManager.GameMode.Preparate)
-                    //if (gameManager.gameMode == GameManager.GameMode.Preparate && GenerateIntervalBool())
                 {
                     //　UI上ではRayが反応しないようにする
                     if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
@@ -57,8 +52,12 @@ public class UnitGenerator : MonoBehaviour
                         //　rayが接触したオブジェクトの情報をRaycasthit型の変数へ登録
                         if (Physics.Raycast(ray, out RaycastHit hit))
                         {
-                            //UnitController allyUnit = Instantiate(allyPrefab, hit.point, Quaternion.identity);
                             UnitController allyUnit = Instantiate(gameManager.allyUnitDatas[uiManager.btnIndex].UnitPrefab, hit.point, Quaternion.identity);
+
+                            //AudioSource.PlayClipAtPoint(allyUnit.gameManager.allyUnitDatas[uiManager.btnIndex].generateVoice, Camera.main.transform.position, 1f);
+                            AudioSource audio = allyUnit.gameObject.GetComponent<AudioSource>();
+                            Debug.Log(audio);
+                            audio.Play();
 
                             //生成したユニットに移動能力を付与
                             allyUnit.StartMoveUnit(gameManager, gameManager.GenerateEnemyList);
@@ -71,8 +70,6 @@ public class UnitGenerator : MonoBehaviour
 
                             //生成したユニットのコスト値を加算
                             gameManager.totalCost += allyUnit.Cost;
-
-                            //generateTimer = 0;                            
                         }
                     }
                 }
@@ -90,7 +87,7 @@ public class UnitGenerator : MonoBehaviour
         while (true)
         {
             //uiManager.CostRatioTextChange();
-            txtCostRatio.text = "Stage Cost  " + gameManager.totalCost.ToString() + " / " + gameManager.stageDatas[gameManager.stageLevel].stageCost.ToString();
+            txtCostRatio.text = "Stage Cost  " + gameManager.totalCost.ToString() + " / " + gameManager.stageDatas[GameManager.stageLevel].stageCost.ToString();
 
 
             if (Input.GetMouseButton(0) && gameManager.gameMode == GameManager.GameMode.Preparate_Remove)
@@ -111,15 +108,5 @@ public class UnitGenerator : MonoBehaviour
             }
             yield return null;
         }
-    }
-
-    /// <summary>
-    /// ユニットの生成に待機時間を作るためのブーリアン
-    /// </summary>
-    /// <returns></returns>
-    private bool GenerateIntervalBool()
-    {
-        if (generateTimer >= gameManager.GenerateIntaervalTime) return true;
-        else return false;
     }
 }

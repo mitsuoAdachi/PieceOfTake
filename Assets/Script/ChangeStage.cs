@@ -28,12 +28,12 @@ public class ChangeStage : MonoBehaviour
         yield return new WaitForSeconds(4);
 
         Destroy(stage.gameObject);
-        gameManager.stageLevel ++;
+        GameManager.stageLevel ++;
         gameManager.stageNumberDisplay.enabled = true;
 
         ResetStageSetting();
 
-        gameManager.stageGenerator.PreparateStage(gameManager.stageLevel, gameManager);
+        gameManager.stageGenerator.PreparateStage(GameManager.stageLevel, gameManager);
 
     }
 
