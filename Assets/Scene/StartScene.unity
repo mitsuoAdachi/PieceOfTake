@@ -2612,6 +2612,7 @@ MonoBehaviour:
   nextButton: {fileID: 1875809508}
   pushAudio: {fileID: 8300000, guid: 1184d487c97e244a2a3b4559148a20d8, type: 3}
   fade: {fileID: 1310730741}
+  flashingMaterial: {fileID: 2100000, guid: 4cf9290d7d83a41f2b7348cafb45a204, type: 2}
 --- !u!114 &1289028341
 MonoBehaviour:
   m_ObjectHideFlags: 0

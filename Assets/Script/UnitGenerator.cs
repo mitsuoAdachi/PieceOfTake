@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using DG.Tweening;
 
 public class UnitGenerator : MonoBehaviour
 {
@@ -17,7 +18,6 @@ public class UnitGenerator : MonoBehaviour
 
     void Start()
     {
-        //tran = GetComponent<Transform>();
         mainCamera = Camera.main;
     }
 
@@ -26,7 +26,7 @@ public class UnitGenerator : MonoBehaviour
     /// </summary>
     /// <param name="gameManager"></param>
     /// <returns></returns>
-    public IEnumerator LayoutUnit(GameManager gameManager,UIManager uiManager)
+    public IEnumerator LayoutUnit(GameManager gameManager, UIManager uiManager)
     {
         this.gameManager = gameManager;
         this.uiManager = uiManager;
@@ -34,48 +34,47 @@ public class UnitGenerator : MonoBehaviour
         //　配置したユニットを削除する機能の準備
         StartCoroutine(RemoveLayoutUnit());
 
+        gameManager.totalCost = Mathf.Clamp(gameManager.totalCost, 0, gameManager.stageDatas[GameManager.stageLevel].stageCost);
+
         //　ステージコスト＞配置ユニットの総コストの間ループ
         while (true)
         {
-            gameManager.totalCost = Mathf.Clamp(gameManager.totalCost, 0, gameManager.stageDatas[GameManager.stageLevel].stageCost);
+            if (gameManager.stageDatas[GameManager.stageLevel].stageCost < gameManager.totalCost)
+                yield break;
 
-            if (gameManager.stageDatas[GameManager.stageLevel].stageCost > gameManager.totalCost)
+            if (gameManager.gameMode != GameManager.GameMode.Preparate)
+                yield break;
+
+            //　UI上ではRayが反応しないようにする
+            if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
             {
-                if (gameManager.gameMode == GameManager.GameMode.Preparate)
+                //画面クリックした座標をRay型の変数へキャッシュ
+                Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
+
+                //　rayが接触したオブジェクトの情報をRaycasthit型の変数へ登録
+                if (Physics.Raycast(ray, out RaycastHit hit))
                 {
-                    //　UI上ではRayが反応しないようにする
-                    if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
-                    {
-                        //画面クリックした座標をRay型の変数へキャッシュ
-                        Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
+                    UnitController allyUnit = Instantiate(gameManager.allyUnitDatas[uiManager.btnIndex].UnitPrefab, hit.point, Quaternion.identity);
 
-                        //　rayが接触したオブジェクトの情報をRaycasthit型の変数へ登録
-                        if (Physics.Raycast(ray, out RaycastHit hit))
-                        {
-                            UnitController allyUnit = Instantiate(gameManager.allyUnitDatas[uiManager.btnIndex].UnitPrefab, hit.point, Quaternion.identity);
+                    AudioSource audio = allyUnit.gameObject.GetComponent<AudioSource>();
+                    Debug.Log(audio);
+                    audio.Play();
 
-                            //AudioSource.PlayClipAtPoint(allyUnit.gameManager.allyUnitDatas[uiManager.btnIndex].generateVoice, Camera.main.transform.position, 1f);
-                            AudioSource audio = allyUnit.gameObject.GetComponent<AudioSource>();
-                            Debug.Log(audio);
-                            audio.Play();
+                    //生成したユニットに移動能力を付与
+                    allyUnit.StartMoveUnit(gameManager, gameManager.GenerateEnemyList);
 
-                            //生成したユニットに移動能力を付与
-                            allyUnit.StartMoveUnit(gameManager, gameManager.GenerateEnemyList);
+                    //生成したユニットにステータスを付与
+                    allyUnit.SetupUnitStateAlly(gameManager.allyUnitDatas, uiManager);
 
-                            //生成したユニットにステータスを付与
-                            allyUnit.SetupUnitStateAlly(gameManager.allyUnitDatas, uiManager);
+                    //生成したユニット用のリストに追加
+                    gameManager.GenerateAllyList.Add(allyUnit);
 
-                            //生成したユニット用のリストに追加
-                            gameManager.GenerateAllyList.Add(allyUnit);
-
-                            //生成したユニットのコスト値を加算
-                            gameManager.totalCost += allyUnit.Cost;
-                        }
-                    }
+                    //生成したユニットのコスト値を加算
+                    CostRatio(allyUnit.Cost);
                 }
             }
             yield return null;
-        }    
+        }
     }
 
     /// <summary>
@@ -86,10 +85,6 @@ public class UnitGenerator : MonoBehaviour
     {
         while (true)
         {
-            //uiManager.CostRatioTextChange();
-            txtCostRatio.text = "Stage Cost  " + gameManager.totalCost.ToString() + " / " + gameManager.stageDatas[GameManager.stageLevel].stageCost.ToString();
-
-
             if (Input.GetMouseButton(0) && gameManager.gameMode == GameManager.GameMode.Preparate_Remove)
             {
                 Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
@@ -102,11 +97,31 @@ public class UnitGenerator : MonoBehaviour
 
                     //リストから削除、トータルコストを減算
                     gameManager.GenerateAllyList.Remove(hitUnit);
-                    gameManager.totalCost -= hitUnit.Cost;
-
+                    CostRatio(-hitUnit.Cost);
                 }
             }
             yield return null;
         }
+    }
+
+    /// <summary>
+    /// コストの増減
+    /// </summary>
+    /// <param name="cost"></param>
+    private void CostRatio(int cost)
+    {
+        gameManager.totalCost += cost;
+
+        DisplayCostRatio();
+    }
+
+    /// <summary>
+    /// コストの表示
+    /// </summary>
+    private void DisplayCostRatio()
+    {
+        txtCostRatio.text = "Stage Cost  " + gameManager.totalCost.ToString() + " / " + gameManager.stageDatas[GameManager.stageLevel].stageCost.ToString();
+
+        gameManager.JudgeTotalCost();
     }
 }

@@ -47,8 +47,9 @@ public class GameManager : MonoBehaviour
     public static int stageLevel = 10;
 
     //配置ユニットの総コスト
-    public int totalCost; 
+    public int totalCost;
 
+    //各UIのイメージ画像
     [SerializeField]
     private Image stageClearImage;
     [SerializeField]
@@ -60,16 +61,28 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private Image againImage;
 
+    //勝敗条件用の分岐
     private bool isJudgeClear = true;
 
+    //次ステージに進む用のボタン
     [SerializeField]
     private Button nextButton;
 
+    //ボタン押下時の効果音
     [SerializeField]
     private AudioClip pushAudio;
 
+    //ステージ切り替え時の演出用変数
     [SerializeField]
     private Fade fade;
+
+    //点滅用
+    [SerializeField]
+    private Material flashingMaterial;
+
+    private Sequence sequence;
+
+    private Tweener tweener;
 
     void Start()
     {
@@ -81,7 +94,7 @@ public class GameManager : MonoBehaviour
         loadScene.SetUpLoadScene(this);
 
         //ステージの準備
-        stageGenerator.PreparateStage(stageLevel,this);
+        stageGenerator.PreparateStage(stageLevel, this);
 
         //ユニット選択ボタンを設定
         uiManager.SetupUnitButton(this, modeChange);
@@ -90,10 +103,12 @@ public class GameManager : MonoBehaviour
         modeChange.SetupChangeModeButton(this);
 
         //味方ユニットの生成準備
-        StartCoroutine(unitGenerator.LayoutUnit(this,uiManager));
+        StartCoroutine(unitGenerator.LayoutUnit(this, uiManager));
 
         //勝敗条件の監視
         StartCoroutine(JudgeStageClear());
+
+        StageFlashing();
 
     }
 
@@ -141,10 +156,10 @@ public class GameManager : MonoBehaviour
                 });
 
                 isJudgeClear = false;
-                
+
             }
 
-            if(gameMode == GameMode.Play && GenerateAllyList.Count <= 0)
+            if (gameMode == GameMode.Play && GenerateAllyList.Count <= 0)
             {
                 Debug.Log("敗北");
 
@@ -171,5 +186,35 @@ public class GameManager : MonoBehaviour
         {
             fade.FadeOut(4);
         });
+    }
+
+    public void JudgeTotalCost()
+    {
+        //totalCostがステージコストと同じ値なら
+        if (stageDatas[stageLevel].stageCost <= totalCost)
+        {
+            Debug.Log("これ以上はユニットを設置できません");
+            //配置可能エリアの点滅中断
+            tweener.Pause();
+        }
+        else
+        {
+            //配置可能エリアの再点滅
+            Debug.Log("ユニットを設置できます");
+            tweener.Restart();
+        }
+    }
+
+    /// <summary>
+    /// 配置可能エリアの点滅
+    /// </summary>
+    private void StageFlashing()
+    {
+        flashingMaterial.color = new Color32(214, 207, 207, 255);
+
+        sequence = DOTween.Sequence()
+            .Append(tweener = flashingMaterial.DOFade(0.9f, 0.2f)
+            .SetDelay(0.1f))
+            .SetLoops(-1, LoopType.Yoyo);
     }
 }
