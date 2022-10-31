@@ -894,7 +894,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1089584880012132198}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -89.651}
 --- !u!114 &9215218172882815671
 MonoBehaviour:
@@ -2725,7 +2725,7 @@ Transform:
   m_Children:
   - {fileID: 6659174163032150924}
   m_Father: {fileID: 2074625623649134794}
-  m_RootOrder: 9
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!191 &5319132270252801147
 OffMeshLink:
@@ -13034,7 +13034,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 0.65}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 7035405705865004494}
   - {fileID: 6687994251291047266}
   - {fileID: 7837838895542351488}
   - {fileID: 5167327151949382334}
@@ -18222,7 +18221,7 @@ Transform:
   m_Children:
   - {fileID: 5273876917119736275}
   m_Father: {fileID: 2074625623649134794}
-  m_RootOrder: 11
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!191 &2724889071094965605
 OffMeshLink:
@@ -23172,7 +23171,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6646382633242493038}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -89.651}
 --- !u!114 &3724144475121112913
 MonoBehaviour:
@@ -24381,7 +24380,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1089584880012132198}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 89.686}
 --- !u!114 &6326367780488260690
 MonoBehaviour:
@@ -27825,7 +27824,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7843519127636008276}
-  m_Layer: 6
+  m_Layer: 3
   m_Name: EnemyTran0
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -29052,7 +29051,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4407005319059941419}
   - component: {fileID: 7408431165020396652}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Door
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -29096,6 +29095,33 @@ MonoBehaviour:
     unitId: 1
   - generateTran: {fileID: 1118293205424268443}
     unitId: 2
+  StageObj:
+  - {fileID: 7529014489288231668}
+  - {fileID: 1797795228459233089}
+  - {fileID: 5033985015298535590}
+  - {fileID: 151355425670718864}
+  - {fileID: 1699118506064448889}
+  - {fileID: 6043375818443527438}
+  - {fileID: 2212334033751322911}
+  - {fileID: 4172662564273188338}
+  - {fileID: 5507178775800662324}
+  - {fileID: 8352488116979417152}
+  - {fileID: 7373047250561564330}
+  - {fileID: 1733807481653271711}
+  - {fileID: 8807835204730397398}
+  - {fileID: 2380913805682063568}
+  - {fileID: 1022369607208694364}
+  - {fileID: 6856988113894142601}
+  - {fileID: 71273600996348973}
+  - {fileID: 4381205352747165574}
+  - {fileID: 1497584580839579633}
+  - {fileID: 6254139421067690901}
+  - {fileID: 1061342026231992532}
+  - {fileID: 2462615260836124082}
+  - {fileID: 9151344484207764041}
+  - {fileID: 151243035212452768}
+  - {fileID: 1083036512461261641}
+  - {fileID: 119573293851143938}
 --- !u!1 &5324654451061808186
 GameObject:
   m_ObjectHideFlags: 0
@@ -30558,7 +30584,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6646382633242493038}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 89.686}
 --- !u!114 &4625088717479026295
 MonoBehaviour:
@@ -35420,7 +35446,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8785332548643458109}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: EnemyTrans
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -36338,7 +36364,6 @@ Transform:
   m_LocalScale: {x: 1.005149, y: 1, z: 0.65}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1326374484406872739}
   - {fileID: 4534741853647460018}
   - {fileID: 8735036215994817534}
   m_Father: {fileID: 7959465089397191609}
@@ -37534,7 +37559,7 @@ Transform:
   m_Children:
   - {fileID: 8852321975126004005}
   m_Father: {fileID: 2074625623649134794}
-  m_RootOrder: 10
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!191 &6388755171464300390
 OffMeshLink:
@@ -37562,7 +37587,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7075669385508649820}
-  m_Layer: 6
+  m_Layer: 3
   m_Name: EnemyTran1
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -38734,7 +38759,7 @@ GameObject:
   - component: {fileID: 8683479766581198463}
   - component: {fileID: 7523427524853237220}
   - component: {fileID: 8063276672861136428}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: OutSideCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -38819,6 +38844,8 @@ Transform:
   - {fileID: 1634103736993646203}
   - {fileID: 7812697076079802254}
   - {fileID: 6469491700072017225}
+  - {fileID: 7035405705865004494}
+  - {fileID: 1326374484406872739}
   - {fileID: 5691351979275041080}
   - {fileID: 596617132814181341}
   - {fileID: 212370681264577863}
@@ -41247,7 +41274,7 @@ GameObject:
   - component: {fileID: 1807517773212752558}
   - component: {fileID: 5458950966523182267}
   m_Layer: 3
-  m_Name: Plane
+  m_Name: PlaneF
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -41261,12 +41288,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7609359298398211400}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.4001002, y: 3.07, z: -0.24900007}
-  m_LocalScale: {x: 0.9538, y: 1, z: 1.0308}
+  m_LocalPosition: {x: -5.1489916, y: 3.07, z: -15.781851}
+  m_LocalScale: {x: 0.9587111, y: 1, z: 0.67002}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1089584880012132198}
-  m_RootOrder: 0
+  m_Father: {fileID: 2074625623649134794}
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5293901051702648734
 MonoBehaviour:
@@ -41478,7 +41505,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 16b688ed7a506b448a8321fc28f212a8, type: 2}
+  - {fileID: 2100000, guid: 4cf9290d7d83a41f2b7348cafb45a204, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -45006,7 +45033,7 @@ GameObject:
   - component: {fileID: 2514665054051676233}
   - component: {fileID: 7621297520619293645}
   m_Layer: 3
-  m_Name: Plane
+  m_Name: PlaneF
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -45019,13 +45046,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8002524677501178106}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.4001002, y: 3.07, z: -0.24900007}
-  m_LocalScale: {x: 0.9538, y: 1, z: 1.0308}
+  m_LocalRotation: {x: -0, y: 0.7139705, z: -0, w: 0.7001758}
+  m_LocalPosition: {x: -5.5991316, y: 3.07, z: -12.696676}
+  m_LocalScale: {x: 0.95380014, y: 1, z: 0.67002}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 6646382633242493038}
-  m_RootOrder: 0
+  m_Father: {fileID: 2074625623649134794}
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5092880042223293893
 MonoBehaviour:
@@ -45237,7 +45264,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 16b688ed7a506b448a8321fc28f212a8, type: 2}
+  - {fileID: 2100000, guid: 4cf9290d7d83a41f2b7348cafb45a204, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -46450,7 +46477,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1118293205424268443}
-  m_Layer: 6
+  m_Layer: 3
   m_Name: EnemyTran2
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -47073,7 +47100,7 @@ Transform:
   m_Children:
   - {fileID: 9008656721707264560}
   m_Father: {fileID: 2074625623649134794}
-  m_RootOrder: 12
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!191 &3837319809890479005
 OffMeshLink:
@@ -47126,7 +47153,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6646382633242493038}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -89.651}
 --- !u!114 &9080647955593631348
 MonoBehaviour:

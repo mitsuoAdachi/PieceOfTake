@@ -13,68 +13,42 @@ MonoBehaviour:
   m_Name: StageDataSO
   m_EditorClassIdentifier: 
   stageDataList:
+  - stageNumber: Tutorial
+    stageCost: 3
+    stagPrefab: {fileID: 8123422167795566839, guid: 03f3fec22401e40569a0e44ff4571395, type: 3}
+    navmeshData: {fileID: 23800000, guid: e9aa3e8c53ec54219a85c5233da8988e, type: 2}
+    sky: {fileID: 2100000, guid: 67950864b84c5db4f9eee7ca51c85571, type: 2}
   - stageNumber: Stage1
-    stageLvIndex: 0
     stageCost: 5
     stagPrefab: {fileID: 5780660914742466747, guid: 94dbb356ba328478baed86c5e476e254, type: 3}
     navmeshData: {fileID: 23800000, guid: c2a37ddfc1242470ea47fa25d129a58a, type: 2}
     sky: {fileID: 2100000, guid: 8dd2f17b6e3f8174390967bc55ead836, type: 2}
   - stageNumber: Stage2
-    stageLvIndex: 1
     stageCost: 5
     stagPrefab: {fileID: 1234354471715471147, guid: e8bfa8f12b5c649fba61ebd0b79f8681, type: 3}
     navmeshData: {fileID: 23800000, guid: 6321cdd95c3d84ea1b7ba5d4bcde8bb0, type: 2}
     sky: {fileID: 2100000, guid: 8dd2f17b6e3f8174390967bc55ead836, type: 2}
   - stageNumber: Stage3
-    stageLvIndex: 2
-    stageCost: 5
-    stagPrefab: {fileID: 2405595509745767059, guid: c3fbef42fc4a9402d870ae2af0a62ab2, type: 3}
-    navmeshData: {fileID: 23800000, guid: d3cd2a2b00c6f4c9abf672d58e8eac30, type: 2}
-    sky: {fileID: 2100000, guid: 4c12da8dc5dced74e838120da11725a0, type: 2}
-  - stageNumber: Stage4
-    stageLvIndex: 3
     stageCost: 5
     stagPrefab: {fileID: 7408431165020396652, guid: a0d70bc825ec74f74bedeab544335b55, type: 3}
     navmeshData: {fileID: 23800000, guid: e5b85bef0dbd34d289fb186398fb0f6d, type: 2}
     sky: {fileID: 2100000, guid: 20e1111adc6498e499e72f734cde4793, type: 2}
-  - stageNumber: Stage5
-    stageLvIndex: 4
-    stageCost: 5
-    stagPrefab: {fileID: 5797657331458404043, guid: d51a2aece750a4f888ec2c32cf35c0a5, type: 3}
-    navmeshData: {fileID: 23800000, guid: b2009c566f203451d9007eb7066d7242, type: 2}
-    sky: {fileID: 2100000, guid: 20e1111adc6498e499e72f734cde4793, type: 2}
-  - stageNumber: Stage6
-    stageLvIndex: 5
+  - stageNumber: Stage4
     stageCost: 5
     stagPrefab: {fileID: 969685854883867772, guid: cbf1f3705a22d4cd38c639d31eb1728d, type: 3}
     navmeshData: {fileID: 23800000, guid: 5b568ee5425604a0099da23c5f2368b6, type: 2}
     sky: {fileID: 2100000, guid: 0f1401d983cde1c49a7f687a57e62c5a, type: 2}
-  - stageNumber: Stage7
-    stageLvIndex: 6
+  - stageNumber: Stage5
     stageCost: 5
     stagPrefab: {fileID: 1372085729699217990, guid: 2289d531815db439c8864c0ec4ecf4aa, type: 3}
     navmeshData: {fileID: 23800000, guid: 5785fa92653184117aa5904ededfa724, type: 2}
     sky: {fileID: 2100000, guid: d3823126980dd98479f7761e6d47338a, type: 2}
-  - stageNumber: Stage8
-    stageLvIndex: 7
-    stageCost: 5
-    stagPrefab: {fileID: 307505253969604541, guid: 5dcfcbe5f8fd34df092bb34568e1bb2f, type: 3}
-    navmeshData: {fileID: 23800000, guid: 9d62e9761cb2c4c4e887f261cfae015d, type: 2}
-    sky: {fileID: 2100000, guid: d3823126980dd98479f7761e6d47338a, type: 2}
-  - stageNumber: Stage9
-    stageLvIndex: 8
-    stageCost: 20
-    stagPrefab: {fileID: 8310292279558941775, guid: 960fecf81f02a4feeac4596dd791afb4, type: 3}
-    navmeshData: {fileID: 23800000, guid: bb2621a17f05d4699a003e461dcbd9d6, type: 2}
-    sky: {fileID: 2100000, guid: d3823126980dd98479f7761e6d47338a, type: 2}
-  - stageNumber: Stage10
-    stageLvIndex: 9
+  - stageNumber: Stage6
     stageCost: 20
     stagPrefab: {fileID: 461728094883275804, guid: 7ac1a06b543d74925b0905c11c36c6f9, type: 3}
     navmeshData: {fileID: 23800000, guid: cf25af3ba562f46f888f4aa682718059, type: 2}
     sky: {fileID: 2100000, guid: d3823126980dd98479f7761e6d47338a, type: 2}
   - stageNumber: "\u3000"
-    stageLvIndex: 10
     stageCost: 20
     stagPrefab: {fileID: 6391170001776892151, guid: 5e6950a7189e34486911c0c32e0179e4, type: 3}
     navmeshData: {fileID: 23800000, guid: 653a0ecf14bdf488594fa2efd630c1b3, type: 2}

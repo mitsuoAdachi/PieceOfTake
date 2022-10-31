@@ -54,6 +54,8 @@ MonoBehaviour:
     unitId: 0
   - generateTran: {fileID: 7026496962745528151}
     unitId: 0
+  StageObj:
+  - {fileID: 5439187208162492146}
 --- !u!1 &1449317703224921501
 GameObject:
   m_ObjectHideFlags: 0
@@ -5711,7 +5713,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 16b688ed7a506b448a8321fc28f212a8, type: 2}
+  - {fileID: 2100000, guid: 4cf9290d7d83a41f2b7348cafb45a204, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

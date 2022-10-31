@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 562437742479854074}
   - component: {fileID: 9121908625154382471}
   m_Layer: 3
-  m_Name: Pipe
+  m_Name: Pipe1-1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7861,7 +7861,7 @@ GameObject:
   - component: {fileID: 1442166670260723987}
   - component: {fileID: 2224654462997222785}
   - component: {fileID: 9151263575253622594}
-  m_Layer: 3
+  m_Layer: 2
   m_Name: Pipe (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15752,6 +15752,10 @@ MonoBehaviour:
     unitId: 2
   - generateTran: {fileID: 7839167584378326566}
     unitId: 1
+  StageObj:
+  - {fileID: 1380047603740608497}
+  - {fileID: 6293599377416229950}
+  - {fileID: 925156433437176560}
 --- !u!1 &1380047603740608497
 GameObject:
   m_ObjectHideFlags: 0
@@ -15766,7 +15770,7 @@ GameObject:
   - component: {fileID: 6994043897703481409}
   - component: {fileID: 641745808525336774}
   - component: {fileID: 5065981144290844553}
-  m_Layer: 3
+  m_Layer: 2
   m_Name: Pipe (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -23771,7 +23775,7 @@ GameObject:
   - component: {fileID: 3928087684794025407}
   - component: {fileID: 4453271359991078432}
   - component: {fileID: 4658064961461214714}
-  m_Layer: 3
+  m_Layer: 2
   m_Name: Pipe (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
