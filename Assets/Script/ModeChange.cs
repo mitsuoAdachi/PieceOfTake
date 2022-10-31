@@ -52,21 +52,18 @@ public class ModeChange : MonoBehaviour
         {
             gameManager.gameMode = GameManager.GameMode.Play;
 
-            txtModeChangeButton.text = "STOP";
             txtGameMode.text = "GAME MODE：プレイ";
+
+            //モードチェンジボタンを非アクティブにする
+            btnModeChange.gameObject.SetActive(false);
 
             //ユニット選択パネルを非アクティブにする
             selectUnitPanel.SetActive(false);
 
             //ユニット設置モードボタンを押せない状態にする
             btnPreparateModeChange.interactable = false;
-        }
-        else
-        {
-            gameManager.gameMode = GameManager.GameMode.Stop;
 
-            txtModeChangeButton.text = "PLAY";
-            txtGameMode.text = "GAME MODE：ストップ";
+            gameManager.stageGenerator.SwitchStageLayer();
         }
     }
 
@@ -90,14 +87,4 @@ public class ModeChange : MonoBehaviour
             btnPreparateModeChange.image.color = new Color32(0, 246, 67, 150);
         }
     }
-
-    //public void TextChange(Text btnText,string txt)
-    //{
-    //    btnText.text = txt;
-    //}
-
-    //public void TextColorChange(Button btn,Color32 col)
-    //{
-    //    btn.image.color = col;
-    //}
 }

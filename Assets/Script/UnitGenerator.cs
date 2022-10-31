@@ -39,11 +39,17 @@ public class UnitGenerator : MonoBehaviour
         //　ステージコスト＞配置ユニットの総コストの間ループ
         while (true)
         {
-            if (gameManager.stageDatas[GameManager.stageLevel].stageCost < gameManager.totalCost)
-                yield break;
+            Debug.Log("ステージコスト"　+　gameManager.stageDatas[GameManager.stageLevel].stageCost);
+            Debug.Log("トータルコスト" + gameManager.totalCost);
+            Debug.Log("選択中のユニットコスト" + gameManager.allyUnitDatas[uiManager.btnIndex].cost);
+
+            if (gameManager.stageDatas[GameManager.stageLevel].stageCost - gameManager.totalCost > gameManager.allyUnitDatas[uiManager.btnIndex].cost)
+                //yield break;
+            Debug.Log("コスト条件クリア");
 
             if (gameManager.gameMode != GameManager.GameMode.Preparate)
                 yield break;
+            Debug.Log("モード条件クリア");
 
             //　UI上ではRayが反応しないようにする
             if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
@@ -54,6 +60,8 @@ public class UnitGenerator : MonoBehaviour
                 //　rayが接触したオブジェクトの情報をRaycasthit型の変数へ登録
                 if (Physics.Raycast(ray, out RaycastHit hit))
                 {
+                    //TODO 46行if文をここに挟んでみる
+
                     UnitController allyUnit = Instantiate(gameManager.allyUnitDatas[uiManager.btnIndex].UnitPrefab, hit.point, Quaternion.identity);
 
                     AudioSource audio = allyUnit.gameObject.GetComponent<AudioSource>();

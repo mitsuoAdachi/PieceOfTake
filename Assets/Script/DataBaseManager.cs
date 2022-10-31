@@ -13,8 +13,6 @@ public class DataBaseManager : MonoBehaviour
 
     public EnemyUnitDataSO enemyUnitDataSO;
 
-    //public AttackRangeSizeSO attackRangeSizeSO;
-
     //シングルトンの作成
     void Awake()
     {

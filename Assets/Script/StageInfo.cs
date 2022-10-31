@@ -7,8 +7,10 @@ public class StageInfo : MonoBehaviour
 
     public GenerateUnitData[] generateUnitDatas;
 
+    public GameObject[] StageObj;
+
     /// <summary>
-    /// UnitGeneratorクラスよりGameManagerコンポーネントを取得
+    /// StageGeneratorクラスよりGameManagerコンポーネントを取得
     /// </summary>
     /// <param name="gameManager"></param>
     public void SetupStageInfo(GameManager gameManager)

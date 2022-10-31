@@ -85,7 +85,6 @@ public class UnitController : MonoBehaviour
         attackPower = unitDatas[uiManager.btnIndex].attackPower;
         blowPower = unitDatas[uiManager.btnIndex].blowPower;
         agent.speed = unitDatas[uiManager.btnIndex].moveSpeed;
-        weight = unitDatas[uiManager.btnIndex].weight;
         intervalTime = unitDatas[uiManager.btnIndex].intervalTime;
         maxHp = hp;
 
@@ -100,7 +99,6 @@ public class UnitController : MonoBehaviour
         attackPower = unitDatas[unitNumber].attackPower;
         blowPower = unitDatas[unitNumber].blowPower;
         agent.speed = unitDatas[unitNumber].moveSpeed;
-        weight = unitDatas[unitNumber].weight;
         intervalTime = unitDatas[unitNumber].intervalTime;
         maxHp = hp;
     }
@@ -212,19 +210,9 @@ public class UnitController : MonoBehaviour
     {
         this.hp = Mathf.Clamp(this.hp -= amount, 0, maxHp);
 
-        if(this.hp <= 0)
-        {
-            gameManager.GenerateEnemyList.Remove(this);
-            gameManager.GenerateAllyList.Remove(this);
+        OnDie();
 
-            agent.enabled = true;
-            agent.isStopped = true;
-            targetUnit = null;
-            isAttack = false;
-            anime.SetTrigger(deadAnime);
-
-            Destroy(this.gameObject, 3);
-        }
+        Destroy(this.gameObject, 3);
     }
 
     /// <summary>
@@ -298,6 +286,25 @@ public class UnitController : MonoBehaviour
     public void OnAttackPartical()
     {
         attackParticle.Play();
+    }
+
+    /// <summary>
+    /// 死亡処理
+    /// </summary>
+    public void OnDie()
+    {
+        if (this.hp <= 0)
+        {
+            gameManager.GenerateEnemyList.Remove(this);
+            gameManager.GenerateAllyList.Remove(this);
+
+            agent.enabled = true;
+            agent.isStopped = true;
+            targetUnit = null;
+            isAttack = false;
+            anime.SetTrigger(deadAnime);
+        }
+
     }
 
 }

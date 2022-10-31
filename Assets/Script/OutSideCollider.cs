@@ -4,8 +4,14 @@ using UnityEngine;
 
 public class OutSideCollider : MonoBehaviour
 {
+
     private void OnTriggerEnter(Collider other)
     {
-        Destroy(other.gameObject);
+        if (TryGetComponent(out UnitController unit) == true)
+        {
+            unit.OnDie();
+
+            Destroy(other.gameObject);
+        }
     }
 }

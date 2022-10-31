@@ -14,11 +14,11 @@ public class UIManager : MonoBehaviour
 
     //　SetupUnitButton()で使用するメンバ変数群
     [SerializeField]
-    private Button btnPrefab;
+    private UnitButton btnPrefab;
     [SerializeField]
     private Transform btnTran;
 
-    public List<Button> unitSelectButtons = new List<Button>();
+    public List<UnitButton> unitSelectButtons = new List<UnitButton>();
 
     /// <summary>
     /// ボタン押下時用のメソッド
@@ -27,6 +27,8 @@ public class UIManager : MonoBehaviour
     {
         //ボタンの配列番号を登録
         btnIndex = index;
+
+        Debug.Log("ボタンインデックス" + btnIndex);
 
         //ボタンを押したら配置モードがPreparateに戻るようにする
         gameManager.gameMode = GameManager.GameMode.Preparate;
@@ -49,22 +51,25 @@ public class UIManager : MonoBehaviour
             Debug.Log("ボタン生成開始");
 
             //ボタン生成
-            Button unitButton = Instantiate(btnPrefab, btnTran, false);
-            //イメージの設定
-            unitButton.image.sprite = gameManager.allyUnitDatas[i].unitImage;
-            //コスト表記の設定
-            Text cost = unitButton.transform.GetChild(0).GetComponent<Text>();
-            cost.text = gameManager.allyUnitDatas[i].cost.ToString();
-            //ユニットネームの設定
-            Text name = unitButton.transform.GetChild(1).GetComponent<Text>();
-            name.text = gameManager.allyUnitDatas[i].name.ToString();
+            UnitButton unitButton = Instantiate(btnPrefab, btnTran, false);
+
+            unitButton.SetupUnitButton(gameManager.allyUnitDatas[i].unitImage, gameManager.allyUnitDatas[i].name, gameManager.allyUnitDatas[i].cost);
+
+            ////イメージの設定
+            //unitButton.image.sprite = gameManager.allyUnitDatas[i].unitImage;
+            ////コスト表記の設定
+            //Text cost = unitButton.transform.GetChild(0).GetComponent<Text>();
+            //cost.text = gameManager.allyUnitDatas[i].cost.ToString();
+            ////ユニットネームの設定
+            //Text name = unitButton.transform.GetChild(1).GetComponent<Text>();
+            //name.text = gameManager.allyUnitDatas[i].name.ToString();
             
             //リストに追加
             unitSelectButtons.Add(unitButton);
 
             //生成したボタンにUnitSelectメソッドと付与した順番のindexを登録
             int index = i;
-            unitSelectButtons[i].onClick.AddListener(() => UnitSelect(index));
+            unitSelectButtons[i].ButtonUnit.onClick.AddListener(() => UnitSelect(index));
         }
     }
 
@@ -77,4 +82,6 @@ public class UIManager : MonoBehaviour
                         .Join(ui.transform.DOScale(6, 2).SetEase(Ease.OutBounce));
                       
     }
+
+    //TODO 
 }

@@ -7,7 +7,6 @@ using System.Collections.Generic;
 public class StageData
 {
     public string stageNumber;
-    public int stageLvIndex;
     public int stageCost;
     public StageInfo stagPrefab;
     public NavMeshData navmeshData;

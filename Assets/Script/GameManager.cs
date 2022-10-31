@@ -44,7 +44,7 @@ public class GameManager : MonoBehaviour
 
     //生成するステージのレベル
     [SerializeField]
-    public static int stageLevel = 10;
+    public static int stageLevel = 7; //7
 
     //配置ユニットの総コスト
     public int totalCost;
@@ -82,7 +82,7 @@ public class GameManager : MonoBehaviour
 
     private Sequence sequence;
 
-    private Tweener tweener;
+    private Tween tween;
 
     void Start()
     {
@@ -108,7 +108,9 @@ public class GameManager : MonoBehaviour
         //勝敗条件の監視
         StartCoroutine(JudgeStageClear());
 
+        //配置可能エリアを点滅開始
         StageFlashing();
+        sequence.Restart();
 
     }
 
@@ -194,14 +196,18 @@ public class GameManager : MonoBehaviour
         if (stageDatas[stageLevel].stageCost <= totalCost)
         {
             Debug.Log("これ以上はユニットを設置できません");
+
+            //Alpha値をリセットする
+            flashingMaterial.color = new Color32(214, 207, 207, 255);
+
             //配置可能エリアの点滅中断
-            tweener.Pause();
+            sequence.Pause();
         }
         else
         {
             //配置可能エリアの再点滅
             Debug.Log("ユニットを設置できます");
-            tweener.Restart();
+            sequence.Restart();
         }
     }
 
@@ -213,8 +219,11 @@ public class GameManager : MonoBehaviour
         flashingMaterial.color = new Color32(214, 207, 207, 255);
 
         sequence = DOTween.Sequence()
-            .Append(tweener = flashingMaterial.DOFade(0.9f, 0.2f)
+            .Append(flashingMaterial.DOFade(0.85f, 0.2f)
             .SetDelay(0.1f))
-            .SetLoops(-1, LoopType.Yoyo);
+            .SetLoops(-1, LoopType.Yoyo)
+            .Pause()
+            .SetAutoKill(false)
+            .SetLink(gameObject);
     }
 }
