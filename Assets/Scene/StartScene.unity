@@ -619,7 +619,7 @@ RectTransform:
   m_GameObject: {fileID: 448435138}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 8, y: 2, z: 1}
+  m_LocalScale: {x: 20, y: 3, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2027069933}
@@ -629,7 +629,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
   m_AnchoredPosition: {x: 4, y: -20}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 150, y: 40}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &448435140
 MonoBehaviour:
@@ -1479,6 +1479,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c7c37203035f4e33a6a5ebd15c167a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  uiManager: {fileID: 1289028342}
   titleTxt: {fileID: 448435140}
   titleTTxt: {fileID: 2027069934}
   startButton: {fileID: 1465500090}
@@ -1762,7 +1763,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: 0.05076909, y: -0.62164253, z: 0.040430322, w: 0.78060776}
+  m_LocalRotation: {x: 0.050769094, y: -0.62164253, z: 0.04043033, w: 0.78060776}
   m_LocalPosition: {x: 17.160387, y: 2.3, z: -3.9414082}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -2347,6 +2348,10 @@ MonoBehaviour:
   titleImage: {fileID: 968063948}
   nextImage: {fileID: 968063948}
   againImage: {fileID: 968063948}
+  winAudio1: {fileID: 8300000, guid: 4e55ca982a903417883ab3ef07775fa3, type: 3}
+  winAudio2: {fileID: 8300000, guid: 8f9a1cb7d6d4e44a2bbd7e09444ed390, type: 3}
+  loseAudio: {fileID: 8300000, guid: aa75b2f17f5474337b068fa93274898d, type: 3}
+  isJudgeClear: 0
   nextButton: {fileID: 1875809508}
   pushAudio: {fileID: 8300000, guid: 1184d487c97e244a2a3b4559148a20d8, type: 3}
   fade: {fileID: 1310730741}
@@ -2367,6 +2372,7 @@ MonoBehaviour:
   txtGameMode: {fileID: 210280878}
   txtModeChangeButton: {fileID: 718238970}
   selectUnitPanel: {fileID: 858032892}
+  playBtnAudio: {fileID: 8300000, guid: f1ee1ced87c334f0882ddd533febf0b6, type: 3}
   btnPreparateModeChange: {fileID: 605115743}
   txtPreparateModeChangeButton: {fileID: 1870171058}
 --- !u!114 &1289028342
@@ -3078,7 +3084,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1597331990}
-  m_LocalRotation: {x: 0.05076909, y: -0.62164253, z: 0.040430322, w: 0.78060776}
+  m_LocalRotation: {x: 0.050769094, y: -0.62164253, z: 0.04043033, w: 0.78060776}
   m_LocalPosition: {x: -27.147331, y: 38.84242, z: 13.209819}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -3422,7 +3428,7 @@ RectTransform:
   m_GameObject: {fileID: 2027069932}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.15, y: 1, z: 1}
+  m_LocalScale: {x: 0.1, y: 1, z: 6}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 448435139}
@@ -3430,8 +3436,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 15.5, y: 2.5}
-  m_SizeDelta: {x: 100, y: 100}
+  m_AnchoredPosition: {x: 23, y: 2.5}
+  m_SizeDelta: {x: 4, y: 7}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &2027069934
 MonoBehaviour:

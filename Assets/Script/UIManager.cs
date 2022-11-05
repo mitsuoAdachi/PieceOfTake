@@ -82,6 +82,4 @@ public class UIManager : MonoBehaviour
                         .Join(ui.transform.DOScale(6, 2).SetEase(Ease.OutBounce));
                       
     }
-
-    //TODO 
 }

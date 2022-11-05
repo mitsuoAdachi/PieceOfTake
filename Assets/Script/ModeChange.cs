@@ -20,6 +20,9 @@ public class ModeChange : MonoBehaviour
     [SerializeField]
     private GameObject selectUnitPanel;
 
+    [SerializeField]
+    AudioClip playBtnAudio;
+
     //ユニット設置/削除ボタン用のメンバ変数群
     [SerializeField]
     private Button btnPreparateModeChange;
@@ -54,6 +57,8 @@ public class ModeChange : MonoBehaviour
 
             txtGameMode.text = "GAME MODE：プレイ";
 
+            AudioSource.PlayClipAtPoint(playBtnAudio, Camera.main.transform.position, 0.7f);
+
             //モードチェンジボタンを非アクティブにする
             btnModeChange.gameObject.SetActive(false);
 
@@ -81,7 +86,7 @@ public class ModeChange : MonoBehaviour
         }
         else
         {
-            gameManager.gameMode = GameManager.GameMode.Preparate_Remove;
+            gameManager.gameMode = GameManager.GameMode.Preparate;
 
             txtPreparateModeChangeButton.text = "Put";
             btnPreparateModeChange.image.color = new Color32(0, 246, 67, 150);

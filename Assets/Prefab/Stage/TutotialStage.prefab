@@ -682,6 +682,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2111137841}
     m_Modifications:
+    - target: {fileID: 8020652577135442001, guid: c8a04603672374c55a2c03acf8de7789, type: 3}
+      propertyPath: m_VideoClip
+      value: 
+      objectReference: {fileID: 32900000, guid: 39d2a6ee32f334a4a826412d935b8390, type: 3}
     - target: {fileID: 8536130184471962098, guid: c8a04603672374c55a2c03acf8de7789, type: 3}
       propertyPath: m_RaycastTarget
       value: 0

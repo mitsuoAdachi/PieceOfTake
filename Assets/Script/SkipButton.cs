@@ -34,11 +34,4 @@ public class SkipButton : MonoBehaviour
             .SetAutoKill(false)
             .SetLink(gameObject);
     }
-
-    //public void SetupSkipButton(TutorialController tController)
-    //{
-    //    this.tController = tController;
-    //}
-
-    
 }

@@ -10,9 +10,7 @@ public class GameManager : MonoBehaviour
     {
         Preparate,
         Preparate_Remove,
-        Play,
-        Stop,
-        GameUp
+        Play
     }
     public GameMode gameMode;
 
@@ -61,8 +59,16 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private Image againImage;
 
+    //勝敗時の音響
+    [SerializeField]
+    AudioClip winAudio1;
+    [SerializeField]
+    AudioClip winAudio2;
+    [SerializeField]
+    AudioClip loseAudio;
+
     //勝敗条件用の分岐
-    private bool isJudgeClear = true;
+    public bool isJudgeClear = true;
 
     //次ステージに進む用のボタン
     [SerializeField]
@@ -80,9 +86,9 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private Material flashingMaterial;
 
+    //DOTween演出繋ぎ用
     private Sequence sequence;
 
-    private Tween tween;
 
     void Start()
     {
@@ -150,6 +156,9 @@ public class GameManager : MonoBehaviour
             {
                 Debug.Log("勝利");
 
+                AudioSource.PlayClipAtPoint(winAudio1, Camera.main.transform.position, 0.5f);
+                AudioSource.PlayClipAtPoint(winAudio2, Camera.main.transform.position, 1);
+
                 uiManager.OnDOTweenUI(stageClearImage);
                 DOVirtual.DelayedCall(4, () =>
                 {
@@ -164,6 +173,8 @@ public class GameManager : MonoBehaviour
             if (gameMode == GameMode.Play && GenerateAllyList.Count <= 0)
             {
                 Debug.Log("敗北");
+
+                AudioSource.PlayClipAtPoint(loseAudio, Camera.main.transform.position, 1);
 
                 uiManager.OnDOTweenUI(gameOverImage);
                 DOVirtual.DelayedCall(4, () =>

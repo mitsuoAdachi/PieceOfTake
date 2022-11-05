@@ -47,8 +47,10 @@ public class TutorialController : MonoBehaviour
 
         fade.FadeIn(3, () =>
         {
-            fade.FadeOut(7);
+            fade.FadeOut(10);
         });
+
+        yield return new WaitForSeconds(3);
 
         SceneManager.LoadScene(SceneAgain);
     }
@@ -64,7 +66,7 @@ public class TutorialController : MonoBehaviour
     //スキップボタンの設定
     private void OnClickSkipButton()
     {
-        skipButton.BtnSkip.onClick.AddListener(() => StartCoroutine(LoadNextStageScene(5)));
+        skipButton.BtnSkip.onClick.AddListener(() => StartCoroutine(LoadNextStageScene(4)));
         skipButton.BtnSkip.onClick.AddListener(() => OnClickSound());
     }
 
@@ -97,6 +99,4 @@ public class TutorialController : MonoBehaviour
     //    yield return new WaitForSeconds(intervalTime);
     //    message.text = " ";
     //}
-
-
 }

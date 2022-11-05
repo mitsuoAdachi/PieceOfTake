@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stageDataList:
   - stageNumber: Tutorial
-    stageCost: 3
+    stageCost: 5
     stagPrefab: {fileID: 8123422167795566839, guid: 03f3fec22401e40569a0e44ff4571395, type: 3}
     navmeshData: {fileID: 23800000, guid: e9aa3e8c53ec54219a85c5233da8988e, type: 2}
     sky: {fileID: 2100000, guid: 67950864b84c5db4f9eee7ca51c85571, type: 2}

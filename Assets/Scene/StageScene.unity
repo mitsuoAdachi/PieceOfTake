@@ -2637,6 +2637,10 @@ MonoBehaviour:
   titleImage: {fileID: 1878633869}
   nextImage: {fileID: 273735518}
   againImage: {fileID: 1756196845}
+  winAudio1: {fileID: 8300000, guid: 4e55ca982a903417883ab3ef07775fa3, type: 3}
+  winAudio2: {fileID: 8300000, guid: 8f9a1cb7d6d4e44a2bbd7e09444ed390, type: 3}
+  loseAudio: {fileID: 8300000, guid: aa75b2f17f5474337b068fa93274898d, type: 3}
+  isJudgeClear: 1
   nextButton: {fileID: 273735520}
   pushAudio: {fileID: 8300000, guid: 1184d487c97e244a2a3b4559148a20d8, type: 3}
   fade: {fileID: 934956257}
@@ -2657,6 +2661,7 @@ MonoBehaviour:
   txtGameMode: {fileID: 210280878}
   txtModeChangeButton: {fileID: 718238970}
   selectUnitPanel: {fileID: 858032892}
+  playBtnAudio: {fileID: 8300000, guid: f1ee1ced87c334f0882ddd533febf0b6, type: 3}
   btnPreparateModeChange: {fileID: 605115743}
   txtPreparateModeChangeButton: {fileID: 1870171058}
 --- !u!114 &1289028342

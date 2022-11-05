@@ -212,7 +212,8 @@ public class UnitController : MonoBehaviour
 
         OnDie();
 
-        Destroy(this.gameObject, 3);
+        if (this.hp <= 0)
+            Destroy(this.gameObject, 3);
     }
 
     /// <summary>
@@ -223,7 +224,7 @@ public class UnitController : MonoBehaviour
     {
         anime.SetTrigger(knockBackAnime);
 
-        //ステージ(Navmesh)外に出るように障害機能を一旦切る
+        //ステージ(Navmesh)外に出るように弊害となる機能を一旦切る
         rigid.isKinematic = false;
         StopCoroutine("OnMoveUnit");
         agent.enabled = false;
@@ -241,6 +242,8 @@ public class UnitController : MonoBehaviour
         if (isKnockBack)
         {
             rigid.AddForce(-transform.forward * blowPower, ForceMode.VelocityChange);
+
+            isKnockBack = false;
         }
     }
 

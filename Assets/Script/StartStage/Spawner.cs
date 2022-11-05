@@ -45,7 +45,7 @@ public class Spawner : MonoBehaviour
                 generateAllyUnit.StartMoveUnit(gameManager, gameManager.GenerateEnemyList);
             }
 
-            yield return new WaitForSeconds(8);
+            yield return new WaitForSeconds(4);
         }
 
     }
@@ -79,7 +79,7 @@ public class Spawner : MonoBehaviour
 
             }
 
-            yield return new WaitForSeconds(4);
+            yield return new WaitForSeconds(2);
         }
 
     }

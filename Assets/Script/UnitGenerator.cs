@@ -34,51 +34,59 @@ public class UnitGenerator : MonoBehaviour
         //　配置したユニットを削除する機能の準備
         StartCoroutine(RemoveLayoutUnit());
 
-        gameManager.totalCost = Mathf.Clamp(gameManager.totalCost, 0, gameManager.stageDatas[GameManager.stageLevel].stageCost);
 
-        //　ステージコスト＞配置ユニットの総コストの間ループ
         while (true)
         {
-            Debug.Log("ステージコスト"　+　gameManager.stageDatas[GameManager.stageLevel].stageCost);
-            Debug.Log("トータルコスト" + gameManager.totalCost);
-            Debug.Log("選択中のユニットコスト" + gameManager.allyUnitDatas[uiManager.btnIndex].cost);
+            //選択中のユニットのコストを保持
+            int selectUnitCost = gameManager.allyUnitDatas[uiManager.btnIndex].cost;
 
-            if (gameManager.stageDatas[GameManager.stageLevel].stageCost - gameManager.totalCost > gameManager.allyUnitDatas[uiManager.btnIndex].cost)
-                //yield break;
-            Debug.Log("コスト条件クリア");
+            //設置できる残りのコストを保持
+            int activeCost = gameManager.stageDatas[GameManager.stageLevel].stageCost - gameManager.totalCost;
 
-            if (gameManager.gameMode != GameManager.GameMode.Preparate)
-                yield break;
-            Debug.Log("モード条件クリア");
+            // 0 ~ ステージコストの間で制限する
+            activeCost = Mathf.Clamp(activeCost, 0, gameManager.stageDatas[GameManager.stageLevel].stageCost);
 
-            //　UI上ではRayが反応しないようにする
-            if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
+                Debug.Log("checkCost" + activeCost);
+                //Debug.Log("ステージコスト"　+　gameManager.stageDatas[GameManager.stageLevel].stageCost);
+                //Debug.Log("トータルコスト" + gameManager.totalCost);
+                Debug.Log("選択中のユニットコスト" + gameManager.allyUnitDatas[uiManager.btnIndex].cost);
+
+            if (selectUnitCost <= activeCost)
             {
-                //画面クリックした座標をRay型の変数へキャッシュ
-                Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
+                Debug.Log("コスト条件クリア");
 
-                //　rayが接触したオブジェクトの情報をRaycasthit型の変数へ登録
-                if (Physics.Raycast(ray, out RaycastHit hit))
+                if (gameManager.gameMode == GameManager.GameMode.Preparate)
                 {
-                    //TODO 46行if文をここに挟んでみる
+                    Debug.Log("モード条件クリア");
 
-                    UnitController allyUnit = Instantiate(gameManager.allyUnitDatas[uiManager.btnIndex].UnitPrefab, hit.point, Quaternion.identity);
+                    //　UI上ではRayが反応しないようにする
+                    if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
+                    {
+                        //画面クリックした座標をRay型の変数へキャッシュ
+                        Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
 
-                    AudioSource audio = allyUnit.gameObject.GetComponent<AudioSource>();
-                    Debug.Log(audio);
-                    audio.Play();
+                        //　rayが接触したオブジェクトの情報をRaycasthit型の変数へ登録
+                        if (Physics.Raycast(ray, out RaycastHit hit))
+                        {
+                            UnitController allyUnit = Instantiate(gameManager.allyUnitDatas[uiManager.btnIndex].UnitPrefab, hit.point, Quaternion.identity);
 
-                    //生成したユニットに移動能力を付与
-                    allyUnit.StartMoveUnit(gameManager, gameManager.GenerateEnemyList);
+                            AudioSource audio = allyUnit.gameObject.GetComponent<AudioSource>();
+                            Debug.Log(audio);
+                            audio.Play();
 
-                    //生成したユニットにステータスを付与
-                    allyUnit.SetupUnitStateAlly(gameManager.allyUnitDatas, uiManager);
+                            //生成したユニットに移動能力を付与
+                            allyUnit.StartMoveUnit(gameManager, gameManager.GenerateEnemyList);
 
-                    //生成したユニット用のリストに追加
-                    gameManager.GenerateAllyList.Add(allyUnit);
+                            //生成したユニットにステータスを付与
+                            allyUnit.SetupUnitStateAlly(gameManager.allyUnitDatas, uiManager);
 
-                    //生成したユニットのコスト値を加算
-                    CostRatio(allyUnit.Cost);
+                            //生成したユニット用のリストに追加
+                            gameManager.GenerateAllyList.Add(allyUnit);
+
+                            //生成したユニットのコスト値を加算
+                            CostRatio(allyUnit.Cost);
+                        }
+                    }
                 }
             }
             yield return null;
