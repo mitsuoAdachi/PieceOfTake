@@ -7,7 +7,7 @@ public class OutSideCollider : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (TryGetComponent(out UnitController unit) == true)
+        if (other.TryGetComponent(out UnitController unit) == true)
         {
             unit.OnDie();
 
