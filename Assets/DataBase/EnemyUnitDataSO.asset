@@ -13,48 +13,63 @@ MonoBehaviour:
   m_Name: EnemyUnitDataSO
   m_EditorClassIdentifier: 
   enemyUnitDatasList:
-  - id: 0
+  - name: warrior
     cost: 0
     hp: 3
     attackPower: 1
     blowPower: 1
     moveSpeed: 1
-    weight: 0
     intervalTime: 2000
     UnitPrefab: {fileID: 2760980825175953369, guid: 1541f45050a4942a69972b75f22fc1db, type: 3}
-  - id: 1
+    unitImage: {fileID: 0}
+    generateVoice: {fileID: 0}
+  - name: drySoldier
     cost: 0
     hp: 3
     attackPower: 2
     blowPower: 1
     moveSpeed: 0.8
-    weight: 0
     intervalTime: 2000
     UnitPrefab: {fileID: 834000593253369552, guid: 4d7ad4d2cfdb4481c9da73dff10f7a6f, type: 3}
-  - id: 2
+    unitImage: {fileID: 0}
+    generateVoice: {fileID: 0}
+  - name: skelton
     cost: 0
     hp: 5
     attackPower: 2
     blowPower: 1
     moveSpeed: 0.8
-    weight: 0
     intervalTime: 4000
     UnitPrefab: {fileID: 1801818050419777562, guid: 5ed664923ee1d40f3b0842c8e66a9f04, type: 3}
-  - id: 3
+    unitImage: {fileID: 0}
+    generateVoice: {fileID: 0}
+  - name: Magic
+    cost: 3
+    hp: 1
+    attackPower: 4
+    blowPower: 1
+    moveSpeed: 0.3
+    intervalTime: 3000
+    UnitPrefab: {fileID: 7909274397895849068, guid: 56c94e334881849b691ee546f27e9d29, type: 3}
+    unitImage: {fileID: 21300000, guid: 2f57f0b6059754261a3ce1437c506056, type: 3}
+    generateVoice: {fileID: 0}
+  - name: summoner
     cost: 0
     hp: 5
     attackPower: 2
     blowPower: 0
     moveSpeed: 0.3
-    weight: 0
-    intervalTime: 4000
+    intervalTime: 6000
     UnitPrefab: {fileID: 8118691917238985798, guid: 61b6068b7ea4e42cd9f650675ac9faa1, type: 3}
-  - id: 4
+    unitImage: {fileID: 0}
+    generateVoice: {fileID: 0}
+  - name: mini
     cost: 0
     hp: 1
     attackPower: 2
     blowPower: 1
     moveSpeed: 1
-    weight: 0
     intervalTime: 4000
     UnitPrefab: {fileID: 617698205942131745, guid: 7e11b193bfcbf4a8eab180749f7ba994, type: 3}
+    unitImage: {fileID: 0}
+    generateVoice: {fileID: 0}

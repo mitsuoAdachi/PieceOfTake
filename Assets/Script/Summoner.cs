@@ -36,15 +36,6 @@ public class Summoner : MonoBehaviour
         SetupCreatureController(creature1);
     }
 
-    //public void SummonCreature()
-    //{
-    //    tran = summoner.transform.localPosition;
-    //    tran.x = Mathf.Clamp(tran.x, tran.x - 0.5f, tran.x - 1);
-    //    tran.z = Mathf.Clamp(tran.z, tran.z - 0.5f, tran.z - 1);
-
-    //    SetupCreatureController(creature1);
-    //}
-
     private void SetupCreatureController(UnitController creature)
     {
         creature = Instantiate(creaturePrefab, new Vector3(tran.x, tran.y, tran.z), Quaternion.identity);

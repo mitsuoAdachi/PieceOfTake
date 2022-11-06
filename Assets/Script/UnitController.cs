@@ -16,11 +16,17 @@ public class UnitController : MonoBehaviour
     private ParticleSystem attackParticle; //インスペクター上で攻撃エフェクトをアタッチ
 
     [SerializeField]
+    private AudioSource voiceAudio;
+
+    [SerializeField]
     LayerMask stageLayer;     //地上判定用のレイヤー(stage)をインスペクター上で設定
+
+    [SerializeField]
+    public CameraController unitCamera;
 
     public int intervalTimer;     //攻撃間隔用タイマー
 
-    private int maxHp;
+    private int maxHp; //体力
 
     public int unitNumber;　　　//ユニットの整理番号
 
@@ -35,6 +41,7 @@ public class UnitController : MonoBehaviour
     public bool isAttack = false;
     private bool isKnockBack = false;
 
+    //各アニメーション
     private Animator anime;
     private int attackAnime;
     private int knockBackAnime;
@@ -184,6 +191,8 @@ public class UnitController : MonoBehaviour
                     intervalTimer = 0;
 
                     anime.SetTrigger(attackAnime);
+
+                    voiceAudio.Play();
                 }
             }
         }
@@ -210,10 +219,13 @@ public class UnitController : MonoBehaviour
     {
         this.hp = Mathf.Clamp(this.hp -= amount, 0, maxHp);
 
-        OnDie();
+        voiceAudio.Play();
 
         if (this.hp <= 0)
+        {
+            OnDie();
             Destroy(this.gameObject, 3);
+        }
     }
 
     /// <summary>
@@ -296,18 +308,14 @@ public class UnitController : MonoBehaviour
     /// </summary>
     public void OnDie()
     {
-        if (this.hp <= 0)
-        {
-            gameManager.GenerateEnemyList.Remove(this);
-            gameManager.GenerateAllyList.Remove(this);
+        gameManager.GenerateEnemyList.Remove(this);
+        gameManager.GenerateAllyList.Remove(this);
+        gameManager.unitCamList.Remove(unitCamera);
 
-            agent.enabled = true;
-            agent.isStopped = true;
-            targetUnit = null;
-            isAttack = false;
-            anime.SetTrigger(deadAnime);
-        }
-
+        agent.enabled = true;
+        agent.isStopped = true;
+        targetUnit = null;
+        isAttack = false;
+        anime.SetTrigger(deadAnime);
     }
-
 }

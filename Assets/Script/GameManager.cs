@@ -25,16 +25,20 @@ public class GameManager : MonoBehaviour
     public List<UnitController> GenerateAllyList = new List<UnitController>();
     public List<UnitController> GenerateEnemyList = new List<UnitController>();
 
-    //各コンポーネントを取得
+    //ユニットカメラのリスト
+    public List<CameraController> unitCamList = new List<CameraController>();
+
+    //セットアップメソッド用、各コンポーネントを取得
     [SerializeField]
-    private UnitGenerator unitGenerator;
+    public UnitGenerator unitGenerator;
     [SerializeField]
     private ModeChange modeChange;
     [SerializeField]
     private UIManager uiManager;
-
     [SerializeField]
     private LoadScene loadScene;
+    [SerializeField]
+    private CameraManager camManager;
 
     public StageGenerator stageGenerator;
 
@@ -42,7 +46,7 @@ public class GameManager : MonoBehaviour
 
     //生成するステージのレベル
     [SerializeField]
-    public static int stageLevel = 7; //7
+    public static int stageLevel = 8; //8
 
     //配置ユニットの総コスト
     public int totalCost;
@@ -107,9 +111,13 @@ public class GameManager : MonoBehaviour
 
         //各種ボタン押下時の準備
         modeChange.SetupChangeModeButton(this);
+        camManager.SetupChangeCam(this);
+
+        //コスト表示
+        unitGenerator.SetupCostRatio(this);
 
         //味方ユニットの生成準備
-        StartCoroutine(unitGenerator.LayoutUnit(this, uiManager));
+        StartCoroutine(unitGenerator.LayoutUnit(uiManager));
 
         //勝敗条件の監視
         StartCoroutine(JudgeStageClear());
@@ -156,8 +164,11 @@ public class GameManager : MonoBehaviour
             {
                 Debug.Log("勝利");
 
-                AudioSource.PlayClipAtPoint(winAudio1, Camera.main.transform.position, 0.5f);
-                AudioSource.PlayClipAtPoint(winAudio2, Camera.main.transform.position, 1);
+                AudioSource.PlayClipAtPoint(winAudio1, Camera.main.transform.position, 1f);
+
+                yield return new WaitForSeconds(1);
+
+                AudioSource.PlayClipAtPoint(winAudio2, Camera.main.transform.position, 0.2f);
 
                 uiManager.OnDOTweenUI(stageClearImage);
                 DOVirtual.DelayedCall(4, () =>

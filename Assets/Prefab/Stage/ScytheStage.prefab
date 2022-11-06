@@ -646,11 +646,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   generateUnitDatas:
   - generateTran: {fileID: 7244999313773446450}
-    unitId: 2
+    unitId: 3
   - generateTran: {fileID: 911633924706374723}
-    unitId: 2
+    unitId: 4
   - generateTran: {fileID: 7693053448588497794}
-    unitId: 2
+    unitId: 3
   StageObj: []
 --- !u!1 &2825934220404058550
 GameObject:

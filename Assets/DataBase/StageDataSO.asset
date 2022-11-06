@@ -46,8 +46,13 @@ MonoBehaviour:
   - stageNumber: Stage6
     stageCost: 20
     stagPrefab: {fileID: 461728094883275804, guid: 7ac1a06b543d74925b0905c11c36c6f9, type: 3}
-    navmeshData: {fileID: 23800000, guid: cf25af3ba562f46f888f4aa682718059, type: 2}
+    navmeshData: {fileID: 23800000, guid: fb996cee7d0864ea69672d0554ef3e81, type: 2}
     sky: {fileID: 2100000, guid: d3823126980dd98479f7761e6d47338a, type: 2}
+  - stageNumber: Stage7
+    stageCost: 0
+    stagPrefab: {fileID: 8310292279558941775, guid: 960fecf81f02a4feeac4596dd791afb4, type: 3}
+    navmeshData: {fileID: 23800000, guid: 653a0ecf14bdf488594fa2efd630c1b3, type: 2}
+    sky: {fileID: 2100000, guid: 0f1401d983cde1c49a7f687a57e62c5a, type: 2}
   - stageNumber: "\u3000"
     stageCost: 20
     stagPrefab: {fileID: 6391170001776892151, guid: 5e6950a7189e34486911c0c32e0179e4, type: 3}

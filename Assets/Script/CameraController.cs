@@ -25,6 +25,5 @@ public class CameraController : MonoBehaviour
 
         if (Input.GetButton("x"))
             cvCam.m_Lens.FieldOfView += zoomValue;
-
     }
 }

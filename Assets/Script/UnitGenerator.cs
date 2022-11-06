@@ -16,6 +16,8 @@ public class UnitGenerator : MonoBehaviour
 
     private Camera mainCamera;
 
+    public CameraController unitCam;
+
     void Start()
     {
         mainCamera = Camera.main;
@@ -26,14 +28,12 @@ public class UnitGenerator : MonoBehaviour
     /// </summary>
     /// <param name="gameManager"></param>
     /// <returns></returns>
-    public IEnumerator LayoutUnit(GameManager gameManager, UIManager uiManager)
+    public IEnumerator LayoutUnit(UIManager uiManager)
     {
-        this.gameManager = gameManager;
         this.uiManager = uiManager;
 
         //　配置したユニットを削除する機能の準備
         StartCoroutine(RemoveLayoutUnit());
-
 
         while (true)
         {
@@ -82,6 +82,10 @@ public class UnitGenerator : MonoBehaviour
 
                             //生成したユニット用のリストに追加
                             gameManager.GenerateAllyList.Add(allyUnit);
+
+                            //生成したユニットが持つユニットカメラを専用のリストに追加
+                            unitCam = allyUnit.unitCamera;                       
+                            gameManager.unitCamList.Add(unitCam);
 
                             //生成したユニットのコスト値を加算
                             CostRatio(allyUnit.Cost);
@@ -139,5 +143,12 @@ public class UnitGenerator : MonoBehaviour
         txtCostRatio.text = "Stage Cost  " + gameManager.totalCost.ToString() + " / " + gameManager.stageDatas[GameManager.stageLevel].stageCost.ToString();
 
         gameManager.JudgeTotalCost();
+    }
+
+    public void SetupCostRatio(GameManager gameManager)
+    {
+        this.gameManager = gameManager;
+
+        CostRatio(0);
     }
 }

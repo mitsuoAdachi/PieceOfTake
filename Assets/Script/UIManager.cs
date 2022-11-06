@@ -6,6 +6,8 @@ using DG.Tweening;
 
 public class UIManager : MonoBehaviour
 {
+    public List<UnitButton> unitSelectButtons = new List<UnitButton>();
+
     private GameManager gameManager;
     private ModeChange modeChange;
     
@@ -18,11 +20,18 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     private Transform btnTran;
 
-    public List<UnitButton> unitSelectButtons = new List<UnitButton>();
+    [SerializeField]
+    private Image blackPanel;
+
+    private void Start()
+    {
+        StartCoroutine(OnBlackPanel());
+    }
 
     /// <summary>
     /// ボタン押下時用のメソッド
     /// </summary>
+    /// 
     public void UnitSelect(int index)
     {
         //ボタンの配列番号を登録
@@ -79,7 +88,15 @@ public class UIManager : MonoBehaviour
         Tween tween;
         var sequence = DOTween.Sequence();
         tween = sequence.Append(ui.DOFade(1, 1).SetEase(Ease.OutCubic))
-                        .Join(ui.transform.DOScale(6, 2).SetEase(Ease.OutBounce));
-                      
+                        .Join(ui.transform.DOScale(6, 2).SetEase(Ease.OutBounce));                 
+    }
+
+    private IEnumerator OnBlackPanel()
+    {
+        blackPanel.DOFade(1, 0.01f);
+
+        yield return new WaitForSeconds(0.5f);
+
+        blackPanel.DOFade(0, 1f);
     }
 }

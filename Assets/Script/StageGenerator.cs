@@ -65,9 +65,14 @@ public class StageGenerator : MonoBehaviour
         //インスタンス化されたステージのstageDatasからSkyBox用のマテリアルデータを取得する
         RenderSettings.skybox = gameManager.stageDatas[stageLevelIndex].sky;
 
+        gameManager.stageDatas[stageLevelIndex].sky.SetFloat("_Rotation", 360);
+
         //SkyBoxマテリアルを回転させる
-        gameManager.stageDatas[stageLevelIndex].sky.DOFloat(360, "_Rotation", 360)
-            .SetLoops(-1, LoopType.Restart);
+        gameManager.stageDatas[stageLevelIndex].sky.DOFloat(0, "_Rotation", 360)
+            .SetLoops(-1, LoopType.Restart)
+            .SetLink(gameObject);
+
+        Debug.Log("スカイボックス");
     }
 
     /// <summary>
