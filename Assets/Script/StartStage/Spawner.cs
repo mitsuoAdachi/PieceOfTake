@@ -24,7 +24,7 @@ public class Spawner : MonoBehaviour
 
     public IEnumerator AllySpawnLoop()
     {
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(1.5f);
 
         while (true)
         {
@@ -45,7 +45,7 @@ public class Spawner : MonoBehaviour
                 generateAllyUnit.StartMoveUnit(gameManager, gameManager.GenerateEnemyList);
             }
 
-            yield return new WaitForSeconds(4);
+            yield return new WaitForSeconds(3);
         }
 
     }

@@ -17,7 +17,7 @@ MonoBehaviour:
     cost: 1
     hp: 3
     attackPower: 2
-    blowPower: 2
+    blowPower: 4
     moveSpeed: 0.8
     intervalTime: 2000
     UnitPrefab: {fileID: 3272475995211424383, guid: e83bbcc9d3b6341ccb44f29e5534d628, type: 3}

@@ -23,6 +23,8 @@ public class ModeChange : MonoBehaviour
     [SerializeField]
     AudioClip playBtnAudio;
 
+    private AudioController audioCon;
+
     //ユニット設置/削除ボタン用のメンバ変数群
     [SerializeField]
     private Button btnPreparateModeChange;
@@ -57,6 +59,7 @@ public class ModeChange : MonoBehaviour
 
             txtGameMode.text = "GAME MODE：プレイ";
 
+            //ボタン押下時の効果音
             AudioSource.PlayClipAtPoint(playBtnAudio, Camera.main.transform.position, 0.7f);
 
             //モードチェンジボタンを非アクティブにする
@@ -68,7 +71,12 @@ public class ModeChange : MonoBehaviour
             //ユニット設置モードボタンを押せない状態にする
             btnPreparateModeChange.interactable = false;
 
+            //ステージのレイヤーを切り替える
             gameManager.stageGenerator.SwitchStageLayer();
+
+            //BGMの切り替え
+            audioCon.StopBgm(GameManager.stageLevel);
+            audioCon.PlayBgm(audioCon.battleNumber);
         }
     }
 
@@ -91,5 +99,10 @@ public class ModeChange : MonoBehaviour
             txtPreparateModeChangeButton.text = "Put";
             btnPreparateModeChange.image.color = new Color32(0, 246, 67, 150);
         }
+    }
+
+    public void SetupModechange(AudioController audioCon)
+    {
+        this.audioCon = audioCon;
     }
 }

@@ -21,42 +21,42 @@ public class CameraManager : MonoBehaviour
     /// <param name="gameManager"></param>
     private void ChangeUnitCam()
     {
-        if (gameManager.unitCamList.Count == 0) return;
+        if (gameManager.unitCamList.Count == 0)
+            return;
+        
+        if (gameManager.unitCamList.Count <= unitCamIndex)
         {
-            if (gameManager.unitCamList.Count <= unitCamIndex)
-            {
-                unitCamIndex = 0;
+            unitCamIndex = 0;
 
-                for (int i = 0; i < gameManager.unitCamList.Count; i++)
-                {
-                    gameManager.unitCamList[i].gameObject.SetActive(false);
-                }
-            }
-            else if (unitCamIndex == 0)
+            for (int i = 0; i < gameManager.unitCamList.Count; i++)
             {
-                gameManager.unitCamList[0].gameObject.SetActive(true);
-
-                unitCamIndex++;
-            }
-            else if (unitCamIndex > 0)
-            {
-                gameManager.unitCamList[unitCamIndex].gameObject.SetActive(true);
-
-                unitCamIndex++;
+                gameManager.unitCamList[i].gameObject.SetActive(false);
             }
         }
+        else if (unitCamIndex == 0)
+        {
+            gameManager.unitCamList[0].gameObject.SetActive(true);
+
+            unitCamIndex++;
+        }
+        else if (unitCamIndex > 0)
+        {
+            gameManager.unitCamList[unitCamIndex].gameObject.SetActive(true);
+
+            unitCamIndex++;
+        }    
     }
 
     private void ChangeMainCam()
     {
         unitCamIndex = 0;
 
-        if (gameManager.unitCamList != null)
+        if (gameManager.unitCamList == null)
+            return;
+
+        for (int i = 0; i < gameManager.unitCamList.Count; i++)
         {
-            for (int i = 0; i < gameManager.unitCamList.Count; i++)
-            {
-                gameManager.unitCamList[i].gameObject.SetActive(false);
-            }
+            gameManager.unitCamList[i].gameObject.SetActive(false);
         }
     }
 
