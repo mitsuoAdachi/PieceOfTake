@@ -8,7 +8,7 @@ public class AudioController : MonoBehaviour
     [SerializeField]
     AudioSource[] bgms;
 
-    public int battleNumber = 2;
+    public int battleNumber = 7;
 
     [SerializeField]
     ModeChange modeChange;
