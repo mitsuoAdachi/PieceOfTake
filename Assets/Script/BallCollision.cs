@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class BallCollision : MonoBehaviour
 {
+    private int damage = 2;
+    private float knockBackPower = 1.0f;
+
     private UnitController enemy;
 
     [SerializeField]
@@ -22,8 +25,8 @@ public class BallCollision : MonoBehaviour
                 Debug.Log("接触2");
 
                 enemy = col.gameObject.GetComponent<UnitController>();
-                enemy.OnDamage(2);
-                enemy.OnKnockBack(1);
+                enemy.OnDamage(damage);
+                enemy.OnKnockBack(knockBackPower);
             }
         }
     }

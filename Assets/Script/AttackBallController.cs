@@ -18,15 +18,16 @@ public class AttackBallController : MonoBehaviour
     // Update is called once per frame
     private void FixedUpdate()
     {
-        if (isBallAttack)
-        {
-            if(ballRigid != null)
-            ballRigid.AddForce(transform.forward * 10, ForceMode.Acceleration);
-        }
+        if (!isBallAttack)
+            return;
+        
+        if(ballRigid != null)
+        ballRigid.AddForce(transform.forward * 10, ForceMode.Acceleration);
+        
         //Debug.Log("SqrMag"+ballRigid.velocity.sqrMagnitude);
     }
 
-        public void BallAttack()
+    public void BallAttack()
     {
         ballRigid.isKinematic = false;
         ballRigid.gameObject.transform.parent = null;
