@@ -40,8 +40,8 @@ public class Summoner : MonoBehaviour
     {
         creature = Instantiate(creaturePrefab, new Vector3(tran.x, tran.y, tran.z), Quaternion.identity);
 
-        creature.SetupUnitStateEnemy(summoner.gameManager.enemyUnitDatas);
-        creature.StartMoveUnit(summoner.gameManager, summoner.gameManager.GenerateAllyList);
-        summoner.gameManager.GenerateEnemyList.Add(creature);
+        creature.SetupUnitStateEnemy(DataBase.instance.enemyUnitDatas);
+        creature.StartMoveUnit(summoner.gameManager, DataBase.instance.GenerateAllyList);
+        DataBase.instance.GenerateEnemyList.Add(creature);
     }
 }

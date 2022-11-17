@@ -26,9 +26,9 @@ public class StageInfo : MonoBehaviour
         {
             UnitController unit = Instantiate(DataBaseManager.instance.GetUnitController(generateUnitDatas[i].unitId), generateUnitDatas[i].generateTran.position, generateUnitDatas[i].generateTran.rotation);
 
-            unit.StartMoveUnit(gameManager, gameManager.GenerateAllyList);
+            unit.StartMoveUnit(gameManager, DataBase.instance.GenerateAllyList);
 
-            unit.SetupUnitStateEnemy(gameManager.enemyUnitDatas);
+            unit.SetupUnitStateEnemy(DataBase.instance.enemyUnitDatas);
 
             unitList.Add(unit);
         }

@@ -38,18 +38,18 @@ public class UnitGenerator : MonoBehaviour
         while (true)
         {
             //選択中のユニットのコストを保持
-            int selectUnitCost = gameManager.allyUnitDatas[uiManager.btnIndex].cost;
+            int selectUnitCost = DataBase.instance.allyUnitDatas[uiManager.btnIndex].cost;
 
             //設置できる残りのコストを保持
-            int activeCost = gameManager.stageDatas[GameManager.stageLevel].stageCost - gameManager.totalCost;
+            int activeCost = DataBase.instance.stageDatas[GameManager.stageLevel].stageCost - gameManager.totalCost;
 
             // 0 ~ ステージコストの間で制限する
-            activeCost = Mathf.Clamp(activeCost, 0, gameManager.stageDatas[GameManager.stageLevel].stageCost);
+            activeCost = Mathf.Clamp(activeCost, 0, DataBase.instance.stageDatas[GameManager.stageLevel].stageCost);
 
                 Debug.Log("checkCost" + activeCost);
                 //Debug.Log("ステージコスト"　+　gameManager.stageDatas[GameManager.stageLevel].stageCost);
                 //Debug.Log("トータルコスト" + gameManager.totalCost);
-                Debug.Log("選択中のユニットコスト" + gameManager.allyUnitDatas[uiManager.btnIndex].cost);
+                Debug.Log("選択中のユニットコスト" + DataBase.instance.allyUnitDatas[uiManager.btnIndex].cost);
 
             if (selectUnitCost <= activeCost)
             {
@@ -68,24 +68,24 @@ public class UnitGenerator : MonoBehaviour
                         //　rayが接触したオブジェクトの情報をRaycasthit型の変数へ登録
                         if (Physics.Raycast(ray, out RaycastHit hit))
                         {
-                            UnitController allyUnit = Instantiate(gameManager.allyUnitDatas[uiManager.btnIndex].UnitPrefab, hit.point, Quaternion.identity);
+                            UnitController allyUnit = Instantiate(DataBase.instance.allyUnitDatas[uiManager.btnIndex].UnitPrefab, hit.point, Quaternion.identity);
 
                             AudioSource audio = allyUnit.gameObject.GetComponent<AudioSource>();
                             Debug.Log(audio);
                             audio.Play();
 
                             //生成したユニットに移動能力を付与
-                            allyUnit.StartMoveUnit(gameManager, gameManager.GenerateEnemyList);
+                            allyUnit.StartMoveUnit(gameManager, DataBase.instance.GenerateEnemyList);
 
                             //生成したユニットにステータスを付与
-                            allyUnit.SetupUnitStateAlly(gameManager.allyUnitDatas, uiManager);
+                            allyUnit.SetupUnitStateAlly(DataBase.instance.allyUnitDatas, uiManager);
 
                             //生成したユニット用のリストに追加
-                            gameManager.GenerateAllyList.Add(allyUnit);
+                            DataBase.instance.GenerateAllyList.Add(allyUnit);
 
                             //生成したユニットが持つユニットカメラを専用のリストに追加
-                            unitCam = allyUnit.unitCamera;                       
-                            gameManager.unitCamList.Add(unitCam);
+                            unitCam = allyUnit.unitCamera;
+                            DataBase.instance.unitCamList.Add(unitCam);
 
                             //生成したユニットのコスト値を加算
                             CostRatio(allyUnit.Cost);
@@ -116,7 +116,7 @@ public class UnitGenerator : MonoBehaviour
                     Destroy(hit.transform.gameObject);
 
                     //リストから削除、トータルコストを減算
-                    gameManager.GenerateAllyList.Remove(hitUnit);
+                    DataBase.instance.GenerateAllyList.Remove(hitUnit);
                     CostRatio(-hitUnit.Cost);
                 }
             }
@@ -140,7 +140,7 @@ public class UnitGenerator : MonoBehaviour
     /// </summary>
     private void DisplayCostRatio()
     {
-        txtCostRatio.text = "Stage Cost  " + gameManager.totalCost.ToString() + " / " + gameManager.stageDatas[GameManager.stageLevel].stageCost.ToString();
+        txtCostRatio.text = "Stage Cost  " + gameManager.totalCost.ToString() + " / " + DataBase.instance.stageDatas[GameManager.stageLevel].stageCost.ToString();
 
         gameManager.JudgeTotalCost();
     }

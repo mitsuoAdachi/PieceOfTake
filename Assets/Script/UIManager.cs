@@ -55,14 +55,14 @@ public class UIManager : MonoBehaviour
         this.modeChange = modeChange;
 
         //ユニットデータと同数のボタンを生成
-        for (int i = 0; i < gameManager.allyUnitDatas.Count; i++)
+        for (int i = 0; i < DataBase.instance.allyUnitDatas.Count; i++)
         {
             Debug.Log("ボタン生成開始");
 
             //ボタン生成
             UnitButton unitButton = Instantiate(btnPrefab, btnTran, false);
 
-            unitButton.SetupUnitButton(gameManager.allyUnitDatas[i].unitImage, gameManager.allyUnitDatas[i].name, gameManager.allyUnitDatas[i].cost);
+            unitButton.SetupUnitButton(DataBase.instance.allyUnitDatas[i].unitImage, DataBase.instance.allyUnitDatas[i].name, DataBase.instance.allyUnitDatas[i].cost);
 
             ////イメージの設定
             //unitButton.image.sprite = gameManager.allyUnitDatas[i].unitImage;

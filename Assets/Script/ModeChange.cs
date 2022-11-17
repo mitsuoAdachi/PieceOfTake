@@ -89,20 +89,26 @@ public class ModeChange : MonoBehaviour
         {
             gameManager.gameMode = GameManager.GameMode.Preparate_Remove;
 
-            txtPreparateModeChangeButton.text = "Remove";
-            btnPreparateModeChange.image.color = new Color32(255, 31, 0, 150);
+            TextChangePreparateButton("Remove", new Color32(255, 31, 0, 150));
+
         }
         else
         {
             gameManager.gameMode = GameManager.GameMode.Preparate;
 
-            txtPreparateModeChangeButton.text = "Put";
-            btnPreparateModeChange.image.color = new Color32(0, 246, 67, 150);
+            TextChangePreparateButton("Put", new Color32(0, 246, 67, 150));
+
         }
     }
 
     public void SetupModechange(AudioController audioCon)
     {
         this.audioCon = audioCon;
+    }
+
+    private void TextChangePreparateButton(string btnName,Color32 color)
+    {
+        txtPreparateModeChangeButton.text = btnName;
+        btnPreparateModeChange.image.color = color;
     }
 }

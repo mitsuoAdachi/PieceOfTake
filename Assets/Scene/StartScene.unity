@@ -1840,7 +1840,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: 0.05076909, y: -0.62164253, z: 0.040430322, w: 0.78060776}
+  m_LocalRotation: {x: 0.050769094, y: -0.62164253, z: 0.04043033, w: 0.78060776}
   m_LocalPosition: {x: 17.160387, y: 2.3, z: -3.9414082}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -2408,12 +2408,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameMode: 2
-  stageDatas: []
-  allyUnitDatas: []
-  enemyUnitDatas: []
-  GenerateAllyList: []
-  GenerateEnemyList: []
-  unitCamList: []
   unitGenerator: {fileID: 1289028338}
   modeChange: {fileID: 1289028341}
   uiManager: {fileID: 1289028342}
@@ -3152,7 +3146,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1597331990}
-  m_LocalRotation: {x: 0.05076909, y: -0.62164253, z: 0.040430322, w: 0.78060776}
+  m_LocalRotation: {x: 0.050769094, y: -0.62164253, z: 0.04043033, w: 0.78060776}
   m_LocalPosition: {x: -27.147331, y: 38.84242, z: 13.209819}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -3267,6 +3261,56 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1728302993
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1728302995}
+  - component: {fileID: 1728302994}
+  m_Layer: 0
+  m_Name: DataBase
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1728302994
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1728302993}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b2fb6a3b9b5a4d0abe8c563a5d881a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stageDatas: []
+  allyUnitDatas: []
+  enemyUnitDatas: []
+  GenerateAllyList: []
+  GenerateEnemyList: []
+  unitCamList: []
+--- !u!4 &1728302995
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1728302993}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1858722299
 GameObject:

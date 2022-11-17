@@ -5,8 +5,6 @@ using UnityEngine.UI;
 
 public class CameraManager : MonoBehaviour
 {
-    private GameManager gameManager;
-
     [SerializeField]
     private int unitCamIndex;
 
@@ -18,30 +16,29 @@ public class CameraManager : MonoBehaviour
     /// <summary>
     /// ユニットカメラへ切り替えるボタンへ付与するメソッド
     /// </summary>
-    /// <param name="gameManager"></param>
     private void ChangeUnitCam()
     {
-        if (gameManager.unitCamList.Count == 0)
+        if (DataBase.instance.unitCamList.Count == 0)
             return;
         
-        if (gameManager.unitCamList.Count <= unitCamIndex)
+        if (DataBase.instance.unitCamList.Count <= unitCamIndex)
         {
             unitCamIndex = 0;
 
-            for (int i = 0; i < gameManager.unitCamList.Count; i++)
+            for (int i = 0; i < DataBase.instance.unitCamList.Count; i++)
             {
-                gameManager.unitCamList[i].gameObject.SetActive(false);
+                DataBase.instance.unitCamList[i].gameObject.SetActive(false);
             }
         }
         else if (unitCamIndex == 0)
         {
-            gameManager.unitCamList[0].gameObject.SetActive(true);
+            DataBase.instance.unitCamList[0].gameObject.SetActive(true);
 
             unitCamIndex++;
         }
         else if (unitCamIndex > 0)
         {
-            gameManager.unitCamList[unitCamIndex].gameObject.SetActive(true);
+            DataBase.instance.unitCamList[unitCamIndex].gameObject.SetActive(true);
 
             unitCamIndex++;
         }    
@@ -51,19 +48,17 @@ public class CameraManager : MonoBehaviour
     {
         unitCamIndex = 0;
 
-        if (gameManager.unitCamList == null)
+        if (DataBase.instance.unitCamList == null)
             return;
 
-        for (int i = 0; i < gameManager.unitCamList.Count; i++)
+        for (int i = 0; i < DataBase.instance.unitCamList.Count; i++)
         {
-            gameManager.unitCamList[i].gameObject.SetActive(false);
+            DataBase.instance.unitCamList[i].gameObject.SetActive(false);
         }
     }
 
-    public void SetupChangeCam(GameManager gameManager)
+    public void SetupChangeCam()
     {
-        this.gameManager = gameManager;
-
         unitCam.onClick.AddListener(() => ChangeUnitCam());
         mainCam.onClick.AddListener(() => ChangeMainCam());
     }

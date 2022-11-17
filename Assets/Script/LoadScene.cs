@@ -25,8 +25,6 @@ public class LoadScene : MonoBehaviour
     [SerializeField]
     Fade fade;
 
-    private GameManager gameManeger;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -79,12 +77,4 @@ public class LoadScene : MonoBehaviour
 
         StartCoroutine(LoadStageScene(againButton, SceneAgain));
     }
-
-
-    public void SetUpLoadScene(GameManager gameManeger)
-    {
-        this.gameManeger = gameManeger;
-    }
-
-
 }

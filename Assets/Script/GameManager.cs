@@ -14,20 +14,6 @@ public class GameManager : MonoBehaviour
     }
     public GameMode gameMode;
 
-    //ステージデータのリスト
-    public List<StageData> stageDatas = new List<StageData>();
-
-    //味方ユニットと敵ユニットのデータのリスト
-    public List<UnitData> allyUnitDatas = new List<UnitData>();
-    public List<UnitData> enemyUnitDatas = new List<UnitData>();
-
-    //生成された味方ユニットと敵ユニットのリストを用意
-    public List<UnitController> GenerateAllyList = new List<UnitController>();
-    public List<UnitController> GenerateEnemyList = new List<UnitController>();
-
-    //ユニットカメラのリスト
-    public List<CameraController> unitCamList = new List<CameraController>();
-
     //セットアップメソッド用、各コンポーネントを取得
     [SerializeField]
     public UnitGenerator unitGenerator;
@@ -35,8 +21,6 @@ public class GameManager : MonoBehaviour
     private ModeChange modeChange;
     [SerializeField]
     private UIManager uiManager;
-    [SerializeField]
-    private LoadScene loadScene;
     [SerializeField]
     private CameraManager camManager;
 
@@ -71,16 +55,13 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     AudioClip loseAudio;
 
-    //勝敗条件用の分岐
-    public bool isJudgeClear = true;
+    //ボタン押下時の効果音
+    [SerializeField]
+    private AudioClip pushAudio;
 
     //次ステージに進む用のボタン
     [SerializeField]
     private Button nextButton;
-
-    //ボタン押下時の効果音
-    [SerializeField]
-    private AudioClip pushAudio;
 
     //ステージ切り替え時の演出用変数
     [SerializeField]
@@ -101,7 +82,6 @@ public class GameManager : MonoBehaviour
 
         //フェイドイン演出
         SceneStartFade();
-        loadScene.SetUpLoadScene(this);
 
         //ステージの準備
         stageGenerator.PreparateStage(stageLevel, this);
@@ -111,7 +91,7 @@ public class GameManager : MonoBehaviour
 
         //各種ボタン押下時の準備
         modeChange.SetupChangeModeButton(this);
-        camManager.SetupChangeCam(this);
+        camManager.SetupChangeCam();
 
         //コスト表示
         unitGenerator.SetupCostRatio(this);
@@ -136,17 +116,17 @@ public class GameManager : MonoBehaviour
         //ステージデータのリスト
         for (int i = 0; i < DataBaseManager.instance.stageDataSO.stageDataList.Count; i++)
         {
-            stageDatas.Add(DataBaseManager.instance.stageDataSO.stageDataList[i]);
+            DataBase.instance.stageDatas.Add(DataBaseManager.instance.stageDataSO.stageDataList[i]);
         }
         //味方データのリスト
         for (int i = 0; i < DataBaseManager.instance.allyUnitDataSO.allyUnitDatasList.Count; i++)
         {
-            allyUnitDatas.Add(DataBaseManager.instance.allyUnitDataSO.allyUnitDatasList[i]);
+            DataBase.instance.allyUnitDatas.Add(DataBaseManager.instance.allyUnitDataSO.allyUnitDatasList[i]);
         }
         ///敵データのリスト
         for (int i = 0; i < DataBaseManager.instance.enemyUnitDataSO.enemyUnitDatasList.Count; i++)
         {
-            enemyUnitDatas.Add(DataBaseManager.instance.enemyUnitDataSO.enemyUnitDatasList[i]);
+            DataBase.instance.enemyUnitDatas.Add(DataBaseManager.instance.enemyUnitDataSO.enemyUnitDatasList[i]);
         }
     }
 
@@ -156,11 +136,14 @@ public class GameManager : MonoBehaviour
     /// <returns></returns>
     private IEnumerator JudgeStageClear()
     {
+        //勝敗条件用の分岐
+        bool isJudgeClear = true;
+
         while (isJudgeClear == true)
         {
             Debug.Log("監視開始");
 
-            if (gameMode == GameMode.Play && GenerateEnemyList.Count <= 0)
+            if (gameMode == GameMode.Play && DataBase.instance.GenerateEnemyList.Count <= 0)
             {
                 Debug.Log("勝利");
 
@@ -181,7 +164,7 @@ public class GameManager : MonoBehaviour
 
             }
 
-            if (gameMode == GameMode.Play && GenerateAllyList.Count <= 0)
+            if (gameMode == GameMode.Play && DataBase.instance.GenerateAllyList.Count <= 0)
             {
                 Debug.Log("敗北");
 
@@ -215,7 +198,7 @@ public class GameManager : MonoBehaviour
     public void JudgeTotalCost()
     {
         //totalCostがステージコストと同じ値なら
-        if (stageDatas[stageLevel].stageCost <= totalCost)
+        if (DataBase.instance.stageDatas[stageLevel].stageCost <= totalCost)
         {
             Debug.Log("これ以上はユニットを設置できません");
 

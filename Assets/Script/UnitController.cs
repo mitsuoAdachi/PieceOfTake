@@ -308,9 +308,9 @@ public class UnitController : MonoBehaviour
     /// </summary>
     public void OnDie()
     {
-        gameManager.GenerateEnemyList.Remove(this);
-        gameManager.GenerateAllyList.Remove(this);
-        gameManager.unitCamList.Remove(unitCamera);
+        DataBase.instance.GenerateEnemyList.Remove(this);
+        DataBase.instance.GenerateAllyList.Remove(this);
+        DataBase.instance.unitCamList.Remove(unitCamera);
 
         agent.enabled = true;
         agent.isStopped = true;

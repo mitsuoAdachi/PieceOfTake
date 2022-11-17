@@ -39,10 +39,10 @@ public class Spawner : MonoBehaviour
             {
                 randomAllyUnitIndex = Random.Range(0, 7);
 
-                UnitController generateAllyUnit = Instantiate(gameManager.allyUnitDatas[randomAllyUnitIndex].UnitPrefab, navMeshHit.position, Quaternion.identity);
-                gameManager.GenerateAllyList.Add(generateAllyUnit);
-                generateAllyUnit.SetupUnitStateEnemy(gameManager.allyUnitDatas);
-                generateAllyUnit.StartMoveUnit(gameManager, gameManager.GenerateEnemyList);
+                UnitController generateAllyUnit = Instantiate(DataBase.instance.allyUnitDatas[randomAllyUnitIndex].UnitPrefab, navMeshHit.position, Quaternion.identity);
+                DataBase.instance.GenerateAllyList.Add(generateAllyUnit);
+                generateAllyUnit.SetupUnitStateEnemy(DataBase.instance.allyUnitDatas);
+                generateAllyUnit.StartMoveUnit(gameManager, DataBase.instance.GenerateEnemyList);
             }
 
             yield return new WaitForSeconds(3);
@@ -72,10 +72,10 @@ public class Spawner : MonoBehaviour
             {
                 randomEnemyUnitIndex = Random.Range(0, 3);
 
-                UnitController generateEnemyUnit = Instantiate(gameManager.enemyUnitDatas[randomEnemyUnitIndex].UnitPrefab, navMeshHit.position, Quaternion.identity);
-                gameManager.GenerateEnemyList.Add(generateEnemyUnit);
-                generateEnemyUnit.SetupUnitStateEnemy(gameManager.enemyUnitDatas);
-                generateEnemyUnit.StartMoveUnit(gameManager, gameManager.GenerateAllyList);
+                UnitController generateEnemyUnit = Instantiate(DataBase.instance.enemyUnitDatas[randomEnemyUnitIndex].UnitPrefab, navMeshHit.position, Quaternion.identity);
+                DataBase.instance.GenerateEnemyList.Add(generateEnemyUnit);
+                generateEnemyUnit.SetupUnitStateEnemy(DataBase.instance.enemyUnitDatas);
+                generateEnemyUnit.StartMoveUnit(gameManager, DataBase.instance.GenerateAllyList);
 
             }
 

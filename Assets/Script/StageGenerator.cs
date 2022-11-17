@@ -20,7 +20,7 @@ public class StageGenerator : MonoBehaviour
         this.gameManager = gameManager;
 
         //ステージ生成
-        StageInfo stage = Instantiate(gameManager.stageDatas[stageLevelIndex].stagPrefab);
+        StageInfo stage = Instantiate(DataBase.instance.stageDatas[stageLevelIndex].stagPrefab);
 
         //前回のステージのstageLayerListを消去する
         if(stageLayerList.Count != 0)
@@ -36,7 +36,7 @@ public class StageGenerator : MonoBehaviour
         stage.SetupStageInfo(gameManager);
 
         //敵をステージに生成する
-        gameManager.GenerateEnemyList = stage.GenerateEnemys();
+        DataBase.instance.GenerateEnemyList = stage.GenerateEnemys();
 
         //Navmeshをベイク
         LoadNavmesh();
@@ -52,7 +52,7 @@ public class StageGenerator : MonoBehaviour
     public void LoadNavmesh()
     {
         // NavMeshの生成
-        string assetname = gameManager.stageDatas[GameManager.stageLevel].navmeshData.name;
+        string assetname = DataBase.instance.stageDatas[GameManager.stageLevel].navmeshData.name;
         NavMeshData navemeshBake = Resources.Load<NavMeshData>(assetname);
     }
 
@@ -63,12 +63,12 @@ public class StageGenerator : MonoBehaviour
     private void SetupSkyBox(int stageLevelIndex)
     {
         //インスタンス化されたステージのstageDatasからSkyBox用のマテリアルデータを取得する
-        RenderSettings.skybox = gameManager.stageDatas[stageLevelIndex].sky;
+        RenderSettings.skybox = DataBase.instance.stageDatas[stageLevelIndex].sky;
 
-        gameManager.stageDatas[stageLevelIndex].sky.SetFloat("_Rotation", 360);
+        DataBase.instance.stageDatas[stageLevelIndex].sky.SetFloat("_Rotation", 360);
 
         //SkyBoxマテリアルを回転させる
-        gameManager.stageDatas[stageLevelIndex].sky.DOFloat(0, "_Rotation", 360)
+        DataBase.instance.stageDatas[stageLevelIndex].sky.DOFloat(0, "_Rotation", 360)
             .SetLoops(-1, LoopType.Restart)
             .SetLink(gameObject);
 

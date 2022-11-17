@@ -9,15 +9,8 @@ public class StageNumberDisplay : MonoBehaviour
     [SerializeField]
     private Text stageNumbertxt;
 
-    private GameManager gameManager;
-
     private void Start()
     {
-        if(TryGetComponent(out gameManager) == true)
-        {
-            Debug.Log(gameManager);
-        }
-
         DisplayStageNumber();
     }
 
@@ -29,7 +22,7 @@ public class StageNumberDisplay : MonoBehaviour
 
         stageNumbertxt.DOFade(1, 0.001f);
 
-        stageNumbertxt.text = gameManager.stageDatas[GameManager.stageLevel].stageNumber.ToString();
+        stageNumbertxt.text = DataBase.instance.stageDatas[GameManager.stageLevel].stageNumber.ToString();
 
         stageNumbertxt.DOFade(0, 20);
 
